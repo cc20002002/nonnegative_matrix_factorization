@@ -1,10 +1,12 @@
 \documentclass[a5paper,english,11pt]{article}
-%\usepackage{titlesec}
+\usepackage{titlesec}
+
 \usepackage[a5]{cc}
 
 \usepackage[T1]{fontenc}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage[dvipsnames]{xcolor}
+\titleformat*{\section}{\color{Brown}\normalfont\bfseries\Large}
 \usepackage{prettyref}
 \usepackage{amsthm}
 \usepackage{euler,amsmath}
@@ -143,8 +145,8 @@ commentstyle=\color{green!50!black}}
 
 \input{appendix}
 
-%\titleformat{\section}
-%    {\normalsize\bfseries\centering}{\thesection}{5pt}{\normalsize}
+\titleformat{\section}
+    {\normalsize\bfseries\centering}{\thesection}{5pt}{\normalsize}
 \bibliography{research}
 
 \end{document}
