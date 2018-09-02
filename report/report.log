@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  2 SEP 2018 16:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  2 SEP 2018 16:50
 entering extended mode
 **report.tex
 (report.tex
@@ -6,8 +6,8 @@ LaTeX2e <2014/05/01>
 Babel <3.9l> and hyphenation patterns for 68 languages loaded.
 (d:\CTEX\MiKTeX\tex\latex\base\article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(d:\CTEX\MiKTeX\tex\latex\base\size12.clo
-File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+(d:\CTEX\MiKTeX\tex\latex\base\size11.clo
+File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -711,18 +711,18 @@ Package zref Info: New property: PCPDFOBJID on input line 2715.
 Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
 \c@lips@count=\count204
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 42.
-Package hyperref Info: Option `breaklinks' set `true' on input line 42.
+Package hyperref Info: Option `colorlinks' set `true' on input line 44.
+Package hyperref Info: Option `breaklinks' set `true' on input line 44.
 
 
 Package hyperref Warning: Option `dvips' has already been used,
-(hyperref)                setting the option has no effect on input line 42.
+(hyperref)                setting the option has no effect on input line 44.
 
 
 Package hyperref Warning: Option `bookmarks' has already been used,
-(hyperref)                setting the option has no effect on input line 42.
+(hyperref)                setting the option has no effect on input line 44.
 
-Package hyperref Info: Option `bookmarksopen' set `true' on input line 42.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 44.
 (d:\CTEX\MiKTeX\tex\latex\doi\doi.sty
 Package: doi 2007/07/24 handle doi numbers
 )
@@ -884,30 +884,30 @@ Language: english 2012/08/20 v3.3p English support from the babel system
 
 Package Babel Warning: The package option `english' should not be used
 (Babel)                with a more specific one (like `UKenglish') on input lin
-e 122.
+e 124.
 
 (report.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 126.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 126.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 128.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 128.
 
  (d:\CTEX\MiKTeX\tex\latex\base\ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 126.
+LaTeX Font Info:    ... okay on input line 128.
 
 (d:\CTEX\MiKTeX\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -923,7 +923,7 @@ LaTeX Font Info:    ... okay on input line 126.
 \makeMPintoPDFobject=\count220
 \everyMPtoPDFconversion=\toks39
 )
-LaTeX Info: Redefining \microtypecontext on input line 126.
+LaTeX Info: Redefining \microtypecontext on input line 128.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -943,7 +943,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 Package hyperref Warning: Height of page (\stockheight) is invalid (0.0pt),
 (hyperref)                using 11in.
 
-Package hyperref Info: Link coloring ON on input line 126.
+Package hyperref Info: Link coloring ON on input line 128.
 (d:\CTEX\MiKTeX\tex\latex\hyperref\nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -952,47 +952,47 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count221
 )
-LaTeX Info: Redefining \ref on input line 126.
-LaTeX Info: Redefining \pageref on input line 126.
-LaTeX Info: Redefining \nameref on input line 126.
+LaTeX Info: Redefining \ref on input line 128.
+LaTeX Info: Redefining \pageref on input line 128.
+LaTeX Info: Redefining \nameref on input line 128.
  (report.out)
 (report.out)
 \@outlinefile=\write4
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 126.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 128.
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
-(Font)              `operators' in the math version `normal' on input line 126.
+(Font)              `operators' in the math version `normal' on input line 128.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> T1/cmr/m/n on input line 126.
+(Font)                  OT1/cmr/m/n --> T1/cmr/m/n on input line 128.
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
-(Font)              `operators' in the math version `bold' on input line 126.
+(Font)              `operators' in the math version `bold' on input line 128.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> T1/cmr/m/n on input line 126.
+(Font)                  OT1/cmr/bx/n --> T1/cmr/m/n on input line 128.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  T1/cmr/m/n --> T1/cmr/bx/n on input line 126.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 126.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 126.
+(Font)                  T1/cmr/m/n --> T1/cmr/bx/n on input line 128.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 128.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 128.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> T1/cmss/m/n on input line 126.
+(Font)                  OT1/cmss/m/n --> T1/cmss/m/n on input line 128.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> T1/cmss/m/n on input line 126.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 126.
+(Font)                  OT1/cmss/bx/n --> T1/cmss/m/n on input line 128.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 128.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> T1/cmr/m/it on input line 126.
+(Font)                  OT1/cmr/m/it --> T1/cmr/m/it on input line 128.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> T1/cmr/m/it on input line 126.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 126.
+(Font)                  OT1/cmr/bx/it --> T1/cmr/m/it on input line 128.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 128.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> T1/zi4/m/n on input line 126.
+(Font)                  OT1/cmtt/m/n --> T1/zi4/m/n on input line 128.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> T1/zi4/m/n on input line 126.
+(Font)                  OT1/cmtt/m/n --> T1/zi4/m/n on input line 128.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/cmss/m/n --> T1/cmss/bx/n on input line 126.
+(Font)                  T1/cmss/m/n --> T1/cmss/bx/n on input line 128.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/cmr/m/it --> T1/cmr/bx/it on input line 126.
+(Font)                  T1/cmr/m/it --> T1/cmr/bx/it on input line 128.
 
 
-Package layouts Warning: Layout scale set to 0.5 on input line 126.
+Package layouts Warning: Layout scale set to 0.5 on input line 128.
 
 Package marginnote Info: \pdfoutput not 0 and \pdflastxpos available.
 (marginnote)             Extended position detection mode activated.
@@ -1001,9 +1001,9 @@ Package fmtcount Warning: Setting `\languagename' to `english'.
 (fmtcount)                Reason is that `\languagename' was `UKenglish',
 (fmtcount)                but `UKenglish' was not loaded by fmtcount,
 (fmtcount)                whereas `english' was the last language loaded by fmt
-count ;  on input line 126.
+count ;  on input line 128.
 
-Package soulpos Info: Loading soulutf8 on input line 126.
+Package soulpos Info: Loading soulutf8 on input line 128.
 (d:\CTEX\MiKTeX\tex\generic\oberdiek\soulutf8.sty
 Package: soulutf8 2007/09/09 v1.0 Permit use of UTF-8 characters in soul (HO)
 
@@ -1025,7 +1025,7 @@ Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 )
-LaTeX Font Info:    Try loading font information for T1+cmss on input line 129.
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 131.
 
 
 (d:\CTEX\MiKTeX\tex\latex\base\t1cmss.fd
@@ -1035,7 +1035,7 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             `cmss' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for U+eur on input line 129.
+LaTeX Font Info:    Try loading font information for U+eur on input line 131.
 
 (d:\CTEX\MiKTeX\tex\latex\amsfonts\ueur.fd
 File: ueur.fd 2013/01/14 v3.01 Euler Roman
@@ -1043,7 +1043,7 @@ File: ueur.fd 2013/01/14 v3.01 Euler Roman
 (d:\CTEX\MiKTeX\tex\latex\microtype\mt-eur.cfg
 File: mt-eur.cfg 2006/07/31 v1.1 microtype config. file: AMS Euler Roman (RS)
 )
-LaTeX Font Info:    Try loading font information for U+euf on input line 129.
+LaTeX Font Info:    Try loading font information for U+euf on input line 131.
 
 (d:\CTEX\MiKTeX\tex\latex\amsfonts\ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
@@ -1052,7 +1052,7 @@ File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 File: mt-euf.cfg 2006/07/03 v1.1 microtype config. file: AMS Euler Fraktur (RS)
 
 )
-LaTeX Font Info:    Try loading font information for U+eus on input line 129.
+LaTeX Font Info:    Try loading font information for U+eus on input line 131.
 
 (d:\CTEX\MiKTeX\tex\latex\amsfonts\ueus.fd
 File: ueus.fd 2013/01/14 v3.01 Euler Script
@@ -1060,12 +1060,12 @@ File: ueus.fd 2013/01/14 v3.01 Euler Script
 (d:\CTEX\MiKTeX\tex\latex\microtype\mt-eus.cfg
 File: mt-eus.cfg 2006/07/28 v1.2 microtype config. file: AMS Euler Script (RS)
 )
-LaTeX Font Info:    Try loading font information for U+euex on input line 129.
+LaTeX Font Info:    Try loading font information for U+euex on input line 131.
 
 (d:\CTEX\MiKTeX\tex\latex\amsfonts\ueuex.fd
 File: ueuex.fd 2013/01/14 v3.01 Euler extra symbols
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 129.
+LaTeX Font Info:    Try loading font information for U+msa on input line 131.
 
 (d:\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1073,7 +1073,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (d:\CTEX\MiKTeX\tex\latex\microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 129.
+LaTeX Font Info:    Try loading font information for U+msb on input line 131.
 
 (d:\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1083,10 +1083,9 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ) (abstract.tex) (report.toc)
 \tf@toc=\write5
 
-(introduction.tex) (methods.tex [1
+(introduction.tex) (methods.tex) (experiments.tex [1
 
-{d:/CTEX/UserData/pdftex/config/pdftex.map}]) (experiments.tex) (conclusion.tex
-) (appendix.tex
+{d:/CTEX/UserData/pdftex/config/pdftex.map}]) (conclusion.tex) (appendix.tex
 (d:\CTEX\MiKTeX\tex\latex\listings\lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
 )
@@ -1102,61 +1101,65 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 Package microtype Info: Character `textendash ' is missing
-(microtype)             in font `T1/zi4/m/n/10'.
+(microtype)             in font `T1/zi4/m/n/9'.
 (microtype)             Ignoring protrusion settings for this character.
 Package microtype Info: Character `textemdash ' is missing
-(microtype)             in font `T1/zi4/m/n/10'.
+(microtype)             in font `T1/zi4/m/n/9'.
 (microtype)             Ignoring protrusion settings for this character.
  [2]) (report.bbl
 Package microtype Info: Character `textendash ' is missing
-(microtype)             in font `T1/zi4/m/n/12'.
+(microtype)             in font `T1/zi4/m/n/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
 Package microtype Info: Character `textemdash ' is missing
-(microtype)             in font `T1/zi4/m/n/12'.
+(microtype)             in font `T1/zi4/m/n/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
 
-Underfull \hbox (badness 1910) in paragraph at lines 9--16
-\T1/cmr/m/n/12 (+20) 556--562. MIT Press, 2001.  URL [][]$\T1/zi4/m/n/12 http :
- / / papers . nips . cc / paper /
+Underfull \hbox (badness 2065) in paragraph at lines 9--16
+\T1/cmr/m/n/10.95 (+20) 556--562. MIT Press, 2001.  URL [][]$\T1/zi4/m/n/10.95 
+http : / / papers . nips . cc / paper /
  []
 
 [3])
 **** print on A4 use psnup -2 -s1
 **** or booklet, psbook | psnup -2 -s1 | pstops '2:0,1U(1w,1h)'
 **** with statusdict begin true setduplexmode end
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 149.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 150.
 [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 149.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 150.
  (report.aux * soulpos - computing points - it may take a few seconds *
 (report.upa))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 149.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 149.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 150.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 150.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D4FC539B3EDBD769E400FE4187B8304E;225.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 149.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 150.
  ) 
 Here is how much of TeX's memory you used:
- 15489 strings out of 493698
- 232538 string characters out of 3149752
- 611249 words of memory out of 3000000
+ 15498 strings out of 493698
+ 232521 string characters out of 3149752
+ 600200 words of memory out of 3000000
  18352 multiletter control sequences out of 15000+200000
- 42824 words of font info for 149 fonts, out of 3000000 for 9000
+ 43047 words of font info for 148 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 42i,6n,72p,1015b,2403s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,6n,72p,1015b,2404s stack positions out of 5000i,500n,10000p,200000b,50000s
 {d:/CTEX/MiKTeX/fonts/enc/dvips/cm-super/cm-super-t1.enc}{d:/CTEX/MiKTeX/font
 s/enc/dvips/inconsolata/i4-t1-0.enc}<d:/CTEX/MiKTeX/fonts/type1/public/inconsol
-ata/Inconsolata-zi4r.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfbx1095.p
-fb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfbx1200.pfb><d:/CTEX/MiKTeX/fon
-ts/type1/public/cm-super/sfbx1728.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-sup
-er/sfrm0600.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb><d:/CT
-EX/MiKTeX/fonts/type1/public/cm-super/sfsi1200.pfb><d:/CTEX/MiKTeX/fonts/type1/
-public/cm-super/sfss1000.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfss14
-40.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfss2074.pfb><d:/CTEX/MiKTeX
-/fonts/type1/public/cm-super/sfti1095.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm
--super/sfti1200.pfb>
-Output written on report.pdf (4 pages, 211803 bytes).
+ata/Inconsolata-zi4r.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfbx1000.p
+fb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfbx1095.pfb><d:/CTEX/MiKTeX/fon
+ts/type1/public/cm-super/sfbx1440.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-sup
+er/sfrm0600.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfrm1095.pfb><d:/CT
+EX/MiKTeX/fonts/type1/public/cm-super/sfsi1095.pfb><d:/CTEX/MiKTeX/fonts/type1/
+public/cm-super/sfss0900.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfss12
+00.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfss1728.pfb><d:/CTEX/MiKTeX
+/fonts/type1/public/cm-super/sfti1000.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm
+-super/sfti1095.pfb>
+Output written on report.pdf (4 pages, 215421 bytes).
 PDF statistics:
  165 PDF objects out of 1000 (max. 8388607)
  57 named destinations out of 1000 (max. 500000)
- 31273 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 31785 words of extra memory for PDF output out of 35830 (max. 10000000)
 
