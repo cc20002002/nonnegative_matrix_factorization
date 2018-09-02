@@ -1,4 +1,3 @@
-%A=imread('C:\Users\chenc\OneDrive - UNSW\machine learning\assignment 1\data\CroppedYaleB\yaleB01\yaleB01_P00A+000E+00.pgm');
 red=3;
 k=40;
 

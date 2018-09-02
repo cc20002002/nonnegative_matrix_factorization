@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  2 SEP 2018 16:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  2 SEP 2018 16:38
 entering extended mode
 **report.tex
 (report.tex
@@ -1107,8 +1107,7 @@ Package microtype Info: Character `textendash ' is missing
 Package microtype Info: Character `textemdash ' is missing
 (microtype)             in font `T1/zi4/m/n/10'.
 (microtype)             Ignoring protrusion settings for this character.
- [2] [3] [4] [5] [6])
-(report.bbl
+ [2]) (report.bbl
 Package microtype Info: Character `textendash ' is missing
 (microtype)             in font `T1/zi4/m/n/12'.
 (microtype)             Ignoring protrusion settings for this character.
@@ -1121,26 +1120,26 @@ Underfull \hbox (badness 1910) in paragraph at lines 9--16
  / / papers . nips . cc / paper /
  []
 
-)
+[3])
 **** print on A4 use psnup -2 -s1
 **** or booklet, psbook | psnup -2 -s1 | pstops '2:0,1U(1w,1h)'
 **** with statusdict begin true setduplexmode end
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 147.
-[7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 147.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 149.
+[4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 149.
  (report.aux * soulpos - computing points - it may take a few seconds *
 (report.upa))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 147.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 147.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 149.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 149.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D4FC539B3EDBD769E400FE4187B8304E;225.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 147.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 149.
  ) 
 Here is how much of TeX's memory you used:
- 15654 strings out of 493698
- 234809 string characters out of 3149752
- 625249 words of memory out of 3000000
- 18389 multiletter control sequences out of 15000+200000
+ 15489 strings out of 493698
+ 232538 string characters out of 3149752
+ 611249 words of memory out of 3000000
+ 18352 multiletter control sequences out of 15000+200000
  42824 words of font info for 149 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  42i,6n,72p,1015b,2403s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1155,9 +1154,9 @@ public/cm-super/sfss1000.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfss14
 40.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm-super/sfss2074.pfb><d:/CTEX/MiKTeX
 /fonts/type1/public/cm-super/sfti1095.pfb><d:/CTEX/MiKTeX/fonts/type1/public/cm
 -super/sfti1200.pfb>
-Output written on report.pdf (7 pages, 238055 bytes).
+Output written on report.pdf (4 pages, 211803 bytes).
 PDF statistics:
- 329 PDF objects out of 1000 (max. 8388607)
- 185 named destinations out of 1000 (max. 500000)
+ 165 PDF objects out of 1000 (max. 8388607)
+ 57 named destinations out of 1000 (max. 500000)
  31273 words of extra memory for PDF output out of 35830 (max. 10000000)
 
