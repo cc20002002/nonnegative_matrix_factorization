@@ -13,6 +13,7 @@ reduce_scale_orl = 3
 orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
 
+
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
     train("data/ORL")
@@ -59,7 +60,6 @@ def train(data_name):
             pl.imshow(V_processed[:, sample_index].reshape(reshape_size), cmap=cmap)
             pl.title('Image(Preprocessed)')
             pl.show()
-            # draw image before and after normalisation
 
         # TODO: use our algorithm here
         # apply NMF algorithm (benchmark) for now
