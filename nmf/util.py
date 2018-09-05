@@ -1,6 +1,8 @@
 """Utility functions for NMF."""
 import numpy as np
-from sklearn.decomposition import NMF
+from collections import Counter
+from sklearn.cluster import KMeans
+
 
 
 def unity_normalise(data):
@@ -23,25 +25,25 @@ def unity_normalise(data):
     return normalised_data
 
 
-def benchmark(V, Yhat):
-    """Run NMF on scikit-learn as a benchmark model.
+def assign_cluster_label(X, Y):
+    """Cluster X based on number of unique labels in Y.
 
     Parameters
     ----------
-    V: np.ndarray (d, n) where d is the number of pixel
+    X: np.ndarray (d, n) where d is the number of pixel
         The contaminated image dataset
-    Yhat: np.ndarray (n,)
+    Y: np.ndarray (n,)
         The label of images
 
     Returns
     -------
-    W: np.ndarray (d, m)
-        The common structure
-    H: np.ndarray (m, n)
-        The new representation of image data V
+    Y_pred: np.ndarray(n, )
+        The Kmeans predicted clustering label
 
     """
-    model = NMF(n_components=len(set(Yhat)))
-    W = model.fit_transform(V)
-    H = model.components
-    return W, H
+    kmeans = KMeans(n_clusters=len(set(Y))).fit(X)
+    Y_pred = np.zeros(Y.shape)
+    for i in set(kmeans.labels_):
+        ind = kmeans.labels_ == i
+        Y_pred[ind] = Counter(Y[ind]).most_common(1)[0][0]
+    return Y_pred
