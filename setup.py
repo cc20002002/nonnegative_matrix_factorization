@@ -27,7 +27,7 @@ setup(
         "scipy>=1.0.0",
         "scikit-learn==0.19.1",
         "click==6.7",
-        "tensorflow>=1.4.1"
+        "tensorflow>=1.4.1",
         "pandas>=0.20.2",
         "matplotlib>=2.0.2",
         "Pillow-5.2.0",
