@@ -1,0 +1,3 @@
+[console_scripts]
+nmf = nmf.scripts.cli:cli
+
