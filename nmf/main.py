@@ -1,12 +1,18 @@
 import numpy as np
 from nmf import io, util, metric, algorithm
+import matplotlib.pyplot as pl
 
 # Configuration
+sample_index = 100
 sample_size = 0.9
 epoch = 5
+cmap = pl.cm.gray
 random_state = 0
 reduce_scale_yaleB = 4
-reduce_scale_orl = 2
+reduce_scale_orl = 3
+orl_img_size = (92, 112)
+yaleB_img_size = (168, 192)
+
 
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
@@ -35,8 +41,25 @@ def train(data_name):
         V_noise = np.random.rand(*subVhat.shape) * 40
         V = subVhat + V_noise
 
-        # data preprocessing
-        V = util.unity_normalise(V)
+        if i == 0:
+            # draw image before and after adding noise
+            img_size = [x // reduce_scale_orl for x in orl_img_size]
+            reshape_size = [img_size[1], img_size[0]]
+            V_processed = util.unity_normalise(V)
+            pl.figure(figsize=(10,6))
+            pl.subplot(221)
+            pl.imshow(subVhat[:, sample_index].reshape(reshape_size), cmap=cmap)
+            pl.title('Image(Original)')
+            pl.subplot(222)
+            pl.imshow(V_noise[:, sample_index].reshape(reshape_size), cmap=cmap)
+            pl.title('Noise')
+            pl.subplot(223)
+            pl.imshow(V[:, sample_index].reshape(reshape_size), cmap=cmap)
+            pl.title('Image(Noise)')
+            pl.subplot(224)
+            pl.imshow(V_processed[:, sample_index].reshape(reshape_size), cmap=cmap)
+            pl.title('Image(Preprocessed)')
+            pl.show()
 
         # TODO: use our algorithm here
         # apply NMF algorithm (benchmark) for now
