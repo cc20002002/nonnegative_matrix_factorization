@@ -1,7 +1,7 @@
 red=3;
 k=40;
 
-imagefiles = dir('data/ORL/*/*.pgm');
+imagefiles = dir('../data/ORL/*/*.pgm');
 imagefiles2=struct2cell(imagefiles);
 imagefiles=imagefiles((~endsWith(imagefiles2(1,:),'Ambient.pgm'))');
 imagefiles2=struct2cell(imagefiles);
@@ -38,4 +38,5 @@ for ii=unique(idx)'
    ind= (idx==ii);
    Y_pred(ind)=mode(namess(ind,:));
 end
+sum(Y_pred==namess)/size(names,2)
 nmi(Y_pred,namess)
