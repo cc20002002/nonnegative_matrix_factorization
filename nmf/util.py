@@ -4,7 +4,6 @@ from collections import Counter
 from sklearn.cluster import KMeans
 
 
-
 def unity_normalise(data):
     """Apply unity normalisation to preprocess non-negative image data.
 
