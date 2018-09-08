@@ -1,5 +1,7 @@
 \BOOKMARK [1][]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][]{section.2}{Methods }{}% 2
-\BOOKMARK [1][]{section.3}{Experiments}{}% 3
-\BOOKMARK [1][]{section.4}{Conclusion}{}% 4
-\BOOKMARK [1][]{appendix.A}{Appendix}{}% 5
+\BOOKMARK [2][]{subsection.2.1}{KLNMF}{section.2}% 3
+\BOOKMARK [2][]{subsection.2.2}{Asymptotic equivalence of noise distributions}{section.2}% 4
+\BOOKMARK [1][]{section.3}{Experiments}{}% 5
+\BOOKMARK [1][]{section.4}{Conclusion}{}% 6
+\BOOKMARK [1][]{appendix.A}{Appendix}{}% 7
