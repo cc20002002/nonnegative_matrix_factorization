@@ -36,29 +36,37 @@ def train(data_name):
         index = np.random.choice(np.arange(n), size, replace=False)
         subVhat, subYhat = Vhat[:, index], Yhat[index]
 
-        # TODO: we might need to implement other noise
+        # DONE: we might need to implement other noise
         # add noise (Gaussian noise)
-        V_noise = np.random.rand(*subVhat.shape) * 40
-        V = subVhat + V_noise
-
+        V_noise = np.random.rand(*subVhat.shape) * sqrt(subVhat)
+        V = subVhat + V_noise        
+        V2 = numpy.random.poisson(subVhat)
+        V_noise2 = V2-subVhat
+        print((V_noise2-V_noise).sum/(V_noise2).sum) #check whether similar
         if i == 0:
             # draw image before and after adding noise
             img_size = [x // reduce_scale_orl for x in orl_img_size]
             reshape_size = [img_size[1], img_size[0]]
             V_processed = util.unity_normalise(V)
             pl.figure(figsize=(10,6))
-            pl.subplot(221)
+            pl.subplot(321)
             pl.imshow(subVhat[:, sample_index].reshape(reshape_size), cmap=cmap)
             pl.title('Image(Original)')
-            pl.subplot(222)
+            pl.subplot(322)
             pl.imshow(V_noise[:, sample_index].reshape(reshape_size), cmap=cmap)
             pl.title('Noise')
-            pl.subplot(223)
+            pl.subplot(323)
             pl.imshow(V[:, sample_index].reshape(reshape_size), cmap=cmap)
             pl.title('Image(Noise)')
-            pl.subplot(224)
+            pl.subplot(324)
             pl.imshow(V_processed[:, sample_index].reshape(reshape_size), cmap=cmap)
             pl.title('Image(Preprocessed)')
+            pl.subplot(325)
+            pl.imshow(V_noise2[:, sample_index].reshape(reshape_size), cmap=cmap)
+            pl.title('Noise')
+            pl.subplot(326)
+            pl.imshow(V2[:, sample_index].reshape(reshape_size), cmap=cmap)
+            pl.title('Image(Noise)')
             pl.show()
 
         # TODO: use our algorithm here
