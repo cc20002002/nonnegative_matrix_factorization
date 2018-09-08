@@ -59,3 +59,5 @@ docs/_build
 # Cookiecutter
 output/
 literature/Thumbs.db
+*.db
+report/Thumbs.db
