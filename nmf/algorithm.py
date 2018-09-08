@@ -3,15 +3,15 @@ import numpy as np
 from sklearn.decomposition import NMF
 
 
-def benchmark(V, Yhat):
+def benchmark(V, r):
     """Set up a benchmark model using NMF in scikit-learn.
 
     Parameters
     ----------
     V: np.ndarray (d, n) where d is the number of pixel
         The contaminated image dataset
-    Yhat: np.ndarray (n,)
-        The label of images
+    r: integer
+        The number of basis (classes)
 
     Returns
     -------
@@ -21,7 +21,7 @@ def benchmark(V, Yhat):
         The new representation of image data V
 
     """
-    model = NMF(n_components=len(set(Yhat)))
+    model = NMF(n_components=r)
     W = model.fit_transform(V)
     H = model.components_
     return W, H
