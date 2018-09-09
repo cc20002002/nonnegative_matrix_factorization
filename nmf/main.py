@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from nmf import io, util, metric, algorithm
 import matplotlib.pyplot as pl
 
@@ -16,8 +17,12 @@ yaleB_img_size = (168, 192)
 
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
-    train("data/ORL")
-    # train("data/CroppedYaleB")
+    if os.name == 'nt':
+        train("..\\data\\ORL")
+        # train("data/CroppedYaleB")
+    else:
+        train("data/ORL")
+        # train("data/CroppedYaleB")
 
 
 def train(data_name):
@@ -38,11 +43,15 @@ def train(data_name):
 
         # DONE: we might need to implement other noise
         # add noise (Gaussian noise)
-        V_noise = np.random.rand(*subVhat.shape) * sqrt(subVhat)
+        V_noise = np.random.normal(0, 1, subVhat.shape) #* np.sqrt(subVhat)
         V = subVhat + V_noise        
-        V2 = numpy.random.poisson(subVhat)
+        V2 = np.random.poisson(subVhat)
         V_noise2 = V2-subVhat
-        print((V_noise2-V_noise).sum/(V_noise2).sum) #check whether similar
+        V[(V < 0)]=0
+        #import IPython;
+        #IPython.embed()
+        #print(np.linalg.norm(np.sort(V_noise2.ravel()) - np.sort(V_noise.ravel())) / np.linalg.norm(V_noise2))
+        #check whether similar
         if i == 0:
             # draw image before and after adding noise
             img_size = [x // reduce_scale_orl for x in orl_img_size]
@@ -72,7 +81,7 @@ def train(data_name):
         # TODO: use our algorithm here
         # apply NMF algorithm (benchmark) for now
         r = np.unique(Yhat).shape[0]
-        W, H = algorithm.benchmark(V, r)
+        W, H = algorithm.multiplication_divergence(V, r)
         Ypred = util.assign_cluster_label(H.T, subYhat)
 
         # evaluate metrics
