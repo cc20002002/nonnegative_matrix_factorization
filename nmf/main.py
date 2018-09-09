@@ -63,7 +63,8 @@ def train(data_name):
 
         # TODO: use our algorithm here
         # apply NMF algorithm (benchmark) for now
-        W, H = algorithm.benchmark(V, subYhat)
+        r = np.unique(Yhat).shape[0]
+        W, H = algorithm.benchmark(V, r)
         Ypred = util.assign_cluster_label(H.T, subYhat)
 
         # evaluate metrics
