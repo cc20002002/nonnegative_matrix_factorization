@@ -58,16 +58,21 @@ docs/_build
 
 # Cookiecutter
 output/
-literature/Thumbs.db
+
+literature/*
+# report latex
+report/*.aux
+report/*.log
+report/*.out
+report/*.synctex
+report/*.toc
+report/*.upa
+report/*.upb
+report/*.bbl
+report/*.blg
+report/*.db
+.idea/workspace.xml
+literature/*.db
 *.db
-report/Thumbs.db
-*.aux
-*.aux
-report/report.log
-*.synctex
-report/report.aux
-report/report.aux
+report/*.db
 .idea/inspectionProfiles/Project_Default.xml
-.idea/workspace.xml
-.idea/workspace.xml
-.idea/workspace.xml

@@ -1,5 +1,6 @@
 import numpy as np
 import os
+import pandas as pd
 from nmf import io, util, metric, algorithm
 import matplotlib.pyplot as pl
 
@@ -14,6 +15,14 @@ reduce_scale_orl = 3
 orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
 
+model = {
+    #"Benchmark (scikit-learn)": algorithm.benchmark,
+    "Multiplication KL Divergence": algorithm.multiplication_divergence,
+    "Multiplication Euclidean": algorithm.multiplication_euclidean,
+    # "Truncated Cauchy": algorithm.truncated_cauchy,
+}
+
+Noise = ["Poisson","Normal"]
 
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
@@ -32,74 +41,89 @@ def train(data_name):
 
     n = len(Yhat)
     size = int(n * sample_size)
-    rre, acc, nmi = [], [], []
-
+    metrics = {"rre": {}, "acc": {}, "nmi": {}}
+    for noise_fun in Noise:
+        for name in model:
+            name=name+' '+noise_fun
+            metrics["rre"][name] = []
+            metrics["acc"][name] = []
+            metrics["nmi"][name] = []
     for i in range(epoch):
         print("Epoch {}...".format(i + 1))
         # sample 90% of samples
         index = np.random.choice(np.arange(n), size, replace=False)
         subVhat, subYhat = Vhat[:, index], Yhat[index]
+        for noise_fun in Noise:
+            if noise_fun=='Normal':
+                V_noise = np.random.normal(0, 5, subVhat.shape) #* np.sqrt(subVhat)
+                V=subVhat+V_noise
+            elif noise_fun=='Poisson':
+                V = np.random.poisson(subVhat)
+                V_noise = V-subVhat
+            V[V<0]=0
+                # if i == 0:
+                #     draw_image(V, subVhat, V_noise, sample_index)
 
-        # DONE: we might need to implement other noise
-        # add noise (Gaussian noise)
-        V_noise = np.random.normal(0, 5, subVhat.shape) #* np.sqrt(subVhat)
-        V = subVhat + V_noise        
-        V2 = np.random.poisson(subVhat)
-        V_noise2 = V2-subVhat
-        V[V<0]=0
-        #import IPython;
-        #IPython.embed()
-        #print(np.linalg.norm(np.sort(V_noise2.ravel()) - np.sort(V_noise.ravel())) / np.linalg.norm(V_noise2))
-        #check whether similar
-        if i == -10:
-            # draw image before and after adding noise
-            img_size = [x // reduce_scale_orl for x in orl_img_size]
-            reshape_size = [img_size[1], img_size[0]]
-            V_processed = util.unity_normalise(V)
-            pl.figure(figsize=(10,6))
-            pl.subplot(321)
-            pl.imshow(subVhat[:, sample_index].reshape(reshape_size), cmap=cmap)
-            pl.title('Image(Original)')
-            pl.subplot(322)
-            pl.imshow(V_noise[:, sample_index].reshape(reshape_size), cmap=cmap)
-            pl.title('Noise')
-            pl.subplot(323)
-            pl.imshow(V[:, sample_index].reshape(reshape_size), cmap=cmap)
-            pl.title('Image(Noise)')
-            pl.subplot(324)
-            pl.imshow(V_processed[:, sample_index].reshape(reshape_size), cmap=cmap)
-            pl.title('Image(Preprocessed)')
-            pl.subplot(325)
-            pl.imshow(V_noise2[:, sample_index].reshape(reshape_size), cmap=cmap)
-            pl.title('Noise')
-            pl.subplot(326)
-            pl.imshow(V2[:, sample_index].reshape(reshape_size), cmap=cmap)
-            pl.title('Image(Noise)')
-            pl.show()
+            r = np.unique(Yhat).shape[0]
+            # loop through different models
+            for name, algo in model.items():
+                name=name+' '+noise_fun               
+                print(name)
+                W, H = algo(V, r)
+                Ypred = util.assign_cluster_label(H.T, subYhat)
 
-        # TODO: use our algorithm here
-        # apply NMF algorithm (benchmark) for now
-        r = np.unique(Yhat).shape[0]
-        #W, H = algorithm.multiplication_euclidean(V, r)
-        W, H = algorithm.multiplication_divergence(V, r)
-        Ypred = util.assign_cluster_label(H.T, subYhat)
+                # evaluate metrics
+                _rre = metric.eval_rre(subVhat, W, H)
+                _acc = metric.eval_acc(subYhat, Ypred)
+                _nmi = metric.eval_nmi(subYhat, Ypred)
+                print("RRE = {}".format(_rre))
+                print("ACC = {}".format(_acc))
+                print("NMI = {}".format(_nmi))
 
-        # evaluate metrics
-        _rre = metric.eval_rre(subVhat, W, H)
-        _acc = metric.eval_acc(subYhat, Ypred)
-        _nmi = metric.eval_nmi(subYhat, Ypred)
-        print("RRE = {}".format(_rre))
-        print("ACC = {}".format(_acc))
-        print("NMI = {}".format(_nmi))
-        rre.append(_rre)
-        acc.append(_acc)
-        nmi.append(_nmi)
+                metrics["rre"][name].append(_rre)
+                metrics["acc"][name].append(_acc)
+                metrics["nmi"][name].append(_nmi)
 
     # performace over epochs
-    print("Over {} epochs, average RRE = {}".format(epoch, np.mean(rre)))
-    print("Over {} epochs, average ACC = {}".format(epoch, np.mean(acc)))
-    print("Over {} epochs, average NMI = {}".format(epoch, np.mean(nmi)))
+    mean_metrics = {}
+    for mname in ["rre", "acc", "nmi"]:
+        mean_metrics[mname] = {}
+        for name in model:
+            for noise_fun in Noise:
+                mean_metrics[mname][name+' '+noise_fun] = np.mean(metrics[mname][name+' '+noise_fun])
+    df = pd.DataFrame.from_dict(mean_metrics)
+    print(df)
+    for name in model:
+        for noise_fun in Noise:
+            rres = metrics["rre"][name+' '+noise_fun]
+            pl.plot(range(epoch), np.log(rres), label=name+' '+noise_fun)
+    pl.legend(loc="bottom right")
+    pl.xlabel("epoch")
+    pl.ylabel("relative reconstruction error")
+    pl.title("Model comparison of RRE")
+    pl.show()
+    import IPython; IPython.embed()
 
+
+def draw_image(V, subVhat, V_noise, sample_index):
+    """Draw image before and after adding noise."""
+    img_size = [x // reduce_scale_orl for x in orl_img_size]
+    reshape_size = [img_size[1], img_size[0]]
+    V_processed = util.unity_normalise(V)
+    pl.figure(figsize=(10,6))
+    pl.subplot(221)
+    pl.imshow(subVhat[:, sample_index].reshape(reshape_size), cmap=cmap)
+    pl.title('Image(Original)')
+    pl.subplot(222)
+    pl.imshow(V_noise[:, sample_index].reshape(reshape_size), cmap=cmap)
+    pl.title('Noise')
+    pl.subplot(223)
+    pl.imshow(V[:, sample_index].reshape(reshape_size), cmap=cmap)
+    pl.title('Image(Noise)')
+    pl.subplot(224)
+    pl.imshow(V_processed[:, sample_index].reshape(reshape_size), cmap=cmap)
+    pl.title('Image(Preprocessed)')
+    pl.show()
 
 if __name__ == "__main__":
     main()
