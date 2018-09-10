@@ -67,3 +67,6 @@ report/report.log
 *.synctex
 report/report.aux
 report/report.aux
+.idea/inspectionProfiles/Project_Default.xml
+.idea/workspace.xml
+.idea/workspace.xml
