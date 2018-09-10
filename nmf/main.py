@@ -18,6 +18,14 @@ reduce_scale_orl = 3
 orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
 parallel_flag=0
+niter = {
+    #"Benchmark (scikit-learn)": algorithm.benchmark,
+    "Multiplication KL Divergence": 4000,
+    "Multiplication Euclidean": 1000,
+    # "Truncated Cauchy": algorithm.truncated_cauchy,
+}
+
+min_error = 0.000004
 model = {
     #"Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": algorithm.multiplication_divergence,
@@ -58,9 +66,10 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
         r = np.unique(Yhat).shape[0]
         # loop through different models
         for name, algo in model.items():
+            name2=name
             name=name+' '+noise_fun               
             print(name)
-            W, H = algo(V, r)
+            W, H = algo(V, r,niter[name2],min_error)
             Ypred = util.assign_cluster_label(H.T, subYhat)
 
             # evaluate metrics
