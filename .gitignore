@@ -58,6 +58,7 @@ docs/_build
 
 # Cookiecutter
 output/
+
 literature/*
 # report latex
 report/*.aux
@@ -70,4 +71,8 @@ report/*.upb
 report/*.bbl
 report/*.blg
 report/*.db
-
+.idea/workspace.xml
+literature/*.db
+*.db
+report/*.db
+.idea/inspectionProfiles/Project_Default.xml

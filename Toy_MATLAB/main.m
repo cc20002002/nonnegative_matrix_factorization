@@ -32,6 +32,23 @@ end
 [w h]=NeNMF(matrix_image,k);
 V=matrix_image;
 [m,n]=size(V);
+%%%%%%%%%%%%%%%%%%%%%%%
+[W H]=nnmf(V,40,'alg','mult','replicates',5);
+norm(V-W*H,'fro')/norm(V,'fro')
+noise=normrnd(0,10,size(V));
+[W H]=nnmf(V+noise,40,'alg','mult','replicates',5);
+norm(V-W*H,'fro')/norm(V,'fro')
+V_noise=poissrnd(V);
+[W H]=nnmf(V_noise,40,'alg','mult','replicates',5);
+norm(V-W*H,'fro')/norm(V,'fro')
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[W H]=KLNMF(V,40,1000);
+norm(V-W*H,'fro')/norm(V,'fro')
+[W H]=KLNMF(V+noise,40,1000);
+norm(V-W*H,'fro')/norm(V,'fro')
+[W H]=KLNMF(V_noise,40,1000);
+norm(V-W*H,'fro')/norm(V,'fro')
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 r=40;
 W0=rand(m,r);
 H0=rand(r,n);
@@ -44,7 +61,7 @@ for i=1:r
     end
 end
 norm(temp-W0.'*(V./WH))
-size()
+
 
 idx = kmeans(h',k)
 Y_pred=zeros(size(matrix_image,2),1)

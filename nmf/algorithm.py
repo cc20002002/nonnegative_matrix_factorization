@@ -106,7 +106,7 @@ def multiplication_divergence(V, r):
     n=V.shape[1]
     W=np.random.rand(m,r)
     H=np.random.rand(r,n)
-    for i in range(1000):
+    for i in range(4000):
         VWH = V/(W @ H)
         Numerator1=W.T@VWH
         H=H*Numerator1/np.sum(W,0).reshape(r,1)

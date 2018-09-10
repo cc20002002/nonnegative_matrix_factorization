@@ -1,4 +1,5 @@
 import numpy as np
+import os
 import pandas as pd
 from nmf import io, util, metric, algorithm
 import matplotlib.pyplot as pl
@@ -15,17 +16,22 @@ orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
 
 model = {
-    "Benchmark (scikit-learn)": algorithm.benchmark,
+    #"Benchmark (scikit-learn)": algorithm.benchmark,
+    "Multiplication KL Divergence": algorithm.multiplication_divergence,
     "Multiplication Euclidean": algorithm.multiplication_euclidean,
     # "Truncated Cauchy": algorithm.truncated_cauchy,
 }
 
+Noise = ["Poisson","Normal"]
 
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
-    train("data/ORL")
-    # train("data/CroppedYaleB")
-
+    if os.name == 'nt123':
+        train("..\\data\\ORL")
+        # train("data/CroppedYaleB")
+    else:
+        train("data/ORL")
+        # train("data/CroppedYaleB")
 
 def train(data_name):
     """Run NMF on data stored in data_name."""
@@ -36,54 +42,61 @@ def train(data_name):
     n = len(Yhat)
     size = int(n * sample_size)
     metrics = {"rre": {}, "acc": {}, "nmi": {}}
-    for name in model:
-        metrics["rre"][name] = []
-        metrics["acc"][name] = []
-        metrics["nmi"][name] = []
+    for noise_fun in Noise:
+        for name in model:
+            name=name+' '+noise_fun
+            metrics["rre"][name] = []
+            metrics["acc"][name] = []
+            metrics["nmi"][name] = []
     for i in range(epoch):
         print("Epoch {}...".format(i + 1))
         # sample 90% of samples
         index = np.random.choice(np.arange(n), size, replace=False)
         subVhat, subYhat = Vhat[:, index], Yhat[index]
+        for noise_fun in Noise:
+            if noise_fun=='Normal':
+                V_noise = np.random.normal(0, 5, subVhat.shape) #* np.sqrt(subVhat)
+                V=subVhat+V_noise
+            elif noise_fun=='Poisson':
+                V = np.random.poisson(subVhat)
+                V_noise = V-subVhat
+            V[V<0]=0
+                # if i == 0:
+                #     draw_image(V, subVhat, V_noise, sample_index)
 
-        # TODO: we might need to implement other noise
-        # add noise (Gaussian noise)
-        V_noise = np.random.rand(*subVhat.shape) * 40
-        V = subVhat + V_noise
+            r = np.unique(Yhat).shape[0]
+            # loop through different models
+            for name, algo in model.items():
+                name=name+' '+noise_fun               
+                print(name)
+                W, H = algo(V, r)
+                Ypred = util.assign_cluster_label(H.T, subYhat)
 
-        # if i == 0:
-        #     draw_image(V, subVhat, V_noise, sample_index)
+                # evaluate metrics
+                _rre = metric.eval_rre(subVhat, W, H)
+                _acc = metric.eval_acc(subYhat, Ypred)
+                _nmi = metric.eval_nmi(subYhat, Ypred)
+                print("RRE = {}".format(_rre))
+                print("ACC = {}".format(_acc))
+                print("NMI = {}".format(_nmi))
 
-        r = np.unique(Yhat).shape[0]
-        # loop through different models
-        for name, algo in model.items():
-            print(name)
-            W, H = algo(V, r)
-            Ypred = util.assign_cluster_label(H.T, subYhat)
-
-            # evaluate metrics
-            _rre = metric.eval_rre(subVhat, W, H)
-            _acc = metric.eval_acc(subYhat, Ypred)
-            _nmi = metric.eval_nmi(subYhat, Ypred)
-            print("RRE = {}".format(_rre))
-            print("ACC = {}".format(_acc))
-            print("NMI = {}".format(_nmi))
-
-            metrics["rre"][name].append(_rre)
-            metrics["acc"][name].append(_acc)
-            metrics["nmi"][name].append(_nmi)
+                metrics["rre"][name].append(_rre)
+                metrics["acc"][name].append(_acc)
+                metrics["nmi"][name].append(_nmi)
 
     # performace over epochs
     mean_metrics = {}
     for mname in ["rre", "acc", "nmi"]:
         mean_metrics[mname] = {}
         for name in model:
-            mean_metrics[mname][name] = np.mean(metrics[mname][name])
+            for noise_fun in Noise:
+                mean_metrics[mname][name+' '+noise_fun] = np.mean(metrics[mname][name+' '+noise_fun])
     df = pd.DataFrame.from_dict(mean_metrics)
     print(df)
     for name in model:
-        rres = metrics["rre"][name]
-        pl.plot(range(epoch), np.log(rres), label=name)
+        for noise_fun in Noise:
+            rres = metrics["rre"][name+' '+noise_fun]
+            pl.plot(range(epoch), np.log(rres), label=name+' '+noise_fun)
     pl.legend(loc="bottom right")
     pl.xlabel("epoch")
     pl.ylabel("relative reconstruction error")
