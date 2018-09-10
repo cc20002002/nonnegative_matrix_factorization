@@ -1,6 +1,7 @@
 """NMF algorithm implementation module."""
 import numpy as np
 from sklearn.decomposition import NMF
+from metric import eval_rre
 
 
 def benchmark(V, r):
@@ -83,16 +84,14 @@ def multiplication_euclidean(V, r,niter,min_error):
         W_u=W*(V@H_u.T)/(W@H_u@H_u.T)
 
         #calculate the distance between iteration
-        e_W = np.sqrt(np.sum((W_u - W)**2, axis = (0,1)))/W.size
-        e_H = np.sqrt(np.sum((H_u - H)**2, axis = (0,1)))/H.size
-
+        e = eval_rre(W@H,W_u,H_u)
+        H = H_u
+        W = W_u
         #stop iteration if distance less than min_error
-        if e_W < min_error and e_H < min_error:
+        if e < min_error:
             print("iterated: ", i, "times")
             break
-        else:
-            H = H_u
-            W = W_u
+
     return W, H
 
 
@@ -130,12 +129,9 @@ def multiplication_divergence(V, r,niter,min_error):
         Numerator2=VWH@H.T
         W = W * Numerator2 / np.sum(H, 1).reshape(1,r)
 
-        #calculate the distance between iteration
-        e_W = np.sqrt(np.sum((W - W_old)**2, axis = (0,1)))/W.size
-        e_H = np.sqrt(np.sum((H - H_old)**2, axis = (0,1)))/H.size
-
+        e = eval_rre(W_old@H_old,W,H)
         #stop iteration if distance less than min_error
-        if e_W < min_error and e_H < min_error:
+        if e < min_error:
             print("iterated: ", i, "times")
             break
     return W, H
