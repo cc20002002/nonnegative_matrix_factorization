@@ -63,13 +63,11 @@ literature/*
 report/*.aux
 report/*.log
 report/*.out
-report/*.pdf
 report/*.synctex
 report/*.toc
 report/*.upa
 report/*.upb
-report/*.bib
 report/*.bbl
 report/*.blg
 report/*.db
-report/reource/*
+
