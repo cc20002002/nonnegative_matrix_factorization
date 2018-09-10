@@ -17,7 +17,7 @@ reduce_scale_yaleB = 4
 reduce_scale_orl = 3
 orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
-parallel_flag=0
+parallel_flag=1
 niter = {
     #"Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": 4000,
