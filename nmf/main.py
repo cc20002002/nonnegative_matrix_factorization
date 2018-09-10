@@ -10,7 +10,7 @@ import time
 # Configuration
 sample_index = 100
 sample_size = 0.9
-epoch = os.cpu_count()
+epoch = os.cpu_count()*10
 cmap = pl.cm.Greys
 random_state = 0
 reduce_scale_yaleB = 4
@@ -131,6 +131,7 @@ def train(data_name):
                 mean_metrics[mname][name+' '+noise_fun]=mean_metrics[mname][name+' '+noise_fun]/epoch
     df = pd.DataFrame.from_dict(mean_metrics)
     print(df)
+    df.to_csv('statistics_large.csv')
     import IPython; IPython.embed() 
     for name in model:
         for noise_fun in Noise:
@@ -140,12 +141,26 @@ def train(data_name):
     pl.xlabel("epoch")
     pl.ylabel("relative reconstruction error")
     pl.title("Model comparison of RRE")
-    pl.show()
-    df.to_csv('statistics.csv')
+    pl.show()    
     raw_result = pd.DataFrame.from_dict(metrics)
     raw_result.to_csv('raw_result.csv')
- 
-   
+    for mname in ["rre", "acc", "nmi"]:
+        if parallel_flag:
+            for i in range(epoch):
+                if i==0 & (mname=="rre"):
+                    raw_result = pd.DataFrame.from_dict(metrics[i][mname])
+                    raw_result.to_csv('raw_result_large_'+mname+'.csv')
+                else:
+                    raw_result = pd.DataFrame.from_dict(metrics[i][mname])
+                    raw_result.to_csv('raw_result_large_'+mname+'.csv', mode='a', header=False)
+        else:
+            i=0
+            if mname=="rre":
+                raw_result = pd.DataFrame.from_dict(metrics[i][mname])
+                raw_result.to_csv('raw_result_large_'+mname+'.csv')
+            else:
+                raw_result = pd.DataFrame.from_dict(metrics[i][mname])
+                raw_result.to_csv('raw_result_large_'+mname+'.csv', mode='a', header=False)
 
 
 
