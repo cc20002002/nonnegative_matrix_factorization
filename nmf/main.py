@@ -7,25 +7,32 @@ import matplotlib.pyplot as pl
 import multiprocessing 
 from itertools import repeat
 import time
+from numba import jit
+from numba import vectorize, float64, int64
 # Configuration
 sample_index = 100
 sample_size = 0.9
-epoch = os.cpu_count()*10
+epoch = 2
 cmap = pl.cm.Greys
 random_state = 0
 reduce_scale_yaleB = 4
 reduce_scale_orl = 3
 orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
-parallel_flag=1
+parallel_flag=0
 niter = {
     #"Benchmark (scikit-learn)": algorithm.benchmark,
-    "Multiplication KL Divergence": 4000,
-    "Multiplication Euclidean": 1000,
+    "Multiplication KL Divergence": 5000,
+    "Multiplication Euclidean": 5000,
     # "Truncated Cauchy": algorithm.truncated_cauchy,
 }
 
-min_error = 0.000004
+min_error = {
+    #"Benchmark (scikit-learn)": algorithm.benchmark,
+    "Multiplication KL Divergence": 2.325,
+    "Multiplication Euclidean": 470,
+    # "Truncated Cauchy": algorithm.truncated_cauchy,
+}
 model = {
     #"Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": algorithm.multiplication_divergence,
@@ -55,7 +62,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
         if noise_fun=='Normal':
             V_noise = np.random.normal(0, 5, subVhat.shape) #* np.sqrt(subVhat)
             V=subVhat+V_noise
-            V[V<0]=0
+            V[V<=0]=1e-12
         elif noise_fun=='Poisson':
             V = np.random.poisson(subVhat)
             V_noise = V-subVhat
@@ -69,7 +76,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
             name2=name
             name=name+' '+noise_fun               
             print(name)
-            W, H = algo(V, r,niter[name2],min_error)
+            W, H = algo(V, r,niter[name2],min_error[name2])
             Ypred = util.assign_cluster_label(H.T, subYhat)
 
             # evaluate metrics
