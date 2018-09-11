@@ -17,7 +17,7 @@ reduce_scale_yaleB = 4
 reduce_scale_orl = 3
 orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
-parallel_flag=0
+parallel_flag=1
 niter = {
     #"Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": 4000,
@@ -132,21 +132,9 @@ def train(data_name):
     df = pd.DataFrame.from_dict(mean_metrics)
     print(df)
     df.to_csv('statistics_large.csv')
-    import IPython; IPython.embed() 
-    for name in model:
-        for noise_fun in Noise:
-            rres = metrics["rre"][name+' '+noise_fun]
-            pl.plot(range(epoch), np.log(rres), label=name+' '+noise_fun)
-    pl.legend(loc="lower right")
-    pl.xlabel("epoch")
-    pl.ylabel("relative reconstruction error")
-    pl.title("Model comparison of RRE")
-    pl.show()    
-    raw_result = pd.DataFrame.from_dict(metrics)
-    raw_result.to_csv('raw_result.csv')
     for mname in ["rre", "acc", "nmi"]:
         if parallel_flag:
-            for i in range(epoch):
+            for i in (range(0,epoch,3)):
                 if i==0 & (mname=="rre"):
                     raw_result = pd.DataFrame.from_dict(metrics[i][mname])
                     raw_result.to_csv('raw_result_large_'+mname+'.csv')
@@ -161,6 +149,18 @@ def train(data_name):
             else:
                 raw_result = pd.DataFrame.from_dict(metrics[i][mname])
                 raw_result.to_csv('raw_result_large_'+mname+'.csv', mode='a', header=False)
+    import IPython; IPython.embed() 
+    for name in model:
+        for noise_fun in Noise:
+            rres = metrics["rre"][name+' '+noise_fun]
+            pl.plot(range(epoch), np.log(rres), label=name+' '+noise_fun)
+    pl.legend(loc="lower right")
+    pl.xlabel("epoch")
+    pl.ylabel("relative reconstruction error")
+    pl.title("Model comparison of RRE")
+    pl.show()    
+
+
 
 
 
