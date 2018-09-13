@@ -1,9 +1,10 @@
 """NMF algorithm implementation module."""
 import numpy as np
 from sklearn.decomposition import NMF
-from metric import eval_rre
-
-
+from numba import vectorize, float64, int64, cuda, jit
+niter=5000
+min_error1=465
+min_error2=2.32
 def benchmark(V, r):
     """Set up a benchmark model using NMF in scikit-learn.
 
@@ -28,7 +29,7 @@ def benchmark(V, r):
     return W, H
 
 
-def truncated_cauchy(V, r,niter):
+def truncated_cauchy(V, r):
     """Set up an truncated cauchy NMF.
 
     Parameters
@@ -55,44 +56,6 @@ def truncated_cauchy(V, r,niter):
         E = V - W.dot(H)
         Q = 1. / (1 + (E / gamma) ** 2)
 
-
-
-def multiplication_euclidean(V, r):
-    """Set up a benchmark model using NMF in scikit-learn.
-
-    Parameters
-    ----------
-    V: np.ndarray (d, n) where d is the number of pixel
-        The contaminated image dataset
-    r: an integer, the number of basis (classes)
-
-    Returns
-    -------
-    W: np.ndarray (d, m)
-        The common structure
-    H: np.ndarray (m, n)
-        The new representation of image data V
-
-    """
-    m=V.shape[0]
-    n=V.shape[1]
-    W=np.random.rand(m,r)
-    H=np.random.rand(r,n)
-
-    for i in range(niter):
-        H_u=H*(W.T@V)/(W.T@W@H)
-        W_u=W*(V@H_u.T)/(W@H_u@H_u.T)
-
-        #calculate the distance between iteration
-        e = eval_rre(W@H,W_u,H_u)
-        H = H_u
-        W = W_u
-        #stop iteration if distance less than min_error
-        if e < min_error:
-            print("iterated: ", i, "times")
-            break
-
-    return W, H
 
 
 def multiplication_euclidean(V, r):
@@ -186,3 +149,7 @@ def multiplication_divergence(V, r):
         #print("iterated: ", i, "times","error",e)
         #break
     return W, H
+
+t=time.time()
+multiplication_divergence(V, r)
+print(time.time()-t)

@@ -7,10 +7,12 @@ import matplotlib.pyplot as pl
 import multiprocessing 
 from itertools import repeat
 import time
+from numba import jit
+from numba import vectorize, float64, int64
 # Configuration
 sample_index = 100
 sample_size = 0.9
-epoch = os.cpu_count()
+epoch = 2
 cmap = pl.cm.Greys
 random_state = 0
 reduce_scale_yaleB = 4
@@ -20,12 +22,17 @@ yaleB_img_size = (168, 192)
 parallel_flag=1
 niter = {
     #"Benchmark (scikit-learn)": algorithm.benchmark,
-    "Multiplication KL Divergence": 4000,
-    "Multiplication Euclidean": 1000,
+    "Multiplication KL Divergence": 5000,
+    "Multiplication Euclidean": 5000,
     # "Truncated Cauchy": algorithm.truncated_cauchy,
 }
 
-min_error = 0.000004
+min_error = {
+    #"Benchmark (scikit-learn)": algorithm.benchmark,
+    "Multiplication KL Divergence": 2.325,
+    "Multiplication Euclidean": 470,
+    # "Truncated Cauchy": algorithm.truncated_cauchy,
+}
 model = {
     #"Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": algorithm.multiplication_divergence,
@@ -55,7 +62,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
         if noise_fun=='Normal':
             V_noise = np.random.normal(0, 5, subVhat.shape) #* np.sqrt(subVhat)
             V=subVhat+V_noise
-            V[V<0]=0
+            V[V<=0]=1e-12
         elif noise_fun=='Poisson':
             V = np.random.poisson(subVhat)
             V_noise = V-subVhat
@@ -69,7 +76,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
             name2=name
             name=name+' '+noise_fun               
             print(name)
-            W, H = algo(V, r,niter[name2],min_error)
+            W, H = algo(V, r,niter[name2],min_error[name2])
             Ypred = util.assign_cluster_label(H.T, subYhat)
 
             # evaluate metrics
@@ -131,6 +138,24 @@ def train(data_name):
                 mean_metrics[mname][name+' '+noise_fun]=mean_metrics[mname][name+' '+noise_fun]/epoch
     df = pd.DataFrame.from_dict(mean_metrics)
     print(df)
+    df.to_csv('statistics_large.csv')
+    for mname in ["rre", "acc", "nmi"]:
+        if parallel_flag:
+            for i in (range(0,epoch,3)):
+                if i==0 & (mname=="rre"):
+                    raw_result = pd.DataFrame.from_dict(metrics[i][mname])
+                    raw_result.to_csv('raw_result_large_'+mname+'.csv')
+                else:
+                    raw_result = pd.DataFrame.from_dict(metrics[i][mname])
+                    raw_result.to_csv('raw_result_large_'+mname+'.csv', mode='a', header=False)
+        else:
+            i=0
+            if mname=="rre":
+                raw_result = pd.DataFrame.from_dict(metrics[i][mname])
+                raw_result.to_csv('raw_result_large_'+mname+'.csv')
+            else:
+                raw_result = pd.DataFrame.from_dict(metrics[i][mname])
+                raw_result.to_csv('raw_result_large_'+mname+'.csv', mode='a', header=False)
     import IPython; IPython.embed() 
     for name in model:
         for noise_fun in Noise:
@@ -140,12 +165,9 @@ def train(data_name):
     pl.xlabel("epoch")
     pl.ylabel("relative reconstruction error")
     pl.title("Model comparison of RRE")
-    pl.show()
-    df.to_csv('statistics.csv')
-    raw_result = pd.DataFrame.from_dict(metrics)
-    raw_result.to_csv('raw_result.csv')
- 
-   
+    pl.show()    
+
+
 
 
 

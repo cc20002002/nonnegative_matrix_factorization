@@ -1,7 +1,7 @@
 """NMF algorithm implementation module."""
 import numpy as np
 from sklearn.decomposition import NMF
-
+from numba import vectorize, float64, int64, cuda, jit
 
 def benchmark(V, r):
     """Set up a benchmark model using NMF in scikit-learn.
@@ -56,7 +56,7 @@ def truncated_cauchy(V, r):
 
 
 
-def multiplication_euclidean(V, r,niter,min_error):
+def multiplication_euclidean(V, r,niter,min_error1):
     """Set up a benchmark model using NMF in scikit-learn.
 
     Parameters
@@ -79,23 +79,19 @@ def multiplication_euclidean(V, r,niter,min_error):
     H=np.random.rand(r,n)
 
     for i in range(niter):
-        H_u=H*(W.T@V)/(W.T@W@H)
-        W_u=W*(V@H_u.T)/(W@H_u@H_u.T)
+        H=H*(W.T@V)/(W.T@W@H)
+        W=W*(V@H.T)/(W@H@H.T)
 
         #calculate the distance between iteration
-        e_W = np.sqrt(np.sum((W_u - W)**2, axis = (0,1)))/W.size
-        e_H = np.sqrt(np.sum((H_u - H)**2, axis = (0,1)))/H.size
-
+        e = np.sum((V - W@H)**2)/V.size      
+        print("iterated: ", i, "times","error2",e)
         #stop iteration if distance less than min_error
-        if e_W < min_error and e_H < min_error:
-            print("iterated: ", i, "times")
+        if e < min_error1:
+            print("iterated: ", i, "times",'error:',e)
             break
-        else:
-            H = H_u
-            W = W_u
     return W, H
 
-
+#@jit('float64[:](float64[:],int64)',nopython=True)
 def multiplication_divergence(V, r,niter,min_error):
     """Set up a benchmark model using NMF in scikit-learn.
 
@@ -117,25 +113,20 @@ def multiplication_divergence(V, r,niter,min_error):
     n=V.shape[1]
     W=np.random.rand(m,r)
     H=np.random.rand(r,n)
-
-    for i in range(niter):
-        H_old = H
-        W_old = W
-
+    #VWH = np.zeros(V.size)
+    #import IPython; IPython.embed() 
+    for i in range(niter):    
         VWH = V/(W @ H)
         Numerator1=W.T@VWH
         H=H*Numerator1/np.sum(W,0).reshape(r,1)
-    	#only when I looked https://au.mathworks.com/matlabcentral/answers/316708-non-negative-matrix-factorization
+        #only when I looked https://au.mathworks.com/matlabcentral/answers/316708-non-negative-matrix-factorization
         VWH = V / (W @ H)
         Numerator2=VWH@H.T
         W = W * Numerator2 / np.sum(H, 1).reshape(1,r)
-
         #calculate the distance between iteration
-        e_W = np.sqrt(np.sum((W - W_old)**2, axis = (0,1)))/W.size
-        e_H = np.sqrt(np.sum((H - H_old)**2, axis = (0,1)))/H.size
-
+        e = np.sum(V*np.log((V+1e-13)/(W@H))-V+W@H)/V.size
         #stop iteration if distance less than min_error
-        if e_W < min_error and e_H < min_error:
-            print("iterated: ", i, "times")
+        if e < min_error:
+            print("iterated: ", i, "times","error",e)
             break
     return W, H
