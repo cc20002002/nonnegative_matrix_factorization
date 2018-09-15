@@ -1,10 +1,11 @@
 import numpy as np
 import os
+import sys
 import pandas as pd
 from nmf import io, util, metric, algorithm
 import matplotlib.pyplot as pl
 #from functools import partial
-import multiprocessing 
+import multiprocessing
 from itertools import repeat
 import time
 from numba import jit
@@ -19,7 +20,7 @@ reduce_scale_yaleB = 4
 reduce_scale_orl = 3
 orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
-parallel_flag=1
+parallel_flag=0
 niter = {
     #"Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": 5000,
@@ -42,19 +43,31 @@ model = {
 
 Noise = ["Poisson","Normal"]
 
- 
 
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
-    if os.name == 'nt123':
-        train("..\\data\\ORL")
-        # train("data/CroppedYaleB")
+    argvs = sys.argv
+    message = "Please choose one of the two datasets: 'orl' or 'croppedYale'"
+    if len(argvs) < 2:
+        print(message)
+        sys.exit()
+    assert argvs[-1] in ["orl", "croppedYale"], message
+    if argvs[-1] == "orl":
+        if os.name == 'nt123':
+            train("..\\data\\ORL")
+            # train("data/CroppedYaleB")
+        else:
+            train("data/ORL")
+            # train("data/CroppedYaleB")
     else:
-        train("data/ORL")
-        # train("data/CroppedYaleB")
+        if os.name == 'nt123':
+            train("..\\data\\CroppedYaleB")
+        else:
+            train("data/CroppedYaleB")
+
 
 def one_simulation(i,Vhat,Yhat,n,size,metrics):
-    print("Epoch {}...".format(i + 1))
+    # print("Epoch {}...".format(i + 1))
     # sample 90% of samples
     index = np.random.choice(np.arange(n), size, replace=False)
     subVhat, subYhat = Vhat[:, index], Yhat[index]
@@ -66,7 +79,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
         elif noise_fun=='Poisson':
             V = np.random.poisson(subVhat)
             V_noise = V-subVhat
-        
+
             # if i == 0:
             #     draw_image(V, subVhat, V_noise, sample_index)
 
@@ -74,8 +87,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
         # loop through different models
         for name, algo in model.items():
             name2=name
-            name=name+' '+noise_fun               
-            print(name)
+            name=name+' '+noise_fun
             W, H = algo(V, r,niter[name2],min_error[name2])
             Ypred = util.assign_cluster_label(H.T, subYhat)
 
@@ -83,9 +95,9 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
             _rre = metric.eval_rre(subVhat, W, H)
             _acc = metric.eval_acc(subYhat, Ypred)
             _nmi = metric.eval_nmi(subYhat, Ypred)
-            print("RRE = {}".format(_rre))
-            print("ACC = {}".format(_acc))
-            print("NMI = {}".format(_nmi))
+            print("Epoch = {}, Model = {}, RRE = {}".format(i + 1, name, _rre))
+            print("Epoch = {}, Model = {}, ACC = {}".format(i + 1, name, _acc))
+            print("Epoch = {}, Model = {}, NMI = {}".format(i + 1, name, _nmi))
 
             metrics["rre"][name].append(_rre)
             metrics["acc"][name].append(_acc)
@@ -114,7 +126,7 @@ def train(data_name):
     if parallel_flag:
         pool = multiprocessing.Pool(os.cpu_count())
         #sim=partial(one_simulation,Vhat=Vhat,Yhat=Yhat,n=n,size=size,metrics=metrics)
-        
+
         #pool.starmap(sim, (range(epoch),))
         metrics=pool.starmap(one_simulation,zip(range(epoch),repeat(Vhat),repeat(Yhat),repeat(n),repeat(size),repeat(metrics)))
         pool.close()
@@ -124,8 +136,8 @@ def train(data_name):
         for i in range(epoch):
             temp=one_simulation(i,Vhat,Yhat,n,size,metrics)
             result.append(temp)
-        metrics=result          
-    t = time.time()-t   
+        metrics=result
+    t = time.time()-t
     print('done')
     mean_metrics = {}
     for mname in ["rre", "acc", "nmi"]:
@@ -156,7 +168,7 @@ def train(data_name):
             else:
                 raw_result = pd.DataFrame.from_dict(metrics[i][mname])
                 raw_result.to_csv('raw_result_large_'+mname+'.csv', mode='a', header=False)
-    import IPython; IPython.embed() 
+    import IPython; IPython.embed()
     for name in model:
         for noise_fun in Noise:
             rres = metrics["rre"][name+' '+noise_fun]
@@ -165,7 +177,7 @@ def train(data_name):
     pl.xlabel("epoch")
     pl.ylabel("relative reconstruction error")
     pl.title("Model comparison of RRE")
-    pl.show()    
+    pl.show()
 
 
 
@@ -195,4 +207,3 @@ def draw_image(V, subVhat, V_noise, sample_index):
 
 if __name__ == "__main__":
     main()
-

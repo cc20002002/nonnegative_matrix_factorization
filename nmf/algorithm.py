@@ -1,5 +1,6 @@
 """NMF algorithm implementation module."""
 import numpy as np
+from tqdm import tqdm
 from sklearn.decomposition import NMF
 from numba import vectorize, float64, int64, cuda, jit
 
@@ -78,12 +79,12 @@ def multiplication_euclidean(V, r,niter,min_error1):
     W=np.random.rand(m,r)
     H=np.random.rand(r,n)
 
-    for i in range(niter):
+    for i in tqdm(range(niter)):
         H=H*(W.T@V)/(W.T@W@H)
         W=W*(V@H.T)/(W@H@H.T)
 
         #calculate the distance between iteration
-        e = np.sum((V - W@H)**2)/V.size      
+        e = np.sum((V - W@H)**2)/V.size
         print("iterated: ", i, "times","error2",e)
         #stop iteration if distance less than min_error
         if e < min_error1:
@@ -114,8 +115,8 @@ def multiplication_divergence(V, r,niter,min_error):
     W=np.random.rand(m,r)
     H=np.random.rand(r,n)
     #VWH = np.zeros(V.size)
-    #import IPython; IPython.embed() 
-    for i in range(niter):    
+    #import IPython; IPython.embed()
+    for i in tqdm(range(niter)):
         VWH = V/(W @ H)
         Numerator1=W.T@VWH
         H=H*Numerator1/np.sum(W,0).reshape(r,1)
