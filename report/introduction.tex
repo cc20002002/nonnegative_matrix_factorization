@@ -1,71 +1,18 @@
 \section{Introduction\label{chapter1}}
-#Briefly introduce NMF, applications
-Non-negative matrix factorization (NMF) is a matrix decomposition technique that approximates a multivariable data matrix by two lower dimensional non-negative matrixes as follows:
+%Briefly introduce \textsc{nmf}, applications
+Non-negative matrix factorization (\textsc{nmf}) is a matrix decomposition technique that approximates a multivariate data matrix by two lower dimensional non-negative matrices as follows:
+\begin{equation}
+  vv
+\end{equation}
+As \textsc{nmf} only allows additive, non-subtractive combination of matrix factors, it is applicable to an extensive range of domain \chenc{sorry but I do not understand}. \citet{lee1999learning} suggest that \textsc{nmf} is useful for image processing problems including facial recognition. Specifically, \textsc{nmf} generates two matrices $W$ and $H$ which are often referred as the basis images and weights. This is because the observed image $V$ is approximated by a linear combination of $W$ and $H$. This property also distinguishes \textsc{nmf} from other traditional image processing methods such as principal components analysis (\textsc{pca}) and $K$-means clustering \chenc{$K$ means is not only a image processing technique, delete}. \citet{guillamet2002non} demonstrate that \textsc{nmf} is more robust to corrupted images than \textsc{pca}.
+Moreover, \textsc{nmf} is also applicable to text mining such as semantic analysis. More generally, \textsc{nmf} is useful to discover semantic features of an article by counting the frequency of each word than approximating the document from a subset of a large array of features \citep{lee1999learning}.
 
-V_iu≈(WH)_iu=∑_(a=1)^r▒〖W_ia H_au 〗,where W∈R_+,H∈R_+
+Researchers proposed many \textsc{nmf} algorithms. \citet{lee2001algorithms} first proposes ``multiplicative update rules'' to minimise Euclidean distance or Kullback-Leibler divergence between the original matrix and its approximation. Although this algorithm is easy to implement and have reasonable convergent rate \citep{lee2001algorithms}, it may fail on seriously corrupted dataset which violates its assumption of Gaussian noise or Poisson noise, respectively \citep{guan2017truncated}.  To improve the robustness of \textsc{nmf}, many methods have been proposed. Lam ????? \chenc{no bib file}(2008) proposes ${L_1}$-norm based \textsc{nmf} to model noisy data by a Laplace distribution which is less sensitive to outliers. However, as $L_1$-norm is not differentiable at zero, the optimization procedure is computationally expensive. \citet{kong2011robust} proposed an \textsc{nmf} algorithm using $L_{21}$-norm loss function which is robust to outliers. The updating rules used in $L_{21}$-norm \textsc{nmf}, however, converge slowly because of a continual use of the power method \citep{guan2017truncated}.
 
-As NMF only allows additive, non-subtractive combination of matrix factors, it is applicable to an extensive range of domain. Lee and Seung (1999) suggest that NMF can be useful for image processing such as facial recognition. Specifically, NMF generates two matrixes W and H which are often referred as the basis images and weights so that the observed image V is approximated by a linear combination of W and H. This property also distinguishes NMF from other traditional image processing method such as principal components analysis (PCA) and K-means clustering. It has been demonstrated that NMF is more robust to corrupted images than PCA (Guillamet and Vitri`a 2002)
-Moreover, NMF is also applicable to text mining such as semantic analysis. More generally, NMF can be used to discover semantic features of an article by counting the frequency of each word then approximating the document from a subset of a large array of features (Lee and Seung 1999). 
+In practice, face images could be easily corrupted during data collection by large magnitude noise. Corruption may result from lighting environment, facial expression or facial details. An \textsc{nmf} algorithm that is robust to large noise is desired for real-world application. Therefore, the objective of this project is to analyse the robustness of \textsc{nmf} algorithms on corrupted dataset. We implement two \textsc{nmf} algorithms on real face image datasets, \textsc{orl} dataset and Extended YaleB dataset. The face images are contaminated by artificial noises.
 
-Different algorithms have been proposed to find the matrix factors of NMF. Lee and Seung (2001) first proposed “multiplicative update rules” to minimise Euclidean distance or Kullback-Leibler divergence (KLD) between the original matrix and its approximation. Although this algorithm is easy to implement and have reasonable convergent rate (Lee and Seung 2001), it may fail on seriously corrupted dataset which violates its assumption of Gaussian noise (Guan, Liu, Zhang and etc. 2017).  To improve the robustness of NMF, many methods have been proposed. Lam (2008) proposed L1-norm based NMF to model noisy data by a Laplace distribution which is less sensitive to outliers. However, as L1-norm is not differentiable at zero, the optimization is expensive. Kong, Ding and Huang (2011) proposed an NMF algorithm using L21 norm loss function which is robust to outliers. The updating rules used in L21-norm NMF, however, converge slowly because of a continual use of the power method (Guan et al. 2017)  
-
-In practice, however, face images could be easily corrupted during data collection by large magnitude noise which may result from lighting environment, facial expression or facial details. An NMF algorithm that is robust to large noise is desired for real-world application. Therefore, the objective of this project is to analyse the robustness of NMF algorithms on corrupted dataset. Two NMF algorithms are implemented on real face image datasets, ORL dataset and Extended YaleB dataset, in which face images are contaminated by noise.
-
-Plan：
+Plan:
 ...
 
 
-
-Reference:
-
-Lee, D.D. and Seung, H.S., 1999. Learning the parts of objects by non-negative matrix factorization. Nature, 401(6755), p.788.
-@article{lee1999learning,
-  title={Learning the parts of objects by non-negative matrix factorization},
-  author={Lee, Daniel D and Seung, H Sebastian},
-  journal={Nature},
-  volume={401},
-  number={6755},
-  pages={788},
-  year={1999},
-  publisher={Nature Publishing Group}
-}
-
-
-Lee, D.D. and Seung, H.S., 2001. Algorithms for non-negative matrix factorization. In Advances in neural information processing systems (pp. 556-562).
-@inproceedings{lee2001algorithms,
-  title={Algorithms for non-negative matrix factorization},
-  author={Lee, Daniel D and Seung, H Sebastian},
-  booktitle={Advances in neural information processing systems},
-  pages={556--562},
-  year={2001}
-}
-
-Guillamet, D. and Vitrià, J., 2002. Non-negative matrix factorization for face recognition. In Topics in artificial intelligence (pp. 336-344). Springer, Berlin, Heidelberg.
-@incollection{guillamet2002non,
-  title={Non-negative matrix factorization for face recognition},
-  author={Guillamet, David and Vitri{\`a}, Jordi},
-  booktitle={Topics in artificial intelligence},
-  pages={336--344},
-  year={2002},
-  publisher={Springer}
-}
-
-Guan, N., Liu, T., Zhang, Y., Tao, D. and Davis, L.S., 2017. Truncated Cauchy Non-negative Matrix Factorization for Robust Subspace Learning. IEEE Transactions on Pattern Analysis and Machine Intelligence.
-@article{guan2017truncated,
-  title={Truncated Cauchy Non-negative Matrix Factorization for Robust Subspace Learning},
-  author={Guan, Naiyang and Liu, Tongliang and Zhang, Yangmuzi and Tao, Dacheng and Davis, Larry Steven},
-  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  year={2017},
-  publisher={IEEE}
-}
-
-Kong, D., Ding, C. and Huang, H., 2011, October. Robust nonnegative matrix factorization using l21-norm. In Proceedings of the 20th ACM international conference on Information and knowledge management (pp. 673-682). ACM.
-@inproceedings{kong2011robust,
-  title={Robust nonnegative matrix factorization using l21-norm},
-  author={Kong, Deguang and Ding, Chris and Huang, Heng},
-  booktitle={Proceedings of the 20th ACM international conference on Information and knowledge management},
-  pages={673--682},
-  year={2011},
-  organization={ACM}
-}
 
