@@ -49,11 +49,11 @@ def assign_cluster_label(X, Y):
     return Y_pred
 
 
-def error_vs_iter(error, niter, algo_name):
+def error_vs_iter(error, niter, algo_name, path):
     """Plot error versus iteration."""
     pl.figure()
     pl.plot(np.arange(niter), error)
     pl.xlabel("Iteration")
     pl.ylabel("Error")
-    pl.title("{} Training Error versus Iteration".format(algo_name))
-    pl.savefig("plots/{}_Error_{}_Iteration".format(algo_name, niter))
+    pl.title("{} Training Error versus {} Iteration".format(algo_name, niter))
+    pl.savefig(path)

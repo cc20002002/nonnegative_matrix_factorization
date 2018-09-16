@@ -3,7 +3,6 @@ import numpy as np
 from tqdm import tqdm
 from sklearn.decomposition import NMF
 from numba import vectorize, float64, int64, cuda, jit
-from util import error_vs_iter
 
 
 def benchmark(V, r):
@@ -27,7 +26,7 @@ def benchmark(V, r):
     model = NMF(n_components=r)
     W = model.fit_transform(V)
     H = model.components_
-    return W, H
+    return W, H, None
 
 
 def truncated_cauchy(V, r):
@@ -93,8 +92,7 @@ def multiplication_euclidean(V, r,niter,min_error1):
         if e < min_error1:
             print("iterated: ", i, "times",'error:',e)
             break
-    error_vs_iter(error, niter, "Multiplication_Euclidean")
-    return W, H
+    return W, H, error
 
 #@jit('float64[:](float64[:],int64)',nopython=True)
 def multiplication_divergence(V, r,niter,min_error):
@@ -136,5 +134,4 @@ def multiplication_divergence(V, r,niter,min_error):
         if e < min_error:
             # print("iterated: ", i, "times","error",e)
             break
-    error_vs_iter(error, niter, "Multiplication_Divergence")
-    return W, H
+    return W, H, error

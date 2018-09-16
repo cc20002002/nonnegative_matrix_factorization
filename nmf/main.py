@@ -4,6 +4,7 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 from nmf import io, util, metric, algorithm
+from util import error_vs_iter
 import matplotlib.pyplot as pl
 #from functools import partial
 import multiprocessing
@@ -32,7 +33,7 @@ min_error = {
     "Multiplication Euclidean": 470,
 }
 model = {
-    "Benchmark (scikit-learn)": algorithm.benchmark,
+    # "Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": algorithm.multiplication_divergence,
     "Multiplication Euclidean": algorithm.multiplication_euclidean,
 }
@@ -50,7 +51,7 @@ def main():
     assert argvs[-1] in ["orl", "croppedYale"], message
     # make a folder with generated time
     folder = datetime.now().strftime("%Y-%m-%d-%H-%M")
-    folder = os.path.join("results", folder)
+    folder = os.path.join("results", folder + "-" + argvs[-1])
     if not os.path.exists(folder):
         os.makedirs(folder)
     if argvs[-1] == "orl":
@@ -67,7 +68,7 @@ def main():
             train("data/CroppedYaleB", folder)
 
 
-def one_simulation(i,Vhat,Yhat,n,size,metrics):
+def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
     # print("Epoch {}...".format(i + 1))
     # sample 90% of samples
     index = np.random.choice(np.arange(n), size, replace=False)
@@ -89,10 +90,14 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
         for name, algo in model.items():
             name2=name
             name=name+' '+noise_fun
-            if name2 == "Benchmark (scikit-learn)":
-                W, H = algo(V, r)
-            else:
-                W, H = algo(V, r, niter[name2], min_error[name2])
+            W, H, errors = algo(V, r, niter[name2], min_error[name2])
+            # plot error versus iteration
+            data_name = folder.split("-")[-1]
+            plotname = "{}_{}_Error_{}_Iteration".format(data_name, name2,
+                                                         len(errors))
+            print(plotname)
+            path = os.path.join("plots", plotname)
+            error_vs_iter(errors, len(errors), name2, path)
             Ypred = util.assign_cluster_label(H.T, subYhat)
 
             # evaluate metrics
@@ -132,13 +137,15 @@ def train(data_name, folder):
         #sim=partial(one_simulation,Vhat=Vhat,Yhat=Yhat,n=n,size=size,metrics=metrics)
 
         #pool.starmap(sim, (range(epoch),))
-        metrics=pool.starmap(one_simulation,zip(range(epoch),repeat(Vhat),repeat(Yhat),repeat(n),repeat(size),repeat(metrics)))
+        args = zip(range(epoch),repeat(Vhat),repeat(Yhat),
+                   repeat(n),repeat(size),repeat(metrics), repeat(folder))
+        metrics=pool.starmap(one_simulation, args)
         pool.close()
         pool.join()
     else:
         result=[]
         for i in range(epoch):
-            temp=one_simulation(i,Vhat,Yhat,n,size,metrics)
+            temp=one_simulation(i,Vhat,Yhat,n,size,metrics, folder)
             result.append(temp)
         metrics=result
     t = time.time()-t
