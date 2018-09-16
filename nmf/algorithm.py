@@ -1,7 +1,9 @@
 """NMF algorithm implementation module."""
 import numpy as np
+from tqdm import tqdm
 from sklearn.decomposition import NMF
 from numba import vectorize, float64, int64, cuda, jit
+
 
 def benchmark(V, r):
     """Set up a benchmark model using NMF in scikit-learn.
@@ -24,7 +26,7 @@ def benchmark(V, r):
     model = NMF(n_components=r)
     W = model.fit_transform(V)
     H = model.components_
-    return W, H
+    return W, H, None
 
 
 def truncated_cauchy(V, r):
@@ -78,18 +80,19 @@ def multiplication_euclidean(V, r,niter,min_error1):
     W=np.random.rand(m,r)
     H=np.random.rand(r,n)
 
-    for i in range(niter):
+    error = []
+    for i in tqdm(range(niter)):
         H=H*(W.T@V)/(W.T@W@H)
         W=W*(V@H.T)/(W@H@H.T)
 
         #calculate the distance between iteration
-        e = np.sum((V - W@H)**2)/V.size      
-        print("iterated: ", i, "times","error2",e)
+        e = np.sum((V - W@H)**2)/V.size
+        error.append(e)
         #stop iteration if distance less than min_error
         if e < min_error1:
             print("iterated: ", i, "times",'error:',e)
             break
-    return W, H
+    return W, H, error
 
 #@jit('float64[:](float64[:],int64)',nopython=True)
 def multiplication_divergence(V, r,niter,min_error):
@@ -114,8 +117,9 @@ def multiplication_divergence(V, r,niter,min_error):
     W=np.random.rand(m,r)
     H=np.random.rand(r,n)
     #VWH = np.zeros(V.size)
-    #import IPython; IPython.embed() 
-    for i in range(niter):    
+
+    error = []
+    for i in tqdm(range(niter)):
         VWH = V/(W @ H)
         Numerator1=W.T@VWH
         H=H*Numerator1/np.sum(W,0).reshape(r,1)
@@ -125,8 +129,9 @@ def multiplication_divergence(V, r,niter,min_error):
         W = W * Numerator2 / np.sum(H, 1).reshape(1,r)
         #calculate the distance between iteration
         e = np.sum(V*np.log((V+1e-13)/(W@H))-V+W@H)/V.size
+        error.append(e)
         #stop iteration if distance less than min_error
         if e < min_error:
-            print("iterated: ", i, "times","error",e)
+            # print("iterated: ", i, "times","error",e)
             break
-    return W, H
+    return W, H, error

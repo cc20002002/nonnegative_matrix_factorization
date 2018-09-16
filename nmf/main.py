@@ -1,10 +1,13 @@
-import numpy as np
 import os
+import sys
+from datetime import datetime
+import numpy as np
 import pandas as pd
 from nmf import io, util, metric, algorithm
+from util import error_vs_iter
 import matplotlib.pyplot as pl
 #from functools import partial
-import multiprocessing 
+import multiprocessing
 from itertools import repeat
 import time
 from numba import jit
@@ -19,42 +22,54 @@ reduce_scale_yaleB = 4
 reduce_scale_orl = 3
 orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
-parallel_flag=1
+parallel_flag=0
 niter = {
-    #"Benchmark (scikit-learn)": algorithm.benchmark,
-    "Multiplication KL Divergence": 5000,
-    "Multiplication Euclidean": 5000,
-    # "Truncated Cauchy": algorithm.truncated_cauchy,
+    "Multiplication KL Divergence": 100,
+    "Multiplication Euclidean": 100,
 }
 
 min_error = {
-    #"Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": 2.325,
     "Multiplication Euclidean": 470,
-    # "Truncated Cauchy": algorithm.truncated_cauchy,
 }
 model = {
-    #"Benchmark (scikit-learn)": algorithm.benchmark,
+    # "Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": algorithm.multiplication_divergence,
     "Multiplication Euclidean": algorithm.multiplication_euclidean,
-    # "Truncated Cauchy": algorithm.truncated_cauchy,
 }
 
 Noise = ["Poisson","Normal"]
 
- 
 
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
-    if os.name == 'nt123':
-        train("..\\data\\ORL")
-        # train("data/CroppedYaleB")
+    argvs = sys.argv
+    message = "Please choose one of the two datasets: 'orl' or 'croppedYale'"
+    if len(argvs) < 2:
+        print(message)
+        sys.exit()
+    assert argvs[-1] in ["orl", "croppedYale"], message
+    # make a folder with generated time
+    folder = datetime.now().strftime("%Y-%m-%d-%H-%M")
+    folder = os.path.join("results", folder + "-" + argvs[-1])
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+    if argvs[-1] == "orl":
+        if os.name == 'nt123':
+            train("..\\data\\ORL", folder)
+            # train("data/CroppedYaleB")
+        else:
+            train("data/ORL", folder)
+            # train("data/CroppedYaleB")
     else:
-        train("data/ORL")
-        # train("data/CroppedYaleB")
+        if os.name == 'nt123':
+            train("..\\data\\CroppedYaleB", folder)
+        else:
+            train("data/CroppedYaleB", folder)
 
-def one_simulation(i,Vhat,Yhat,n,size,metrics):
-    print("Epoch {}...".format(i + 1))
+
+def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
+    # print("Epoch {}...".format(i + 1))
     # sample 90% of samples
     index = np.random.choice(np.arange(n), size, replace=False)
     subVhat, subYhat = Vhat[:, index], Yhat[index]
@@ -66,7 +81,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
         elif noise_fun=='Poisson':
             V = np.random.poisson(subVhat)
             V_noise = V-subVhat
-        
+
             # if i == 0:
             #     draw_image(V, subVhat, V_noise, sample_index)
 
@@ -74,18 +89,24 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
         # loop through different models
         for name, algo in model.items():
             name2=name
-            name=name+' '+noise_fun               
-            print(name)
-            W, H = algo(V, r,niter[name2],min_error[name2])
+            name=name+' '+noise_fun
+            W, H, errors = algo(V, r, niter[name2], min_error[name2])
+            # plot error versus iteration
+            data_name = folder.split("-")[-1]
+            plotname = "{}_{}_Error_{}_Iteration".format(data_name, name2,
+                                                         len(errors))
+            print(plotname)
+            path = os.path.join("plots", plotname)
+            error_vs_iter(errors, len(errors), name2, path)
             Ypred = util.assign_cluster_label(H.T, subYhat)
 
             # evaluate metrics
             _rre = metric.eval_rre(subVhat, W, H)
             _acc = metric.eval_acc(subYhat, Ypred)
             _nmi = metric.eval_nmi(subYhat, Ypred)
-            print("RRE = {}".format(_rre))
-            print("ACC = {}".format(_acc))
-            print("NMI = {}".format(_nmi))
+            print("Epoch = {}, Model = {}, RRE = {}".format(i + 1, name, _rre))
+            print("Epoch = {}, Model = {}, ACC = {}".format(i + 1, name, _acc))
+            print("Epoch = {}, Model = {}, NMI = {}".format(i + 1, name, _nmi))
 
             metrics["rre"][name].append(_rre)
             metrics["acc"][name].append(_acc)
@@ -95,7 +116,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
     # performace over epochs
 
 
-def train(data_name):
+def train(data_name, folder):
     """Run NMF on data stored in data_name."""
     # load ORL dataset
     print("==> Load {} dataset...".format(data_name))
@@ -114,18 +135,20 @@ def train(data_name):
     if parallel_flag:
         pool = multiprocessing.Pool(os.cpu_count())
         #sim=partial(one_simulation,Vhat=Vhat,Yhat=Yhat,n=n,size=size,metrics=metrics)
-        
+
         #pool.starmap(sim, (range(epoch),))
-        metrics=pool.starmap(one_simulation,zip(range(epoch),repeat(Vhat),repeat(Yhat),repeat(n),repeat(size),repeat(metrics)))
+        args = zip(range(epoch),repeat(Vhat),repeat(Yhat),
+                   repeat(n),repeat(size),repeat(metrics), repeat(folder))
+        metrics=pool.starmap(one_simulation, args)
         pool.close()
         pool.join()
     else:
         result=[]
         for i in range(epoch):
-            temp=one_simulation(i,Vhat,Yhat,n,size,metrics)
+            temp=one_simulation(i,Vhat,Yhat,n,size,metrics, folder)
             result.append(temp)
-        metrics=result          
-    t = time.time()-t   
+        metrics=result
+    t = time.time()-t
     print('done')
     mean_metrics = {}
     for mname in ["rre", "acc", "nmi"]:
@@ -138,25 +161,27 @@ def train(data_name):
                 mean_metrics[mname][name+' '+noise_fun]=mean_metrics[mname][name+' '+noise_fun]/epoch
     df = pd.DataFrame.from_dict(mean_metrics)
     print(df)
-    df.to_csv('statistics_large.csv')
+    # save results to a folder named with generation time
+    df.to_csv(os.path.join(folder, 'statistics_large.csv'))
     for mname in ["rre", "acc", "nmi"]:
+        filename = os.path.join(folder, 'raw_result_large_'+mname+'.csv')
         if parallel_flag:
             for i in (range(0,epoch,3)):
                 if i==0 & (mname=="rre"):
                     raw_result = pd.DataFrame.from_dict(metrics[i][mname])
-                    raw_result.to_csv('raw_result_large_'+mname+'.csv')
+                    raw_result.to_csv(filename)
                 else:
                     raw_result = pd.DataFrame.from_dict(metrics[i][mname])
-                    raw_result.to_csv('raw_result_large_'+mname+'.csv', mode='a', header=False)
+                    raw_result.to_csv(filename, mode='a', header=False)
         else:
             i=0
             if mname=="rre":
                 raw_result = pd.DataFrame.from_dict(metrics[i][mname])
-                raw_result.to_csv('raw_result_large_'+mname+'.csv')
+                raw_result.to_csv(filename)
             else:
                 raw_result = pd.DataFrame.from_dict(metrics[i][mname])
-                raw_result.to_csv('raw_result_large_'+mname+'.csv', mode='a', header=False)
-    import IPython; IPython.embed() 
+                raw_result.to_csv(filename, mode='a', header=False)
+    import IPython; IPython.embed()
     for name in model:
         for noise_fun in Noise:
             rres = metrics["rre"][name+' '+noise_fun]
@@ -165,12 +190,7 @@ def train(data_name):
     pl.xlabel("epoch")
     pl.ylabel("relative reconstruction error")
     pl.title("Model comparison of RRE")
-    pl.show()    
-
-
-
-
-
+    pl.show()
 
 
 def draw_image(V, subVhat, V_noise, sample_index):
@@ -195,4 +215,3 @@ def draw_image(V, subVhat, V_noise, sample_index):
 
 if __name__ == "__main__":
     main()
-
