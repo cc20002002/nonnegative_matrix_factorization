@@ -1,6 +1,7 @@
-import numpy as np
 import os
 import sys
+from datetime import datetime
+import numpy as np
 import pandas as pd
 from nmf import io, util, metric, algorithm
 import matplotlib.pyplot as pl
@@ -22,23 +23,18 @@ orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
 parallel_flag=0
 niter = {
-    #"Benchmark (scikit-learn)": algorithm.benchmark,
-    "Multiplication KL Divergence": 5000,
-    "Multiplication Euclidean": 5000,
-    # "Truncated Cauchy": algorithm.truncated_cauchy,
+    "Multiplication KL Divergence": 100,
+    "Multiplication Euclidean": 100,
 }
 
 min_error = {
-    #"Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": 2.325,
     "Multiplication Euclidean": 470,
-    # "Truncated Cauchy": algorithm.truncated_cauchy,
 }
 model = {
-    #"Benchmark (scikit-learn)": algorithm.benchmark,
+    "Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": algorithm.multiplication_divergence,
     "Multiplication Euclidean": algorithm.multiplication_euclidean,
-    # "Truncated Cauchy": algorithm.truncated_cauchy,
 }
 
 Noise = ["Poisson","Normal"]
@@ -52,18 +48,22 @@ def main():
         print(message)
         sys.exit()
     assert argvs[-1] in ["orl", "croppedYale"], message
+    # make a folder with generated time
+    folder = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    folder = os.path.join("results", folder)
+    os.makedirs(folder)
     if argvs[-1] == "orl":
         if os.name == 'nt123':
-            train("..\\data\\ORL")
+            train("..\\data\\ORL", folder)
             # train("data/CroppedYaleB")
         else:
-            train("data/ORL")
+            train("data/ORL", folder)
             # train("data/CroppedYaleB")
     else:
         if os.name == 'nt123':
-            train("..\\data\\CroppedYaleB")
+            train("..\\data\\CroppedYaleB", folder)
         else:
-            train("data/CroppedYaleB")
+            train("data/CroppedYaleB", folder)
 
 
 def one_simulation(i,Vhat,Yhat,n,size,metrics):
@@ -107,7 +107,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
     # performace over epochs
 
 
-def train(data_name):
+def train(data_name, folder):
     """Run NMF on data stored in data_name."""
     # load ORL dataset
     print("==> Load {} dataset...".format(data_name))
@@ -150,24 +150,26 @@ def train(data_name):
                 mean_metrics[mname][name+' '+noise_fun]=mean_metrics[mname][name+' '+noise_fun]/epoch
     df = pd.DataFrame.from_dict(mean_metrics)
     print(df)
-    df.to_csv('statistics_large.csv')
+    # save results to a folder named with generation time
+    df.to_csv(os.path.join(folder, 'statistics_large.csv')
     for mname in ["rre", "acc", "nmi"]:
+        filename = os.path.join(folder, 'raw_result_large_'+mname+'.csv')
         if parallel_flag:
             for i in (range(0,epoch,3)):
                 if i==0 & (mname=="rre"):
                     raw_result = pd.DataFrame.from_dict(metrics[i][mname])
-                    raw_result.to_csv('raw_result_large_'+mname+'.csv')
+                    raw_result.to_csv(filename)
                 else:
                     raw_result = pd.DataFrame.from_dict(metrics[i][mname])
-                    raw_result.to_csv('raw_result_large_'+mname+'.csv', mode='a', header=False)
+                    raw_result.to_csv(filename, mode='a', header=False)
         else:
             i=0
             if mname=="rre":
                 raw_result = pd.DataFrame.from_dict(metrics[i][mname])
-                raw_result.to_csv('raw_result_large_'+mname+'.csv')
+                raw_result.to_csv(filename)
             else:
                 raw_result = pd.DataFrame.from_dict(metrics[i][mname])
-                raw_result.to_csv('raw_result_large_'+mname+'.csv', mode='a', header=False)
+                raw_result.to_csv(filename, mode='a', header=False)
     import IPython; IPython.embed()
     for name in model:
         for noise_fun in Noise:
