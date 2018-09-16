@@ -49,9 +49,10 @@ def main():
         sys.exit()
     assert argvs[-1] in ["orl", "croppedYale"], message
     # make a folder with generated time
-    folder = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    folder = datetime.now().strftime("%Y-%m-%d-%H-%M")
     folder = os.path.join("results", folder)
-    os.makedirs(folder)
+    if not os.path.exists(folder):
+        os.makedirs(folder)
     if argvs[-1] == "orl":
         if os.name == 'nt123':
             train("..\\data\\ORL", folder)
@@ -88,7 +89,10 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics):
         for name, algo in model.items():
             name2=name
             name=name+' '+noise_fun
-            W, H = algo(V, r,niter[name2],min_error[name2])
+            if name2 == "Benchmark (scikit-learn)":
+                W, H = algo(V, r)
+            else:
+                W, H = algo(V, r, niter[name2], min_error[name2])
             Ypred = util.assign_cluster_label(H.T, subYhat)
 
             # evaluate metrics
@@ -151,7 +155,7 @@ def train(data_name, folder):
     df = pd.DataFrame.from_dict(mean_metrics)
     print(df)
     # save results to a folder named with generation time
-    df.to_csv(os.path.join(folder, 'statistics_large.csv')
+    df.to_csv(os.path.join(folder, 'statistics_large.csv'))
     for mname in ["rre", "acc", "nmi"]:
         filename = os.path.join(folder, 'raw_result_large_'+mname+'.csv')
         if parallel_flag:
@@ -180,11 +184,6 @@ def train(data_name, folder):
     pl.ylabel("relative reconstruction error")
     pl.title("Model comparison of RRE")
     pl.show()
-
-
-
-
-
 
 
 def draw_image(V, subVhat, V_noise, sample_index):
