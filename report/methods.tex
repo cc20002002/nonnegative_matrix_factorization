@@ -1,14 +1,31 @@
 \section{Methods \label{chapter2}}
-\subsection{KLNMF}
-\citet{lee2001algorithms} suggests that \textsc{klnmf} is a \textsc{nmf} that minimising the Kullback-Leibler divergence
-\begin{equation*}
-  D(V||WH)=\sum_{ij}\left(V_{ij}\log\frac{V_{ij}}{\left(WH\right)_{ij}}-V_{ij}+\left(WH\right)_{ij}\right).
-\end{equation*}
-Define $C(V_{ij})$ to be arbitrary function of the observed matrix only. As this original matrix V is observed, minimising this Kullback-Leibler divergence is equivalent to minimising
+\subsection{NMF and Gaussian noise}
+\citet{lee2001algorithms} propose the first \textsc{nmf} with the objective function between imaga~$V$ and its \textsc{nmf} factorisation~$W$ and~$H$ being
+\begin{eqnarray}
+  \left\Vert V-WH \right\Vert= \sum_{ij} \left[V_{ij}-(WH)_{ij}\right]^2.
+\end{eqnarray}
+To minimise this object function of least square, \citet{lee2001algorithms} prove the convergence of the multiplication update rule
+\begin{eqnarray}
+H_{jk}\leftarrow H_{jk}\frac{(W^{T}V)_{jk}}{(W^{T}WH)_{jk}} \text{ and } W_{ij}\leftarrow W_{ij}\frac{(VH)_{ij}}{(WHH^{H})_{ij}}.
+\end{eqnarray}
+Our lecturer derived this \textsc{nmf} algorithm minimises Gaussian noise in the lecture.
+
+\subsection{KLNMF and Poisson noise}
+\citet{lee2001algorithms} suggest that \textsc{klnmf} is a algorithm that minimising the Kullback-Leibler divergence
+\begin{eqnarray}
+  D(V||WH)&=&\sum_{ij}\left(V_{ij}\log\frac{V_{ij}}{\left(WH\right)_{ij}}-V_{ij}+\left(WH\right)_{ij}\right)\\
+          &=&\sum_{ij}\left(-V_{ij}\log\left(WH\right)_{ij}+\left(WH\right)_{ij}+C(V_{ij})\right).\label{eq:klobj}
+\end{eqnarray}
+where $C(V_{ij})=V_{ij}\log V_{ij}-V_{ij}$. $C(V_{ij})$ is a function of the observed image matrix~$V$ only.
+\citet{lee2001algorithms} also suggest a multiplication update rule to find as the optimisation procedure of \textsc{klnmf}
+\begin{eqnarray}
+H_{jk}\leftarrow H_{jk}\frac{\sum_{i}W_{ij}V_{ik}/(WH)_{jk}}{\sum_{i'}W_{i'j}} \text{ and } W_{ij}\leftarrow W_{ij}\frac{\sum_{k}H_{jk}V_{ik}/(WH)_{jk}}{\sum_{k'}H_{ik'}}.
+\end{eqnarray}
+As this original image matrix~$V$ is observed, minimising this Kullback-Leibler divergence~\eqref{eq:klobj} is equivalent to minimising
 \begin{equation*}
   \sum_{ij}\left(-V_{ij}\log\left(WH\right)_{ij}+\left(WH\right)_{ij}+C(V_{ij})\right).
-\end{equation*}
-Taking exponential of the negative of this score function, the problem transforms to maximising the following likelihood function
+\end{equation*},
+for arbitrary bounded function~$C(V_{ij})$. Taking exponential of the negative of this score function, the problem transforms to maximising the following likelihood function
 \begin{equation*}
 L(WH|V)=\prod_{ij}\left(\left(WH\right)_{ij}^{V_{ij}}e^{-\left(WH\right)_{ij}}+C(V_{ij})\right).
 \end{equation*}
@@ -22,7 +39,12 @@ P(V_{ij})=\frac{\left(WH\right)_{ij}^{V_{ij}}e^{-\left(WH\right)_{ij}}}{V_{ij}!}
 \end{equation*}
 is a sufficient condition to yield this likelihood. Hence \textsc{klnmf} is most suitable for images with Poisson noise.
 \subsection{Asymptotic equivalence of noise distributions}
- We design an Gaussian noise and a Poisson noise with similar magnitude. Poisson distribution with parameter~$\lambda$ (integer) is equivalent to the sum of $\lambda$ Poisson distributions with parameter~$1$ (reference a book!!!!!!!!!!here). Hence for $\lambda$ large, Central Limit Theorem implies that Poisson distribution with parameter~$\lambda$ is well approximated by $N(\lambda,\lambda)$. When applying Poisson noise to an image, we do not degree of freedom to choose any parameter. The variance is the magnitude of the pixels. To fairly compare the robustness of \textsc{klnmf} with \textsc{nmf}, we choose the variance of Gaussian noise to be the magnitude of the pixel, that is, $N(0,V)\approx \operatorname{Poi}(V)-V$. Figure~\ref{noise} visualises the this derivation with $V=40$.
+ We design an Gaussian noise and a Poisson noise with different magnitude. 
+ Poisson distribution with parameter~$\lambda$ (integer) is equivalent to the sum of $\lambda$ Poisson distributions with parameter~$1$ \citep[][p. 45]{Walck:1996cca}. 
+ Hence for $\lambda$ large, Central Limit Theorem implies that Poisson distribution with parameter~$\lambda$ is well approximated by $N(\lambda,\lambda)$. 
+ When applying Poisson noise to an image, we do not degree of freedom to choose any parameter. 
+ The variance is the magnitude of the pixels. To compare the robustness of \textsc{klnmf} with \textsc{nmf} with different noise, we choose the variance of Gaussian noise to be the different from the magnitude of the pixel, that is, $N(0,\operatorname{Var})\neq N(0,V)\approx \operatorname{Poi}(V)-V$. 
+ Figure~\ref{noise} visualises the similarity of Poisson distribution and Normal distribution with parameter~$V=40$.
 \begin{figure}
   \centering
   % Requires \usepackage{graphicx}
