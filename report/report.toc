@@ -4,6 +4,7 @@
 \contentsline {subsection}{\numberline {2.1}NMF and Gaussian noise}{3}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}KLNMF and Poisson noise}{3}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}Asymptotic equivalence of noise distributions}{5}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Preprocessing}{5}{subsection.2.4}
 \contentsline {section}{\numberline {3}Experiments}{5}{section.3}
-\contentsline {section}{\numberline {4}Conclusion}{5}{section.4}
-\contentsline {section}{\numberline {A}Appendix}{5}{appendix.A}
+\contentsline {section}{\numberline {4}Conclusion}{6}{section.4}
+\contentsline {section}{\numberline {A}Appendix}{6}{appendix.A}
