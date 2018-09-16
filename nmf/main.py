@@ -26,13 +26,13 @@ orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
 parallel_flag = 0
 niter = {
-    "Multiplication KL Divergence": 500,
+    "Multiplication KL Divergence": 1000,
     "Multiplication Euclidean": 1000,
 }
 
 min_error = {
-    "Multiplication KL Divergence": 2.3,
-    "Multiplication Euclidean": 400,
+    "Multiplication KL Divergence": 2,
+    "Multiplication Euclidean": 470,
 }
 model = {
     # "Benchmark (scikit-learn)": algorithm.benchmark,
@@ -41,7 +41,7 @@ model = {
 }
 
 Noise = ["Poisson","Normal"]
-rnd = np.random.RandomState(seed=random_state)
+rnd = np.random.RandomState()
 
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
@@ -59,16 +59,18 @@ def main():
         os.makedirs(folder)
     if argvs[-1] == "orl":
         if os.name == 'nt':
-            train("..\\data\\ORL", folder)
+            #train("..\\data\\ORL", folder)
+            train(".." + os.sep + "data" + os.sep + "ORL", folder)
             # train("data/CroppedYaleB")
         else:
-            train("data/ORL", folder)
+            train("data"+os.sep+"ORL", folder)
             # train("data/CroppedYaleB")
     else:
         if os.name == 'nt':
-            train("..\\data\\CroppedYaleB", folder)
+            #train("..\\data\\CroppedYaleB", folder)
+            train(".."+os.sep+"data" + os.sep + "CroppedYaleB", folder)
         else:
-            train("data/CroppedYaleB", folder)
+            train("data" + os.sep + "CroppedYaleB", folder)
 
 
 
@@ -78,13 +80,19 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
     subVhat, subYhat = Vhat[:, index], Yhat[index]
     for noise_fun in Noise:
         if noise_fun=='Normal':
-            V_noise = np.random.normal(0, 5, subVhat.shape) #* np.sqrt(subVhat)
+            V_noise = np.random.normal(0, 1, subVhat.shape) #* np.sqrt(subVhat)
             V=subVhat+V_noise
-            V[V<=0]=1e-12
+            V[V<0]=0
         elif noise_fun=='Poisson':
             V = np.random.poisson(subVhat)
             V_noise = V-subVhat
-
+        n_samples = len(Vhat)
+        # global centering
+        #V = V - V.mean(axis=0)
+        # local centering
+        #V -= V.mean(axis=1).reshape(n_samples, -1)
+        #V -= V.min()
+        #V = V / V.max()
         # number of clusters
         r = np.unique(Yhat).shape[0]
 
@@ -120,13 +128,6 @@ def train(data_name, folder):
     # load ORL dataset
     print("==> Load {} dataset...".format(data_name))
     Vhat, Yhat = io.load_data(data_name, reduce_scale_orl)
-    n_samples = len(Vhat)
-    # global centering
-    Vhat = Vhat - Vhat.mean(axis=0)
-    # local centering
-    Vhat -= Vhat.mean(axis=1).reshape(n_samples, -1)
-    Vhat -= Vhat.min()
-    #Vhat = Vhat/Vhat.max()
     n = len(Yhat)
     size = int(n * sample_size)
     empty_metric = make_metrics()
