@@ -29,7 +29,7 @@ niter = {
 }
 
 min_error = {
-    "Multiplication KL Divergence": 2.325,
+    "Multiplication KL Divergence": 2.3,
     "Multiplication Euclidean": 470,
 }
 model = {
@@ -43,29 +43,31 @@ Noise = ["Poisson","Normal"]
 
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
-    argvs = sys.argv
-    message = "Please choose one of the two datasets: 'orl' or 'croppedYale'"
-    if len(argvs) < 2:
-        print(message)
-        sys.exit()
-    assert argvs[-1] in ["orl", "croppedYale"], message
+    #argvs = sys.argv
+    #message = "Please choose one of the two datasets: 'orl' or 'croppedYale'"
+    #if len(argvs) < 2:
+    #    print(message)
+    #    sys.exit()
+    #assert argvs[-1] in ["orl", "croppedYale"], message
+    argvs = ["orl"]
     # make a folder with generated time
     folder = datetime.now().strftime("%Y-%m-%d-%H-%M")
     folder = os.path.join("results", folder + "-" + argvs[-1])
     if not os.path.exists(folder):
         os.makedirs(folder)
     if argvs[-1] == "orl":
-        if os.name == 'nt123':
+        if os.name == 'nt':
             train("..\\data\\ORL", folder)
             # train("data/CroppedYaleB")
         else:
             train("data/ORL", folder)
             # train("data/CroppedYaleB")
     else:
-        if os.name == 'nt123':
+        if os.name == 'nt':
             train("..\\data\\CroppedYaleB", folder)
         else:
             train("data/CroppedYaleB", folder)
+
 
 
 def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
@@ -96,7 +98,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
             plotname = "{}_{}_Error_{}_Iteration".format(data_name, name2,
                                                          len(errors))
             print(plotname)
-            path = os.path.join("plots", plotname)
+            path = os.path.join("plots",os.sep, plotname)
             error_vs_iter(errors, len(errors), name2, path)
             Ypred = util.assign_cluster_label(H.T, subYhat)
 
@@ -121,7 +123,15 @@ def train(data_name, folder):
     # load ORL dataset
     print("==> Load {} dataset...".format(data_name))
     Vhat, Yhat = io.load_data(data_name, reduce_scale_orl)
-
+    #import IPython;
+    #IPython.embed()
+    n_samples = len(Vhat)
+    # global centering
+    Vhat = Vhat - Vhat.mean(axis=0)
+    # local centering
+    Vhat -= Vhat.mean(axis=1).reshape(n_samples, -1)
+    Vhat -= Vhat.min()
+    #Vhat = Vhat/Vhat.max()
     n = len(Yhat)
     size = int(n * sample_size)
     metrics = {"rre": {}, "acc": {}, "nmi": {}}
@@ -181,16 +191,16 @@ def train(data_name, folder):
             else:
                 raw_result = pd.DataFrame.from_dict(metrics[i][mname])
                 raw_result.to_csv(filename, mode='a', header=False)
-    import IPython; IPython.embed()
+    #import IPython; IPython.embed()
     for name in model:
         for noise_fun in Noise:
-            rres = metrics["rre"][name+' '+noise_fun]
+            rres = metrics[i]["rre"][name+' '+noise_fun]
             pl.plot(range(epoch), np.log(rres), label=name+' '+noise_fun)
     pl.legend(loc="lower right")
     pl.xlabel("epoch")
     pl.ylabel("relative reconstruction error")
     pl.title("Model comparison of RRE")
-    pl.show()
+    #pl.show()
 
 
 def draw_image(V, subVhat, V_noise, sample_index):
