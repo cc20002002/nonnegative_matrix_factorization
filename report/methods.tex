@@ -1,26 +1,26 @@
 \section{Methods \label{chapter2}}
 \subsection{NMF and Gaussian noise}
 \citet{lee2001algorithms} propose the first \textsc{nmf} with the objective function between imaga~$V$ and its \textsc{nmf} factorisation~$W$ and~$H$ being
-\begin{eqnarray}
+\begin{equation*}
   \left\Vert V-WH \right\Vert= \sum_{ij} \left[V_{ij}-(WH)_{ij}\right]^2.
-\end{eqnarray}
+\end{equation*}
 To minimise this object function of least square, \citet{lee2001algorithms} prove the convergence of the multiplication update rule
-\begin{eqnarray}
+\begin{equation*}
 H_{jk}\leftarrow H_{jk}\frac{(W^{T}V)_{jk}}{(W^{T}WH)_{jk}} \text{ and } W_{ij}\leftarrow W_{ij}\frac{(VH)_{ij}}{(WHH^{H})_{ij}}.
-\end{eqnarray}
+\end{equation*}
 Our lecturer derived this \textsc{nmf} algorithm minimises Gaussian noise in the lecture.
 
 \subsection{KLNMF and Poisson noise}
 \citet{lee2001algorithms} suggest that \textsc{klnmf} is a algorithm that minimising the Kullback-Leibler divergence
 \begin{eqnarray}
-  D(V||WH)&=&\sum_{ij}\left(V_{ij}\log\frac{V_{ij}}{\left(WH\right)_{ij}}-V_{ij}+\left(WH\right)_{ij}\right)\\
+  D(V||WH)&=&\sum_{ij}\left(V_{ij}\log\frac{V_{ij}}{\left(WH\right)_{ij}}-V_{ij}+\left(WH\right)_{ij}\right)\nonumber\\
           &=&\sum_{ij}\left(-V_{ij}\log\left(WH\right)_{ij}+\left(WH\right)_{ij}+C(V_{ij})\right).\label{eq:klobj}
 \end{eqnarray}
 where $C(V_{ij})=V_{ij}\log V_{ij}-V_{ij}$. $C(V_{ij})$ is a function of the observed image matrix~$V$ only.
 \citet{lee2001algorithms} also suggest a multiplication update rule to find as the optimisation procedure of \textsc{klnmf}
-\begin{eqnarray}
+\begin{equation*}
 H_{jk}\leftarrow H_{jk}\frac{\sum_{i}W_{ij}V_{ik}/(WH)_{jk}}{\sum_{i'}W_{i'j}} \text{ and } W_{ij}\leftarrow W_{ij}\frac{\sum_{k}H_{jk}V_{ik}/(WH)_{jk}}{\sum_{k'}H_{ik'}}.
-\end{eqnarray}
+\end{equation*}
 As this original image matrix~$V$ is observed, minimising this Kullback-Leibler divergence~\eqref{eq:klobj} is equivalent to minimising
 \begin{equation*}
   \sum_{ij}\left(-V_{ij}\log\left(WH\right)_{ij}+\left(WH\right)_{ij}+C(V_{ij})\right).
