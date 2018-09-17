@@ -11,8 +11,8 @@ def draw_error(path1, path2):
     for i, path in enumerate([path1, path2]):
         error = pd.read_csv(path)
         niter = int(path.split("_")[-2])
-        dataname = path.split("/")[-1].split("_")[0]
-        algo_name = path.split("/")[-1].split("_Error_")[0].split("_")[-1]
+        dataname = path.split(os.sep)[-1].split("_")[0]
+        algo_name = path.split(os.sep)[-1].split("_Error_")[0].split("_")[-1]
         x = min(len(error), niter)
         pl.subplot(1, 2, i + 1)
         pl.plot(np.arange(x), np.log(error))

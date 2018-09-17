@@ -133,7 +133,7 @@ def train(data_name, folder):
     """Run NMF on data stored in data_name."""
     # load ORL dataset
     print("==> Load {} dataset...".format(data_name))
-    Vhat, Yhat = io.load_data(data_name, scale[data_name.split("/")[-1]])
+    Vhat, Yhat = io.load_data(data_name, scale[data_name.split(os.sep)[-1]])
     n = len(Yhat)
     size = int(n * sample_size)
     empty_metric = make_metrics()
@@ -214,26 +214,6 @@ def make_metrics():
             metrics["nmi"][name] = []
     return metrics
 
-
-def draw_image(V, subVhat, V_noise, sample_index):
-    """Draw image before and after adding noise."""
-    img_size = [x // reduce_scale_orl for x in orl_img_size]
-    reshape_size = [img_size[1], img_size[0]]
-    V_processed = util.unity_normalise(V)
-    pl.figure(figsize=(10,6))
-    pl.subplot(221)
-    pl.imshow(subVhat[:, sample_index].reshape(reshape_size), cmap=cmap)
-    pl.title('Image(Original)')
-    pl.subplot(222)
-    pl.imshow(V_noise[:, sample_index].reshape(reshape_size), cmap=cmap)
-    pl.title('Noise')
-    pl.subplot(223)
-    pl.imshow(V[:, sample_index].reshape(reshape_size), cmap=cmap)
-    pl.title('Image(Noise)')
-    pl.subplot(224)
-    pl.imshow(V_processed[:, sample_index].reshape(reshape_size), cmap=cmap)
-    pl.title('Image(Preprocessed)')
-    pl.show()
 
 if __name__ == "__main__":
     main()
