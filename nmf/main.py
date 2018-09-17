@@ -106,6 +106,9 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
                                                              len(errors))
                 path = os.path.join(folder, plotname)
                 error_vs_iter(errors, niter[name2], name2, path)
+                # save errors to disk as well
+                with open("{}.csv".format(path), "w") as f:
+                    f.write(errors)
             Ypred = util.assign_cluster_label(H.T, subYhat)
 
             # evaluate metrics
