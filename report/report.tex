@@ -1,4 +1,4 @@
-\documentclass[a5paper,english,11pt]{article}
+\documentclass[a5paper,english,12pt]{article}
 \usepackage{titlesec}
 
 \usepackage[a5]{cc}
@@ -9,16 +9,17 @@
 \titleformat*{\section}{\color{Brown}\normalfont\bfseries\Large}
 \usepackage{prettyref}
 \usepackage{amsthm}
-\usepackage{euler,amsmath}
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{float}
 \usepackage{natbib}
 \bibliographystyle{unsrtnat}
 \PassOptionsToPackage{normalem}{ulem}
 \usepackage{ulem}
-
+\usepackage{mathptmx}
 \usepackage{framed}
 \usepackage{array}
+\usepackage{csvsimple,longtable,booktabs}
 \newlength{\mycolwidth}
 \settowidth{\mycolwidth}{2cm} % widest entry
 
@@ -75,6 +76,7 @@
 \usepackage{amsfonts}
 \usepackage{amscd}
 \usepackage{bm}
+\usepackage{euler}
 \usepackage{url}
 %\graphicspath{resource/}
 %\graphicspath{./resource/}
@@ -153,7 +155,7 @@ commentstyle=\color{green!50!black}}
 \usepackage[UKenglish]{babel}
 %\includeonly{chapter3/chapter3}
 \title{Assignment 1---Group: }
-\author{Chen Chen (123123123), Dania(123123123), Joyce(123123123)}
+\author{Chen Chen (480458339), Xiaodan Gan(440581983), Joyce(123123123)}
 \makeatother
 
 \begin{document}
@@ -164,7 +166,7 @@ commentstyle=\color{green!50!black}}
 \tableofcontents{}
 
 \input{introduction}
-
+\input{relatedWork}
 \input{methods}
 
 \input{experiments}
