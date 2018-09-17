@@ -41,10 +41,13 @@ model = {
     "Multiplication Euclidean": algorithm.multiplication_euclidean,
 }
 
-Noise = {"Poisson": noise.possion,
-         "Normal": noise.normal,
-         "Random": noise.random,
+Noise = {
+    "No Noise": noise.identity,
+    "Poisson": noise.possion,
+    "Normal": noise.normal,
+    "Random": noise.random,
 }
+
 rnd = np.random.RandomState()
 
 def main():
@@ -86,6 +89,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
         # add noise
         V, V_noise = Noise[noise_fun](subVhat)
         n_samples = len(Vhat)
+
         # global centering
         #V = V - V.mean(axis=0)
         # local centering

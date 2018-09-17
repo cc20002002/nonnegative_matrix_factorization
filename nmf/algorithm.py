@@ -75,6 +75,7 @@ def multiplication_euclidean(V, r,niter,min_error1):
         The new representation of image data V
 
     """
+    print("Multiplication Euclidean Training...")
     m=V.shape[0]
     n=V.shape[1]
     W=np.random.rand(m,r)
@@ -112,6 +113,7 @@ def multiplication_divergence(V, r,niter,min_error):
         The new representation of image data V
 
     """
+    print("Multiplication KL Divergence Training...")
     m=V.shape[0]
     n=V.shape[1]
     W=np.random.rand(m,r)

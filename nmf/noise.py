@@ -28,3 +28,9 @@ def random(subVhat):
         V[i, j] = 0
     V_noise = V - subVhat
     return V, V_noise
+
+
+def identity(subVhat):
+    """Add no noise to image."""
+    V_noise = np.zeros(subVhat.shape)
+    return subVhat, V_noise
