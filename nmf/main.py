@@ -27,12 +27,12 @@ yaleB_img_size = (168, 192)
 parallel_flag = 0
 niter = {
     "Multiplication KL Divergence": 1000,
-    "Multiplication Euclidean": 1000,
+    "Multiplication Euclidean": 2000,
 }
 
 min_error = {
     "Multiplication KL Divergence": 2,
-    "Multiplication Euclidean": 470,
+    "Multiplication Euclidean": 400,
 }
 model = {
     # "Benchmark (scikit-learn)": algorithm.benchmark,
@@ -103,7 +103,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
             if parallel_flag == 0:
                 data_name = folder.split("-")[-1]
                 plotname = "{}_{}_Error_{}_Iteration".format(data_name, name2,
-                                                             len(errors))
+                                                             niter[name2])
                 path = os.path.join(folder, plotname)
                 error_vs_iter(errors, niter[name2], name2, path)
                 # save errors to disk as well
