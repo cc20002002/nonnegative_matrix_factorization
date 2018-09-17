@@ -19,13 +19,11 @@ def error_vs_iter(error, niter, algo_name, path):
     """Plot error versus iteration."""
     dataname = path.split("/")[1].split("-")[-1]
     x = min(len(error), niter)
-    fig = pl.figure()
-    ax = pl.subplot(111)
-    ax.plot(np.arange(x), np.log(error))
-    ax.set_xlabel("Iteration")
-    ax.set_ylabel("Error")
-    yticks = ax.get_yticks()
-    ax.set_yticks(np.exp(yticks[1:]))
+    pl.plot(np.arange(x), np.log(error))
+    newticks = round(np.exp(pl.yticks()[0]), 2)
+    pl.yticks(pl.yticks()[0], newticks)
+    pl.xlabel("Iteration")
+    pl.ylabel("Error (Log Scale)")
     pl.title("{} {} Training Error versus {} Iteration"
              .format(dataname, algo_name, niter))
     pl.savefig(path)
