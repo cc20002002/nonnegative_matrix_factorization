@@ -1,4 +1,19 @@
 \section{Methods \label{chapter2}}
+\subsection{Noise Design}
+\textsc{NMF} is expected to be rubost to various noises. Robust algorithms has to successfully reduce the amount of noise while preserving the edges and has no blurring effect on the image (citation https://www.hindawi.com/journals/aaa/2013/856876/). Here we design three kinds of noises, i.e. Gaussian noise, Poisson noise, and Salt \& Pepper noise. \newline 
+\textbf{Gaussian noise} is a statistical noise having a probability density function equal to that of the normal distribution. \textbf{Poisson noise} or shot noise is a type of electronic noise that
+occurs when the finite number of particles that carry energy,
+such as electrons in an electronic circuit or photons in an optical
+device, is small enough to give rise to detectable statistical
+fluctuations in a measurement. An image containing \textbf{Salt \& Pepper noise} noise will have dark pixels
+in bright regions and bright pixels in dark regions (\citet{sampat2005computer}).
+\begin{figure}[h]
+	\includegraphics[width=4.5cm, height=3cm]{Noise_ORL_Normal_Comparison.png}
+	\includegraphics[width=4.5cm, height=3cm]{Noise_ORL_Poisson_Comparison.png}
+	\includegraphics[width=4.5cm, height=3cm]{Noise_ORL_Salt_and_Pepper_Comparison.png}
+	\caption{Illustration of Gaussian Noise, Poisson Noise, and Salt \& Pepper Noise}
+	\label{fig:noise}
+\end{figure}
 \subsection{NMF and Gaussian noise}
 \citet{lee2001algorithms} propose the first \textsc{nmf} with the objective function between imaga~$V$ and its \textsc{nmf} factorisation~$W$ and~$H$ being
 \begin{equation*}
