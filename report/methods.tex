@@ -51,6 +51,8 @@ is a sufficient condition to yield this likelihood. Hence \textsc{klnmf} is most
   \includegraphics[scale=1]{resource/noise}\\
   \caption{Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname{Poi}(40)-40$. They two distributions are asymptotically equivalent and have similar density functions.}\label{noise}
 \end{figure}
+
+\csvautobooktabular{{"../results/statistics".csv}}
 \subsection{Preprocessing}
 We apply global centring and local centring to preprocess the image data~\texttt{Vhat}
 \begin{lstlisting}[caption=Centring image data, label=matn1]
