@@ -105,7 +105,7 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
                 plotname = "{}_{}_Error_{}_Iteration".format(data_name, name2,
                                                              len(errors))
                 path = os.path.join(folder, plotname)
-                error_vs_iter(errors, len(errors), name2, path)
+                error_vs_iter(errors, niter[name2], name2, path)
             Ypred = util.assign_cluster_label(H.T, subYhat)
 
             # evaluate metrics
