@@ -20,11 +20,12 @@ sample_size = 0.9
 epoch = 2
 cmap = pl.cm.Greys
 random_state = 0
-reduce_scale_yaleB = 4
-reduce_scale_orl = 3
 orl_img_size = (92, 112)
 yaleB_img_size = (168, 192)
 parallel_flag = 0
+
+scale = { "ORL": 3, "CroppedYaleB": 4}
+
 niter = {
     "Multiplication KL Divergence": 1000,
     "Multiplication Euclidean": 2000,
@@ -128,7 +129,7 @@ def train(data_name, folder):
     """Run NMF on data stored in data_name."""
     # load ORL dataset
     print("==> Load {} dataset...".format(data_name))
-    Vhat, Yhat = io.load_data(data_name, reduce_scale_orl)
+    Vhat, Yhat = io.load_data(data_name, scale[data_name.split("/")[-1]])
     n = len(Yhat)
     size = int(n * sample_size)
     empty_metric = make_metrics()
