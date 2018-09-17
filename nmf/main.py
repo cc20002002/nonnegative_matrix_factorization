@@ -33,7 +33,7 @@ niter = {
 
 min_error = {
     "Multiplication KL Divergence": 2,
-    "Multiplication Euclidean": 400,
+    "Multiplication Euclidean": 300,
 }
 model = {
     # "Benchmark (scikit-learn)": algorithm.benchmark,
