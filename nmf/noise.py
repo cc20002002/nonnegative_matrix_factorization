@@ -17,16 +17,14 @@ def possion(subVhat):
     return V, V_noise
 
 
-def random(subVhat):
-    """Design a random noise where make some pixel value zeros."""
-    size = 0.3
-    nrow, ncol = subVhat.shape
-    row_index = np.random.choice(nrow, int(nrow * size))
-    col_index = np.random.choice(ncol, int(ncol * size))
+def salt_and_pepper(subVhat):
+    """Design a salt and pepper noise where make some pixel value zeros."""
+    # obtain one Image
+    image = subVhat[:, 0]
+    V_noise = np.random.randint(low=0, high=255, size=subVhat.shape, dtype=int)
     V = subVhat.copy()
-    for i, j in zip(row_index, col_index):
-        V[i, j] = 0
-    V_noise = V - subVhat
+    V[V_noise <= 20] = 0
+    V[V_noise >= 230] = 255
     return V, V_noise
 
 

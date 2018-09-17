@@ -29,24 +29,3 @@ def error_vs_iter(error, niter, algo_name, path):
     pl.title("{} {} Training Error versus {} Iteration"
              .format(dataname, algo_name, niter))
     pl.savefig(path)
-
-
-def draw_image(V, subVhat, V_noise, sample_index):
-    """Draw image before and after adding noise."""
-    img_size = [x // reduce_scale_orl for x in orl_img_size]
-    reshape_size = [img_size[1], img_size[0]]
-    V_processed = util.unity_normalise(V)
-    pl.figure(figsize=(10,6))
-    pl.subplot(221)
-    pl.imshow(subVhat[:, sample_index].reshape(reshape_size), cmap=cmap)
-    pl.title('Image(Original)')
-    pl.subplot(222)
-    pl.imshow(V_noise[:, sample_index].reshape(reshape_size), cmap=cmap)
-    pl.title('Noise')
-    pl.subplot(223)
-    pl.imshow(V[:, sample_index].reshape(reshape_size), cmap=cmap)
-    pl.title('Image(Noise)')
-    pl.subplot(224)
-    pl.imshow(V_processed[:, sample_index].reshape(reshape_size), cmap=cmap)
-    pl.title('Image(Preprocessed)')
-    pl.show()

@@ -15,25 +15,22 @@ from numba import jit
 from numba import vectorize, float64, int64
 
 # Configuration
-sample_index = 100
 sample_size = 0.9
 epoch = 2
-cmap = pl.cm.Greys
 random_state = 0
-orl_img_size = (92, 112)
-yaleB_img_size = (168, 192)
 parallel_flag = 0
 
 scale = { "ORL": 3, "CroppedYaleB": 4}
+img_size = {"ORL": (92, 112), "CroppedYaleB": (168, 192)}
 
 niter = {
-    "Multiplication KL Divergence": 1000,
-    "Multiplication Euclidean": 2000,
+    "Multiplication KL Divergence": 500,
+    "Multiplication Euclidean": 1000,
 }
 
 min_error = {
-    "Multiplication KL Divergence": 2,
-    "Multiplication Euclidean": 300,
+    "Multiplication KL Divergence": 2.3,
+    "Multiplication Euclidean": 470,
 }
 model = {
     # "Benchmark (scikit-learn)": algorithm.benchmark,
@@ -45,7 +42,7 @@ Noise = {
     "No Noise": noise.identity,
     "Poisson": noise.possion,
     "Normal": noise.normal,
-    "Random": noise.random,
+    "Salt and Pepper": noise.salt_and_pepper,
 }
 
 rnd = np.random.RandomState()
