@@ -3,7 +3,7 @@ import sys
 from datetime import datetime
 import numpy as np
 import pandas as pd
-from nmf import io, util, metric, algorithm
+from nmf import io, util, metric, algorithm, noise
 from util import error_vs_iter
 import matplotlib.pyplot as pl
 
@@ -40,7 +40,10 @@ model = {
     "Multiplication Euclidean": algorithm.multiplication_euclidean,
 }
 
-Noise = ["Poisson","Normal"]
+Noise = {"Poisson": noise.possion,
+         "Normal": noise.normal,
+         "Random": noise.random,
+}
 rnd = np.random.RandomState()
 
 def main():
@@ -79,13 +82,8 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
     index = rnd.choice(np.arange(n), size, replace=False)
     subVhat, subYhat = Vhat[:, index], Yhat[index]
     for noise_fun in Noise:
-        if noise_fun=='Normal':
-            V_noise = np.random.normal(0, 1, subVhat.shape) #* np.sqrt(subVhat)
-            V=subVhat+V_noise
-            V[V<0]=0
-        elif noise_fun=='Poisson':
-            V = np.random.poisson(subVhat)
-            V_noise = V-subVhat
+        # add noise
+        V, V_noise = Noise[noise_fun](subVhat)
         n_samples = len(Vhat)
         # global centering
         #V = V - V.mean(axis=0)

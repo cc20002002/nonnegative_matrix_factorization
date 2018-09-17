@@ -59,6 +59,10 @@ docs/_build
 # Cookiecutter
 output/
 
+# plots and results
+plots/*
+results/2018*
+
 literature/*
 # report latex
 report/*.aux
