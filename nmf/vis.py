@@ -28,7 +28,9 @@ def draw_error(path1, path2):
         pl.title("{} {} Error versus {} Iteration"
                  .format(dataname, algo_name, niter))
     # pl.show()
-    pl.savefig("Error.pdf")
+
+    pl.savefig("Error.pdf", bbox_inches="tight")
+
 
 def draw_error2():
     """Draw training error of two algorithms together."""
@@ -73,7 +75,7 @@ def draw_noise(dataname):
     for noise_name in main.Noise:
         if noise_name == "No Noise":
             continue
-        noise_path = "Noise_{}_{}_Comparison".format(dataname, noise_name)
+        noise_path = "Noise_{}_{}_Comparison.pdf".format(dataname, noise_name)
         V, V_noise = main.Noise[noise_name](Vhat)
         img_size = [x // my_scale for x in my_img_size]
         reshape_size = [img_size[1], img_size[0]]
@@ -88,7 +90,9 @@ def draw_noise(dataname):
         pl.imshow(V[:, sample_index].reshape(reshape_size), cmap=cmap)
         pl.title('Image (with {} Noise)'.format(noise_name))
         print("Saving to", noise_path)
-        pl.savefig(noise_path+'.pdf')
+        pl.savefig(noise_path+'.pdf', bbox_inches="tight")
+
+
 
 
 if __name__ == "__main__":
