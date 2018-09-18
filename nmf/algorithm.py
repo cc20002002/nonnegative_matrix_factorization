@@ -76,8 +76,8 @@ def multiplication_euclidean(V, r,niter,min_error1):
     print("Multiplication Euclidean Training...")
     m=V.shape[0]
     n=V.shape[1]
-    W=np.random.rand(m,r)
-    H=np.random.rand(r,n)
+    W=np.random.rand(m,r)*255
+    H=np.random.rand(r,n)*255
 
 
     error = []
@@ -114,8 +114,8 @@ def multiplication_euclidean_regularized(V, r,niter,min_error1,regu=10,mu=0,nu=0
     print("Multiplication Euclidean regularized Training...")
     m=V.shape[0]
     n=V.shape[1]
-    W=np.random.rand(m,r)
-    H=np.random.rand(r,n)
+    W=np.random.rand(m,r)*255
+    H=np.random.rand(r,n)*255
     #W -= W.min()
     #W = W / W.max()
     error = []
@@ -157,8 +157,8 @@ def multiplication_divergence(V, r,niter,min_error):
     print("Multiplication KL Divergence Training...")
     m=V.shape[0]
     n=V.shape[1]
-    W=np.random.rand(m,r)
-    H=np.random.rand(r,n)
+    W=np.random.rand(m,r)*255
+    H=np.random.rand(r,n)*255
     #VWH = np.zeros(V.size)
     Oness=np.ones((m, n))
     error = []
@@ -197,8 +197,8 @@ def multiplication_divergence2(V, r,niter,min_error):
     print("Multiplication KL Divergence Training...")
     m=V.shape[0]
     n=V.shape[1]
-    W=np.random.rand(m,r)
-    H=np.random.rand(r,n)
+    W=np.random.rand(m,r)*255
+    H=np.random.rand(r,n)*255
     #VWH = np.zeros(V.size)
 
     error = []

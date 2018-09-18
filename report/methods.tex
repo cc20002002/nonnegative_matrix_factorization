@@ -9,9 +9,9 @@ Some carefully designed \textsc{nmf} are robust to various noises. These robust 
 	\includegraphics[scale=.8]{Noise_ORL_Normal_Comparison}\\ %replace these with jpg files with appropriate size
 	\includegraphics[scale=.8]{Noise_ORL_Poisson_Comparison}\\
 	\includegraphics[scale=.8]{Noise_ORL_Salt_and_Pepper_Comparison}
-	\caption{Illustration of Gaussian Noise, Poisson Noise, and Salt \& Pepper Noise}
+	\caption{The original images (left) are corrupted by Gaussian Noise (top), Poisson Noise (middle), and Salt \& Pepper Noise (bottom). The corrupted images are shown on the right.}
 	\label{fig:noise}
-\end{figure}}
+\end{figure}
 \subsection{NMF and Gaussian noise}
 \textbf{Gaussian noise} is a noise with a probability density function being normal with mean zero. \citet{lee2001algorithms} propose the first \textsc{nmf} with the objective function between imaga~$V$ and its \textsc{nmf} factorisation~$W$ and~$H$ being
 \begin{equation}
@@ -70,25 +70,39 @@ is a sufficient condition to yield this likelihood. Hence \textsc{klnmf} is most
   \includegraphics[scale=1]{resource/noise}\\
   \caption{Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname{Poi}(40)-40$. They two distributions are asymptotically equivalent and have similar density functions.}\label{noise}
 \end{figure}
-%\subsection{Salt \& Pepper noise}
-%An image containing \textbf{Salt \& Pepper noise} noise will have dark pixels in bright regions and bright pixels in dark regions \citep{sampat2005computer}.
 
-\subsection{Multiple initial estimates avoids local minima}
+\subsection{Multiple initial estimates avoid local minima}
 As discussed in the section of related work. 
 The problem of nonnegative matrix factorization is not a convex problem. 
 Hence the results update rules~\eqref{eq:nmf} and~\eqref{eq:klnmf} coverage to may be local minima instead of global minima. 
-To address this issue, we implement several initial estimates for each matrix factorization problem. 
-We use the factorized matrices~$W$ and~$H$ corresponding to the least objective function~\eqref{eq:obnmf} and~\eqref{eq:klobj}, for \textsc{nmf} and~\textsc{klnmf}, algorithms respectively, as the final result of factorization.
-This 
-
-\csvautobooktabular{{"../results/statistics".csv}}
-\subsection{Preprocessing}
-We apply global centring and local centring to preprocess the image data~\texttt{Vhat}
+To address this issue, we implement several (i.e. $n$) initial estimates for each matrix factorization problem. 
+We use the factorized matrices~$W$ and~$H$ corresponding to the least residual~\eqref{eq:obnmf} and~\eqref{eq:klobj}, for \textsc{nmf} and~\textsc{klnmf}, algorithms respectively, as the final result of factorization.
+This design of multiple starting point improves the stability of of algorithm, but it requires more computational power. To improve the computational speed, we make the number~$n$ equal to the number of cores of the \textsc{cpu}. We assign each of the $n$ initial estimates randomly with an uniform distribution. Then these each of the $n$ initial estimates are assigned to a different core of the \textsc{cpu}. This boost the \textsc{cpu} utilisation to 100\% instantly and improved the computational speed by 70\% on the \textsc{orl} data. The following part of our code implements this idea of parallel computing. 
 \begin{lstlisting}[caption=Centring image data, label=matn1]
-n_samples = len(Vhat)
-# global centering
-Vhat = Vhat - Vhat.mean(axis=0)
-# local centering
-Vhat -= Vhat.mean(axis=1).reshape(n_samples, -1)
-Vhat -= Vhat.min()
+args = zip(repeat(V,ncpu), repeat(r,ncpu), repeat(niter[name2],ncpu), repeat(min_error[name2],ncpu))
+result = pool.starmap(algo, args)   
 \end{lstlisting}
+where \texttt{algo} is the \textsc{nmf} algorithm and \texttt{niter} is the number of iterations.
+
+\subsection{KLNMF requires more iterations}
+\textsc{klnmf} converges slower than \textsc{nmf}. We made the plot of the logarithm of residual~\eqref{eq:obnmf} and~\eqref{eq:klobj} with respect to the logarithm of the number of iterations. We measured the slope of the log-log plot for both algorithms and found that the slope of the \textsc{nmf} residual plot is $2.5$ times as that of the \textsc{klnmf} plot (Figure~\ref{error}). This estimates that the rate of convergence of \textsc{nmf} is $2.5$ faster than \textsc{klnmf}. As a result, we set the number of iterations as $500$ and $1200$ for \textsc{nmf} and \textsc{klnmf} algorithms, respectively (i.e. roughtly $2.5$ more iterations).
+ \begin{figure}
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale=.8]{../2018-09-18-18-41-orl/error}\\
+  \caption{Residual of objective function~\eqref{eq:obnmf} and~\eqref{eq:klobj} versus the number of iterations. \textsc{nmf} converges more than twice faster than \textsc{klnmf}.}\label{error}
+\end{figure}
+
+\subsection{Salt \& Pepper noise}
+Apart from Gaussian and Poisson noises, we also test our two algorithms on the commonly seen \textbf{Salt \& Pepper noise} noise. The noise presents itself by having dark pixels in bright regions and bright pixels in dark regions \citep{sampat2005computer}.
+%\csvautobooktabular{{"../results/statistics".csv}}
+%\subsection{Preprocessing}
+%We apply global centring and local centring to preprocess the image data~\texttt{Vhat}
+%\begin{lstlisting}[caption=Centring image data, label=matn1]
+%n_samples = len(Vhat)
+%# global centering
+%Vhat = Vhat - Vhat.mean(axis=0)
+%# local centering
+%Vhat -= Vhat.mean(axis=1).reshape(n_samples, -1)
+%Vhat -= Vhat.min()
+%\end{lstlisting}

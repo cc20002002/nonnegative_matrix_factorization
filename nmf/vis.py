@@ -34,30 +34,36 @@ def draw_error(path1, path2):
 
 def draw_error2():
     """Draw training error of two algorithms together."""
-    pl.figure(figsize=(15, 6))
-    f1='orl_Multiplication Euclidean_Error_500_Iteration.csv'
-    f2='orl_Multiplication KL Divergence_Error_1200_Iteration.csv'
-    e1=pd.read_csv(f1)
-    e2=pd.read_csv(f2)
-    e=[e1,e2]    
-    for ii in range(2):
-        error = e[ii]    
-        niter = max(int(f1.split("_")[-2]),int(f2.split("_")[-2]))    
-        x = min(len(error), niter)
-        #pl.subplot(1, 2, i + 1)
-        pl.loglog(np.arange(x), error)
-        #newticks = np.around(np.exp(pl.yticks()[0]), decimals=2)
-        #pl.yticks(pl.yticks()[0], newticks)
-    pl.xlabel("Iteration")
-    pl.ylabel("Training Error")
-    pl.title("Error versus {} Iteration"
-                .format(niter))
-    # pl.show()
-    pl.savefig("Error.pdf")
-    e11=e1.iloc[100:]
-    e22=e2.iloc[100:]
-    e11.iloc[0]/e11.iloc[15]
-    e22.iloc[0]/e22.iloc[100]
+pl.figure(figsize=(6, 5))
+f1='orl_Multiplication Euclidean_Error_500_Iteration.csv'
+f2='orl_Multiplication KL Divergence_Error_1200_Iteration.csv'
+e1=pd.read_csv(f1)
+e2=pd.read_csv(f2)
+e=[e1,e2*20]    
+
+
+for ii in range(2):
+    error = e[ii]    
+    niter = max(int(f1.split("_")[-2]),int(f2.split("_")[-2]))    
+    x = min(len(error), niter)
+    #pl.subplot(1, 2, i + 1)
+    pl.loglog(np.arange(x), error)
+    #newticks = np.around(np.exp(pl.yticks()[0]), decimals=2)
+    #pl.yticks(pl.yticks()[0], newticks)
+pl.figure(figsize=(6, 5))
+pl.loglog(np.arange(500), e1)
+pl.loglog(np.arange(x), e2*190)
+pl.xlabel("Iteration")
+pl.ylabel("Training Error")
+pl.title("Error versus Iteration")
+
+pl.legend(('NMF','KLNMF'))
+pl.show()
+pl.savefig("Error.pdf")
+e11=e1.iloc[100:]
+e22=e2.iloc[100:]
+e11.iloc[0]/e11.iloc[15]
+e22.iloc[0]/e22.iloc[100]
 
 def draw_noise(dataname):
     """Draw image before and after adding noise."""

@@ -4,9 +4,10 @@
 \BOOKMARK [2][]{subsection.3.1}{NMF and Gaussian noise}{section.3}% 4
 \BOOKMARK [2][]{subsection.3.2}{KLNMF and Poisson noise}{section.3}% 5
 \BOOKMARK [2][]{subsection.3.3}{Gaussian and Poisson are asymptotic equivalent}{section.3}% 6
-\BOOKMARK [2][]{subsection.3.4}{Multiple initial estimates avoids local minima}{section.3}% 7
-\BOOKMARK [2][]{subsection.3.5}{Preprocessing}{section.3}% 8
-\BOOKMARK [1][]{section.4}{Experiments}{}% 9
-\BOOKMARK [2][]{subsection.4.1}{Noise}{section.4}% 10
-\BOOKMARK [1][]{section.5}{Conclusion}{}% 11
-\BOOKMARK [1][]{appendix.A}{Appendix}{}% 12
+\BOOKMARK [2][]{subsection.3.4}{Multiple initial estimates avoid local minima}{section.3}% 7
+\BOOKMARK [2][]{subsection.3.5}{KLNMF requires more iterations}{section.3}% 8
+\BOOKMARK [2][]{subsection.3.6}{Salt \046 Pepper noise}{section.3}% 9
+\BOOKMARK [1][]{section.4}{Experiments}{}% 10
+\BOOKMARK [2][]{subsection.4.1}{Noise}{section.4}% 11
+\BOOKMARK [1][]{section.5}{Conclusion}{}% 12
+\BOOKMARK [1][]{appendix.A}{Appendix}{}% 13
