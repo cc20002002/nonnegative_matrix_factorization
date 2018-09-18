@@ -52,6 +52,10 @@ def draw_error2():
                 .format(niter))
     # pl.show()
     pl.savefig("Error.pdf")
+    e11=e1.iloc[100:]
+    e22=e2.iloc[100:]
+    e11.iloc[0]/e11.iloc[15]
+    e22.iloc[0]/e22.iloc[100]
 
 def draw_noise(dataname):
     """Draw image before and after adding noise."""

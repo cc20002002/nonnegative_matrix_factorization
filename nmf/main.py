@@ -24,26 +24,26 @@ scale = { "ORL": 3, "CroppedYaleB": 4}
 img_size = {"ORL": (92, 112), "CroppedYaleB": (168, 192)}
 
 niter = {
-    #"Multiplication KL Divergence": 1200,
+    "Multiplication KL Divergence": 1200,
     "Multiplication Euclidean": 500,
-    "Multiplication Euclidean regularized": 500,
+    #"Multiplication Euclidean regularized": 500,
 }
 
 min_error = {
-   # "Multiplication KL Divergence": 2.3,
+    "Multiplication KL Divergence": 2.3,
     "Multiplication Euclidean": 200,
-    "Multiplication Euclidean regularized": 200,
+    #"Multiplication Euclidean regularized": 200,
 }
 model = {
     # "Benchmark (scikit-learn)": algorithm.benchmark,
-    #"Multiplication KL Divergence": algorithm.multiplication_divergence,
+    "Multiplication KL Divergence": algorithm.multiplication_divergence,
     "Multiplication Euclidean": algorithm.multiplication_euclidean,
-    "Multiplication Euclidean regularized": algorithm.multiplication_euclidean_regularized,
+    #"Multiplication Euclidean regularized": algorithm.multiplication_euclidean_regularized,
 }
 
 Noise = {
-    "No Noise": noise.identity,
-    #"Poisson": noise.possion,
+    #"No Noise": noise.identity,
+    "Poisson": noise.possion,
     "Normal": noise.normal,
     #"Salt and Pepper": noise.salt_and_pepper,
 }
@@ -104,7 +104,21 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
         for name, algo in model.items():
             name2=name
             name=name+' '+noise_fun
-            W, H, errors = algo(V, r, niter[name2], min_error[name2])
+            ncpu=os.cpu_count()
+            pool = multiprocessing.Pool(ncpu)
+            m=Vhat.shape[0]
+            n=Vhat.shape[1]
+            #W0=[np.random.rand(m,r) for i in range(ncpu)]
+            #H0=[np.random.rand(r,n) for i in range(ncpu)]
+            
+            args = zip(repeat(V,ncpu), repeat(r,ncpu),repeat(niter[name2],ncpu),repeat(min_error[name2],ncpu))
+            result = pool.starmap(algo, args)   
+            #import IPython; IPython.embed()
+            pool.close()
+            pool.join()
+            errors_n=[i[2][-1] for i in result]
+            W, H, errors = result[errors_n.index(min(errors_n))]
+            #W, H, errors = algo(V, r, niter[name2], min_error[name2])
             # plot error versus iteration only when non-paralle
             if parallel_flag == 0:
                 data_name = folder.split("-")[-1]

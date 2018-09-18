@@ -79,6 +79,7 @@ def multiplication_euclidean(V, r,niter,min_error1):
     W=np.random.rand(m,r)
     H=np.random.rand(r,n)
 
+
     error = []
     for i in tqdm(range(niter)):
         H=H*(W.T@V)/(W.T@W@H)
