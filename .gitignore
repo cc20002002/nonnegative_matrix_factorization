@@ -60,7 +60,6 @@ docs/_build
 output/
 
 # plots and results
-plots/*
 results/2018*
 
 literature/*
