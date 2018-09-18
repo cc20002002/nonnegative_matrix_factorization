@@ -1,46 +1,13 @@
 """Utility functions for NMF."""
+import os
 import numpy as np
 from collections import Counter
 import matplotlib.pyplot as pl
 from sklearn.cluster import KMeans
 
 
-def unity_normalise(data):
-    """Apply unity normalisation to preprocess non-negative image data.
-
-    Parameters
-    ----------
-    data: np.ndarray (d, n) where d is the number of pixel
-        The image dataset.
-
-    Returns
-    -------
-    normalised_data: np.ndarray(n, d)
-        The unity-normalised image data. (still non-negative)
-
-    """
-    col_min = np.min(data, axis=0)
-    col_max = np.max(data, axis=0)
-    normalised_data = (data - col_min) / (col_max - col_min)
-    return normalised_data
-
-
 def assign_cluster_label(X, Y):
-    """Cluster X based on number of unique labels in Y.
-
-    Parameters
-    ----------
-    X: np.ndarray (d, n) where d is the number of pixel
-        The contaminated image dataset
-    Y: np.ndarray (n,)
-        The label of images
-
-    Returns
-    -------
-    Y_pred: np.ndarray(n, )
-        The Kmeans predicted clustering label
-
-    """
+    """Cluster X based on number of unique labels in Y."""
     kmeans = KMeans(n_clusters=len(set(Y))).fit(X)
     Y_pred = np.zeros(Y.shape)
     for i in set(kmeans.labels_):
@@ -51,9 +18,14 @@ def assign_cluster_label(X, Y):
 
 def error_vs_iter(error, niter, algo_name, path):
     """Plot error versus iteration."""
-    pl.figure()
-    pl.plot(np.arange(niter), error)
+    dataname = path.split(os.sep)[1].split("-")[-1]
+    x = min(len(error), niter)
+    pl.figure(figsize=(10, 6))
+    pl.plot(np.arange(x), np.log(error))
+    newticks = np.around(np.exp(pl.yticks()[0]), decimals=2)
+    pl.yticks(pl.yticks()[0], newticks)
     pl.xlabel("Iteration")
-    pl.ylabel("Error")
-    pl.title("{} Training Error versus {} Iteration".format(algo_name, niter))
+    pl.ylabel("Error (Log Scale)")
+    pl.title("{} {} Training Error versus {} Iteration"
+             .format(dataname, algo_name, niter))
     pl.savefig(path)
