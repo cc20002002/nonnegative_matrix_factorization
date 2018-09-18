@@ -30,6 +30,28 @@ def draw_error(path1, path2):
     # pl.show()
     pl.savefig("Error.pdf")
 
+def draw_error2():
+    """Draw training error of two algorithms together."""
+    pl.figure(figsize=(15, 6))
+    f1='orl_Multiplication Euclidean_Error_500_Iteration.csv'
+    f2='orl_Multiplication KL Divergence_Error_1200_Iteration.csv'
+    e1=pd.read_csv(f1)
+    e2=pd.read_csv(f2)
+    e=[e1,e2]    
+    for ii in range(2):
+        error = e[ii]    
+        niter = max(int(f1.split("_")[-2]),int(f2.split("_")[-2]))    
+        x = min(len(error), niter)
+        #pl.subplot(1, 2, i + 1)
+        pl.loglog(np.arange(x), error)
+        #newticks = np.around(np.exp(pl.yticks()[0]), decimals=2)
+        #pl.yticks(pl.yticks()[0], newticks)
+    pl.xlabel("Iteration")
+    pl.ylabel("Training Error")
+    pl.title("Error versus {} Iteration"
+                .format(niter))
+    # pl.show()
+    pl.savefig("Error.pdf")
 
 def draw_noise(dataname):
     """Draw image before and after adding noise."""

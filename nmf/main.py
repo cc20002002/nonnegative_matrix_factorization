@@ -24,26 +24,26 @@ scale = { "ORL": 3, "CroppedYaleB": 4}
 img_size = {"ORL": (92, 112), "CroppedYaleB": (168, 192)}
 
 niter = {
-    "Multiplication KL Divergence": 1200,
+    #"Multiplication KL Divergence": 1200,
     "Multiplication Euclidean": 500,
-    #"Multiplication Euclidean regularized": 500,
+    "Multiplication Euclidean regularized": 500,
 }
 
 min_error = {
-    "Multiplication KL Divergence": 2.3,
-    "Multiplication Euclidean": 470,
-    #"Multiplication Euclidean regularized": 200,
+   # "Multiplication KL Divergence": 2.3,
+    "Multiplication Euclidean": 200,
+    "Multiplication Euclidean regularized": 200,
 }
 model = {
     # "Benchmark (scikit-learn)": algorithm.benchmark,
-    "Multiplication KL Divergence": algorithm.multiplication_divergence,
+    #"Multiplication KL Divergence": algorithm.multiplication_divergence,
     "Multiplication Euclidean": algorithm.multiplication_euclidean,
-    #"Multiplication Euclidean regularized": algorithm.multiplication_euclidean_regularized,
+    "Multiplication Euclidean regularized": algorithm.multiplication_euclidean_regularized,
 }
 
 Noise = {
-    #"No Noise": noise.identity,
-    "Poisson": noise.possion,
+    "No Noise": noise.identity,
+    #"Poisson": noise.possion,
     "Normal": noise.normal,
     #"Salt and Pepper": noise.salt_and_pepper,
 }

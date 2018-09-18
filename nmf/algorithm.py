@@ -93,7 +93,7 @@ def multiplication_euclidean(V, r,niter,min_error1):
             break
     return W, H, error
 
-def multiplication_euclidean_regularized(V, r,niter,min_error1,regu=100):
+def multiplication_euclidean_regularized(V, r,niter,min_error1,regu=10,mu=0,nu=0):
     """Set up a benchmark model using NMF in scikit-learn.
 
     Parameters
@@ -120,10 +120,10 @@ def multiplication_euclidean_regularized(V, r,niter,min_error1,regu=100):
     error = []
     for i in tqdm(range(niter)):
         
-        W=W*(V@H.T)/(W@H@H.T)
+        W=W*(V@H.T)/(W@H@H.T+mu*W)
         
         #W = W / np.linalg.norm(W, axis=1).T.reshape(m,-1)
-        H=H*(W.T@V)/(W.T@W@H+regu)
+        H=H*(W.T@V)/(W.T@W@H+regu+nu*H)
         #calculate the distance between iteration
         e = np.sum((V - W@H)**2)/V.size
         error.append(e)
