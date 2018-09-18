@@ -2,14 +2,11 @@
 %Briefly introduce \textsc{nmf}, applications
 Non-negative matrix factorization (\textsc{nmf}) is a matrix decomposition technique that approximates a multivariate data matrix by two lower dimensional non-negative matrices as follows:
 \begin{equation*}
-  vv
+  V_{iu} \approx \left(WH\right)_{iu}
 \end{equation*}
 As \textsc{nmf} only allows additive, non-subtractive combination of matrix factors, it is applicable to an extensive range of domain \chenc{sorry but I do not understand}. \citet{lee1999learning} suggest that \textsc{nmf} is useful for image processing problems including facial recognition. Specifically, \textsc{nmf} generates two matrices $W$ and $H$ which are often referred as the basis images and weights. This is because the observed image $V$ is approximated by a linear combination of $W$ and $H$. This property also distinguishes \textsc{nmf} from other traditional image processing methods such as principal components analysis (\textsc{pca}) and $K$-means clustering \chenc{$K$ means is not only a image processing technique, delete}. \citet{guillamet2002non} demonstrate that \textsc{nmf} is more robust to corrupted images than \textsc{pca}.
 Moreover, \textsc{nmf} is also applicable to text mining such as semantic analysis. More generally, \textsc{nmf} is useful to discover semantic features of an article by counting the frequency of each word than approximating the document from a subset of a large array of features \citep{lee1999learning}.
 
 In practice, face images could be easily corrupted during data collection by large magnitude noise. Corruption may result from lighting environment, facial expression or facial details. An \textsc{nmf} algorithm that is robust to large noise is desired for real-world application. Therefore, the objective of this project is to analyse the robustness of \textsc{nmf} algorithms on corrupted dataset. We implement two \textsc{nmf} algorithms on real face image datasets, \textsc{orl} dataset and Extended YaleB dataset. The face images are contaminated by artificial noises.
 
-The rest of the report is organized as follows. We describe noisy design and two \textsc{NMF} algorithms including Euclidean Distance and Kullback-Leibler Divergence (\textsc{KLD}) in Section 2. Section 3 shows experiment setup and empirical results which demonstrate the robustness of the two NMF algorithms. The conclusions and future work are discussed in Section 5. 
-
-
-
+The rest of the report is organized as follows. We describe noisy design and two \textsc{NMF} algorithms including Euclidean Distance and Kullback-Leibler Divergence (\textsc{KLD}) in Section 2. Section 3 shows experiment setup and empirical results which demonstrate the robustness of the two NMF algorithms. The conclusions and future work are discussed in Section 5.

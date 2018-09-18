@@ -1,0 +1,19 @@
+#!/bin/sh
+
+LIB_PATH="/Users/xiaodangan/code/nmf/MacPorts-2.5.2/vendor/tcl/unix"
+
+# For macOS
+if [ -z "$DYLD_LIBRARY_PATH" ]; then
+    export DYLD_LIBRARY_PATH="$LIB_PATH"
+else
+    export DYLD_LIBRARY_PATH="$LIB_PATH:$DYLD_LIBRARY_PATH"
+fi
+
+# For Linux and *BSD
+if [ -z "$LD_LIBRARY_PATH" ]; then
+    export LD_LIBRARY_PATH="$LIB_PATH"
+else
+    export LD_LIBRARY_PATH="$LIB_PATH:$LD_LIBRARY_PATH"
+fi
+
+exec "/Users/xiaodangan/code/nmf/MacPorts-2.5.2/vendor/tcl/unix/tclsh" "$@"

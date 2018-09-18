@@ -1,0 +1,36 @@
+port-notes.1.xml port-notes.1.html: global-flags.txt
+port-activate.1.xml port-activate.1.html: archives.txt global-flags.txt
+port-help.1.xml port-help.1.html: furtherdocs.txt
+port-uninstall.1.xml port-uninstall.1.html: global-flags.txt
+port-fetch.1.xml port-fetch.1.html: global-flags.txt
+port-mirror.1.xml port-mirror.1.html: global-flags.txt
+port-clean.1.xml port-clean.1.html: global-flags.txt
+portundocumented.7.xml portundocumented.7.html: furtherdocs.txt
+port-archivefetch.1.xml port-archivefetch.1.html: archives.txt global-flags.txt
+port-deps.1.xml port-deps.1.html: global-flags.txt dependents-vs-dependencies.txt
+port-selfupdate.1.xml port-selfupdate.1.html: global-flags.txt
+port-reclaim.1.xml port-reclaim.1.html: global-flags.txt
+port-platform.1.xml port-platform.1.html: global-flags.txt
+port-version.1.xml port-version.1.html: global-flags.txt
+port-search.1.xml port-search.1.html: global-flags.txt
+port-contents.1.xml port-contents.1.html: global-flags.txt
+port-variants.1.xml port-variants.1.html: global-flags.txt
+port-select.1.xml port-select.1.html: global-flags.txt
+port-dmg.1.xml port-dmg.1.html: global-flags.txt
+port-rev-upgrade.1.xml port-rev-upgrade.1.html: global-flags.txt
+port-outdated.1.xml port-outdated.1.html: global-flags.txt
+port-archive.1.xml port-archive.1.html: archives.txt global-flags.txt
+port-dependents.1.xml port-dependents.1.html: dependents-vs-dependencies.txt
+port-distcheck.1.xml port-distcheck.1.html: global-flags.txt
+port-space.1.xml port-space.1.html: global-flags.txt archives.txt
+port-info.1.xml port-info.1.html: global-flags.txt
+port-unarchive.1.xml port-unarchive.1.html: global-flags.txt
+port-sync.1.xml port-sync.1.html: global-flags.txt
+port-setrequested.1.xml port-setrequested.1.html: global-flags.txt
+port-livecheck.1.xml port-livecheck.1.html: global-flags.txt
+port-lint.1.xml port-lint.1.html: global-flags.txt
+port-install.1.xml port-install.1.html: global-flags.txt
+port-dir.1.xml port-dir.1.html: global-flags.txt
+port-upgrade.1.xml port-upgrade.1.html: global-flags.txt
+port-load.1.xml port-load.1.html: global-flags.txt
+port-installed.1.xml port-installed.1.html: global-flags.txt archives.txt
