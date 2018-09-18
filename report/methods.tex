@@ -1,28 +1,31 @@
+%!TEX root = report.tex
 \section{Methods \label{chapter2}}
 \subsection{Noise Design}
-\textsc{NMF} is expected to be rubost to various noises. Robust algorithms has to successfully reduce the amount of noise while preserving the edges and has no blurring effect on the image (\citet{barbu2013variational}). Here we design three kinds of noises, i.e. Gaussian noise, Poisson noise, and Salt \& Pepper noise. \newline 
-\textbf{Gaussian noise} is a statistical noise having a probability density function equal to that of the normal distribution. \textbf{Poisson noise} or shot noise is a type of electronic noise that
+\textsc{nmf} is expected to be robust to various noises. Robust algorithms has to successfully reduce the amount of noise while preserving the edges and has no blurring effect on the image \citep{barbu2013variational}. Figure~\ref{noises} shows three kinds of noises we designed, including Gaussian noise, Poisson noise, and Salt \& Pepper noise. 
+ 
+\textbf{Gaussian noise} is a noise with a probability density function being normal with mean zero. \textbf{Poisson noise} or shot noise is a type of electronic noise that
 occurs when the finite number of particles that carry energy,
 such as electrons in an electronic circuit or photons in an optical
 device, is small enough to give rise to detectable statistical
 fluctuations in a measurement. An image containing \textbf{Salt \& Pepper noise} noise will have dark pixels
-in bright regions and bright pixels in dark regions (\citet{sampat2005computer}).
-\begin{figure}[h]
-	\includegraphics[width=4.5cm, height=3cm]{Noise_ORL_Normal_Comparison.pdf}
-	\includegraphics[width=4.5cm, height=3cm]{Noise_ORL_Poisson_Comparison.pdf}
-	\includegraphics[width=4.5cm, height=3cm]{Noise_ORL_Salt_and_Pepper_Comparison.pdf}
+in bright regions and bright pixels in dark regions \citep{sampat2005computer}.
+\begin{figure}\label{noises}
+	\centering
+	\includegraphics[scale=.8]{Noise_ORL_Normal_Comparison.png}\\ %replace these with jpg files with appropriate size
+	\includegraphics[scale=.8]{Noise_ORL_Poisson_Comparison.png}\\
+	\includegraphics[scale=.8]{Noise_ORL_Salt_and_Pepper_Comparison.png}
 	\caption{Illustration of Gaussian Noise, Poisson Noise, and Salt \& Pepper Noise}
 	\label{fig:noise}
-\end{figure}
+\end{figure}}
 \subsection{NMF and Gaussian noise}
 \citet{lee2001algorithms} propose the first \textsc{nmf} with the objective function between imaga~$V$ and its \textsc{nmf} factorisation~$W$ and~$H$ being
-\begin{equation*}
-  \left\Vert V-WH \right\Vert= \sum_{ij} \left[V_{ij}-(WH)_{ij}\right]^2.
-\end{equation*}
+\begin{equation}
+  \left\Vert V-WH \right\Vert= \sum_{ij} \left[V_{ij}-(WH)_{ij}\right]^2.\label{eq:obnmf}
+\end{equation}
 To minimise this object function of least square, \citet{lee2001algorithms} prove the convergence of the multiplication update rule
-\begin{equation*}
-H_{jk}\leftarrow H_{jk}\frac{(W^{T}V)_{jk}}{(W^{T}WH)_{jk}} \text{ and } W_{ij}\leftarrow W_{ij}\frac{(VH)_{ij}}{(WHH^{T})_{ij}}.
-\end{equation*}
+\begin{equation}
+H_{jk}\leftarrow H_{jk}\frac{(W^{T}V)_{jk}}{(W^{T}WH)_{jk}} \text{ and } W_{ij}\leftarrow W_{ij}\frac{(VH)_{ij}}{(WHH^{T})_{ij}}.\label{eq:nmf}
+\end{equation}
 Here, $()_{ij}/()_{ij}$ denotes elementwise division of the two matrix. \citet{liu2015performance} shows this \textsc{nmf} algorithm minimises Gaussian.
 
 \subsection{KLNMF and Poisson noise}
@@ -33,9 +36,9 @@ Here, $()_{ij}/()_{ij}$ denotes elementwise division of the two matrix. \citet{l
 \end{eqnarray}
 where $C(V_{ij})=V_{ij}\log V_{ij}-V_{ij}$. $C(V_{ij})$ is a function of the observed image matrix~$V$ only.
 \citet{lee2001algorithms} also suggest a multiplication update rule to find as the optimisation procedure of \textsc{klnmf}
-\begin{equation*}
-H_{jk}\leftarrow H_{jk}\frac{\sum_{i}W_{ij}V_{ik}/(WH)_{jk}}{\sum_{i'}W_{i'j}} \text{ and } W_{ij}\leftarrow W_{ij}\frac{\sum_{k}H_{jk}V_{ik}/(WH)_{jk}}{\sum_{k'}H_{ik'}}.
-\end{equation*}
+\begin{equation}
+H_{jk}\leftarrow H_{jk}\frac{\sum_{i}W_{ij}V_{ik}/(WH)_{jk}}{\sum_{i'}W_{i'j}} \text{ and } W_{ij}\leftarrow W_{ij}\frac{\sum_{k}H_{jk}V_{ik}/(WH)_{jk}}{\sum_{k'}H_{ik'}}. \label{eq:klnmf}
+\end{equation}
 As this original image matrix~$V$ is observed, minimising this Kullback-Leibler divergence~\eqref{eq:klobj} is equivalent to minimising
 \begin{equation*}
   \sum_{ij}\left(-V_{ij}\log\left(WH\right)_{ij}+\left(WH\right)_{ij}+C(V_{ij})\right).
@@ -53,19 +56,26 @@ Hence, the probability density function of each element of the original matrix~V
 P(V_{ij})=\frac{\left(WH\right)_{ij}^{V_{ij}}e^{-\left(WH\right)_{ij}}}{V_{ij}!}
 \end{equation*}
 is a sufficient condition to yield this likelihood. Hence \textsc{klnmf} is most suitable for images with Poisson noise.
+
 \subsection{Asymptotic equivalence of noise distributions}
  We design an Gaussian noise and a Poisson noise with different magnitude.
  Poisson distribution with parameter~$\lambda$ (integer) is equivalent to the sum of $\lambda$ Poisson distributions with parameter~$1$ \citep[][p. 45]{Walck:1996cca}.
  Hence for $\lambda$ large, Central Limit Theorem implies that Poisson distribution with parameter~$\lambda$ is well approximated by $N(\lambda,\lambda)$.
  When applying Poisson noise to an image, we do not degree of freedom to choose any parameter.
  The variance is the magnitude of the pixels. To compare the robustness of \textsc{klnmf} with \textsc{nmf} with different noise, we choose the variance of Gaussian noise to be the different from the magnitude of the pixel, that is, $N(0,\operatorname{Var})\neq N(0,V)\approx \operatorname{Poi}(V)-V$.
- Figure~\ref{noise} visualises the similarity of Poisson distribution and Normal distribution with parameter~$V=40$.
+ Figure~\ref{noise} visualises the similarity of Poisson distribution and Normal distribution with parameter~$V=40$. To overcome this issue, the Gaussian noise we use should be larger or smaller variance in comparison with the mean of the images. We choose the variance of the noise to be $80$.
 \begin{figure}
   \centering
   % Requires \usepackage{graphicx}
   \includegraphics[scale=1]{resource/noise}\\
   \caption{Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname{Poi}(40)-40$. They two distributions are asymptotically equivalent and have similar density functions.}\label{noise}
 \end{figure}
+\subsection{Initial estimates}
+As discussed in the section of related work. 
+The problem of nonnegative matrix factorization is not a convex problem. 
+Hence the results update rules~\eqref{eq:nmf} and~\eqref{eq:klnmf} coverage to may be local minima instead of global minima. 
+To address this issue, we implement several initial estimates for each matrix factorization problem. 
+We use the factorized matrices~$W$ and~$H$ corresponding to the least objective function~\eqref{eq:obnmf} and~\eqref{eq:klobj}, for \textsc{nmf} and~\textsc{klnmf} as our final result of factorization. 
 
 \csvautobooktabular{{"../results/statistics".csv}}
 \subsection{Preprocessing}

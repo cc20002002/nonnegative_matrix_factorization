@@ -16,7 +16,7 @@ from numba import vectorize, float64, int64
 
 # Configuration
 sample_size = 0.9
-epoch = 2
+epoch = 5
 random_state = 0
 parallel_flag = 0
 
@@ -24,32 +24,36 @@ scale = { "ORL": 3, "CroppedYaleB": 4}
 img_size = {"ORL": (92, 112), "CroppedYaleB": (168, 192)}
 
 niter = {
-    "Multiplication KL Divergence": 500,
-    "Multiplication Euclidean": 1000,
+    "Multiplication KL Divergence": 1200,
+    "Multiplication Euclidean": 500,
+    #"Multiplication Euclidean regularized": 500,
 }
 
 min_error = {
     "Multiplication KL Divergence": 2.3,
-    "Multiplication Euclidean": 470,
+    "Multiplication Euclidean": 200,
+    #"Multiplication Euclidean regularized": 200,
 }
 model = {
     # "Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": algorithm.multiplication_divergence,
     "Multiplication Euclidean": algorithm.multiplication_euclidean,
+    #"Multiplication Euclidean regularized": algorithm.multiplication_euclidean_regularized,
 }
 
 Noise = {
-    "No Noise": noise.identity,
+    #"No Noise": noise.identity,
     "Poisson": noise.possion,
     "Normal": noise.normal,
-    "Salt and Pepper": noise.salt_and_pepper,
+    #"Salt and Pepper": noise.salt_and_pepper,
 }
 
 rnd = np.random.RandomState()
 
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
-    argvs = sys.argv
+    
+    argvs = ['hi',"orl"]
     message = "Please choose one of the two datasets: 'orl' or 'croppedYale'"
     if len(argvs) < 2:
        print(message)
@@ -64,7 +68,7 @@ def main():
     if argvs[-1] == "orl":
         if os.name == 'nt':
             #train("..\\data\\ORL", folder)
-            train(".." + os.sep + "data" + os.sep + "ORL", folder)
+            train("data" + os.sep + "ORL", folder)
             # train("data/CroppedYaleB")
         else:
             train("data"+os.sep+"ORL", folder)
@@ -100,7 +104,21 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
         for name, algo in model.items():
             name2=name
             name=name+' '+noise_fun
-            W, H, errors = algo(V, r, niter[name2], min_error[name2])
+            ncpu=os.cpu_count()
+            pool = multiprocessing.Pool(ncpu)
+            m=Vhat.shape[0]
+            n=Vhat.shape[1]
+            #W0=[np.random.rand(m,r) for i in range(ncpu)]
+            #H0=[np.random.rand(r,n) for i in range(ncpu)]
+            
+            args = zip(repeat(V,ncpu), repeat(r,ncpu),repeat(niter[name2],ncpu),repeat(min_error[name2],ncpu))
+            result = pool.starmap(algo, args)   
+            #import IPython; IPython.embed()
+            pool.close()
+            pool.join()
+            errors_n=[i[2][-1] for i in result]
+            W, H, errors = result[errors_n.index(min(errors_n))]
+            #W, H, errors = algo(V, r, niter[name2], min_error[name2])
             # plot error versus iteration only when non-paralle
             if parallel_flag == 0:
                 data_name = folder.split("-")[-1]
@@ -186,8 +204,8 @@ def train(data_name, folder):
         ax = pl.subplot(111)
         for model_nm in metrics[metric_nm]:
             scores = metrics[metric_nm][model_nm]
-            if metric_nm == "rre":
-                scores = np.log(scores)
+            #if metric_nm == "rre":
+            #    scores = np.log(scores)
             ax.plot(range(epoch), scores, label=model_nm)
         ax.set_xlabel("epoch")
         ax.set_ylabel(metric_nm)
@@ -197,7 +215,8 @@ def train(data_name, folder):
         ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         plot_name = os.path.join(folder, "metrics_{}".format(metric_nm))
         print("Saving to {}".format(plot_name))
-        pl.savefig(plot_name)
+        pl.savefig(plot_name+'.pdf')
+        pl.savefig(plot_name+'.eps')
 
 
 def make_metrics():

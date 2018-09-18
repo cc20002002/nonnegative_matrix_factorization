@@ -1,10 +1,21 @@
 """NMF algorithm implementation module."""
 import numpy as np
+import numba
 from numpy import random
 from sklearn.decomposition import NMF
 from numba import vectorize, float64, int64, cuda, jit
 niter=5000
 
+@cuda.jit
+def matmul(A, B, C):
+    """Perform square matrix multiplication of C = A * B
+    """
+    i, j = cuda.grid(2)
+    if i < C.shape[0] and j < C.shape[1]:
+        tmp = 0.
+        for k in range(A.shape[1]):
+            tmp += A[i, k] * B[k, j]
+        C[i, j] = tmp
 
 @jit('float64[:,:],int64,float64[:,:],float64[:,:]',nopython=True,nogil=True,cache=True, parallel=True,fastmath=True,target='gpu')
 def multiplication_divergence2(V,r,W,H):
@@ -28,9 +39,9 @@ def multiplication_divergence2(V,r,W,H):
     n=m[1]
     m=m[0]
     VWH = V
-    VWH=VWH.astype(float64)
     for i in range(niter):
         #t=time.time()
+        matmul(W, H, C)
         VWH = V/(W @ H)
         #print(time.time()-t)
         #t=time.time()

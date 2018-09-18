@@ -5,8 +5,8 @@
 \BOOKMARK [2][]{subsection.3.2}{NMF and Gaussian noise}{section.3}% 5
 \BOOKMARK [2][]{subsection.3.3}{KLNMF and Poisson noise}{section.3}% 6
 \BOOKMARK [2][]{subsection.3.4}{Asymptotic equivalence of noise distributions}{section.3}% 7
-\BOOKMARK [2][]{subsection.3.5}{Preprocessing}{section.3}% 8
-\BOOKMARK [1][]{section.4}{Experiments}{}% 9
-\BOOKMARK [2][]{subsection.4.1}{Noise}{section.4}% 10
+\BOOKMARK [2][]{subsection.3.5}{Initial estimates}{section.3}% 8
+\BOOKMARK [2][]{subsection.3.6}{Preprocessing}{section.3}% 9
+\BOOKMARK [1][]{section.4}{Experiments}{}% 10
 \BOOKMARK [1][]{section.5}{Conclusion}{}% 11
 \BOOKMARK [1][]{appendix.A}{Appendix}{}% 12
