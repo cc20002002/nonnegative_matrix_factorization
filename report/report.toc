@@ -3,10 +3,11 @@
 \contentsline {section}{\numberline {2}Related work}{3}{section.2}
 \contentsline {section}{\numberline {3}Methods }{4}{section.3}
 \contentsline {subsection}{\numberline {3.1}Noise Design}{4}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}NMF and Gaussian noise}{5}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}KLNMF and Poisson noise}{5}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Asymptotic equivalence of noise distributions}{6}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Preprocessing}{8}{subsection.3.5}
-\contentsline {section}{\numberline {4}Experiments}{8}{section.4}
-\contentsline {section}{\numberline {5}Conclusion}{8}{section.5}
-\contentsline {section}{\numberline {A}Appendix}{8}{appendix.A}
+\contentsline {subsection}{\numberline {3.2}NMF and Gaussian noise}{4}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}KLNMF and Poisson noise}{6}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Asymptotic equivalence of noise distributions}{7}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Initial estimates}{7}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Preprocessing}{9}{subsection.3.6}
+\contentsline {section}{\numberline {4}Experiments}{9}{section.4}
+\contentsline {section}{\numberline {5}Conclusion}{9}{section.5}
+\contentsline {section}{\numberline {A}Appendix}{9}{appendix.A}

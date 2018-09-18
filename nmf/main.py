@@ -16,7 +16,7 @@ from numba import vectorize, float64, int64
 
 # Configuration
 sample_size = 0.9
-epoch = 2
+epoch = 5
 random_state = 0
 parallel_flag = 0
 
