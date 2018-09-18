@@ -4,7 +4,7 @@ import numpy as np
 
 def normal(subVhat):
     """Design a Gaussian noise."""
-    V_noise = np.random.normal(0, 20, subVhat.shape) #* np.sqrt(subVhat)
+    V_noise = np.random.normal(0, 80, subVhat.shape) #* np.sqrt(subVhat)
     V = subVhat + V_noise
     V[V < 0] = 0
     return V, V_noise

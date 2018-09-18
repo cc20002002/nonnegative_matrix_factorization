@@ -20,16 +20,44 @@ def draw_error(path1, path2):
         algo_name = path.split(os.sep)[-1].split("_Error_")[0].split("_")[-1]
         x = min(len(error), niter)
         pl.subplot(1, 2, i + 1)
-        pl.plot(np.arange(x), np.log(error))
-        newticks = np.around(np.exp(pl.yticks()[0]), decimals=2)
-        pl.yticks(pl.yticks()[0], newticks)
+        pl.loglog(np.arange(x), error)
+        #newticks = np.around(np.exp(pl.yticks()[0]), decimals=2)
+        #pl.yticks(pl.yticks()[0], newticks)
         pl.xlabel("Iteration")
-        pl.ylabel("Training Error (Log Scale)")
+        pl.ylabel("Training Error")
         pl.title("{} {} Error versus {} Iteration"
                  .format(dataname, algo_name, niter))
     # pl.show()
+
     pl.savefig("Error.pdf", bbox_inches="tight")
 
+
+def draw_error2():
+    """Draw training error of two algorithms together."""
+    pl.figure(figsize=(15, 6))
+    f1='orl_Multiplication Euclidean_Error_500_Iteration.csv'
+    f2='orl_Multiplication KL Divergence_Error_1200_Iteration.csv'
+    e1=pd.read_csv(f1)
+    e2=pd.read_csv(f2)
+    e=[e1,e2]    
+    for ii in range(2):
+        error = e[ii]    
+        niter = max(int(f1.split("_")[-2]),int(f2.split("_")[-2]))    
+        x = min(len(error), niter)
+        #pl.subplot(1, 2, i + 1)
+        pl.loglog(np.arange(x), error)
+        #newticks = np.around(np.exp(pl.yticks()[0]), decimals=2)
+        #pl.yticks(pl.yticks()[0], newticks)
+    pl.xlabel("Iteration")
+    pl.ylabel("Training Error")
+    pl.title("Error versus {} Iteration"
+                .format(niter))
+    # pl.show()
+    pl.savefig("Error.pdf")
+    e11=e1.iloc[100:]
+    e22=e2.iloc[100:]
+    e11.iloc[0]/e11.iloc[15]
+    e22.iloc[0]/e22.iloc[100]
 
 def draw_noise(dataname):
     """Draw image before and after adding noise."""
@@ -62,7 +90,9 @@ def draw_noise(dataname):
         pl.imshow(V[:, sample_index].reshape(reshape_size), cmap=cmap)
         pl.title('Image (with {} Noise)'.format(noise_name))
         print("Saving to", noise_path)
-        pl.savefig(noise_path, bbox_inches="tight")
+        pl.savefig(noise_path+'.pdf', bbox_inches="tight")
+
+
 
 
 if __name__ == "__main__":
