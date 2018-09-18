@@ -20,15 +20,15 @@ def draw_error(path1, path2):
         algo_name = path.split(os.sep)[-1].split("_Error_")[0].split("_")[-1]
         x = min(len(error), niter)
         pl.subplot(1, 2, i + 1)
-        pl.plot(np.arange(x), np.log(error))
-        newticks = np.around(np.exp(pl.yticks()[0]), decimals=2)
-        pl.yticks(pl.yticks()[0], newticks)
+        pl.loglog(np.arange(x), error)
+        #newticks = np.around(np.exp(pl.yticks()[0]), decimals=2)
+        #pl.yticks(pl.yticks()[0], newticks)
         pl.xlabel("Iteration")
-        pl.ylabel("Training Error (Log Scale)")
+        pl.ylabel("Training Error")
         pl.title("{} {} Error versus {} Iteration"
                  .format(dataname, algo_name, niter))
     # pl.show()
-    pl.savefig("Error")
+    pl.savefig("Error.pdf")
 
 
 def draw_noise(dataname):
@@ -62,7 +62,7 @@ def draw_noise(dataname):
         pl.imshow(V[:, sample_index].reshape(reshape_size), cmap=cmap)
         pl.title('Image (with {} Noise)'.format(noise_name))
         print("Saving to", noise_path)
-        pl.savefig(noise_path)
+        pl.savefig(noise_path+'.pdf')
 
 
 if __name__ == "__main__":
