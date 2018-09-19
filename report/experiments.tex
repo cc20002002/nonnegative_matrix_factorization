@@ -4,7 +4,7 @@
 We illustrate our two \textsc{nmf} algorithms on two real-world face image datasets: ORL and Extended YaleB (\citet{belhumeur1997eigenfaces}). 
 Both ORL and Extended YaleB datasets contain multiple images of distinct subjects with various facial expression, lighting condition, and facial details. 
 Images in ORL are cropped and resized to $92 \times 112$ pixels. We further rescale it to $30 \times 37$ pixels. Similarly, we reduce the size of images in Extended YaleB to $42 \times 48$ pixels.
-For each dataset, we flatten the image matrix into a vector and append them together to get a matrix $V$ with shape $(d, n)$ where $d$ is the number of pixels in one image and $n$ is the number of images.
+For each dataset, we flatten the image matrix into a vector and append them together to get a matrix $V$ with shape $(d, n)$ where $d$ is the number of pixels in one image and $n$ is the number of images. In each epoch, we use 90\% of data. 
 
 \subsection{Noise}
 We implement three kinds of noises including Gaussian noise, Poisson noise and Salt \& Pepper noise.
