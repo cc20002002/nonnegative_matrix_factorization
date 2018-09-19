@@ -1,5 +1,11 @@
 \section{Experiments}\label{chapter4}
 
+\subsection{Dataset}
+We illustrate our two \textsc{nmf} algorithms on two real-world face image datasets: ORL and Extended YaleB (\citet{belhumeur1997eigenfaces}). 
+Both ORL and Extended YaleB datasets contain multiple images of distinct subjects with various facial expression, lighting condition, and facial details. 
+Images in ORL are cropped and resized to $92 \times 112$ pixels. We further rescale it to $30 \times 37$ pixels. Similarly, we reduce the size of images in Extended YaleB to $42 \times 48$ pixels.
+For each dataset, we flatten the image matrix into a vector and append them together to get a matrix $V$ with shape $(d, n)$ where $d$ is the number of pixels in one image and $n$ is the number of images.
+
 \subsection{Noise}
 We implement three kinds of noises including Gaussian noise, Poisson noise and Salt \& Pepper noise.
 \subsubsection{Gaussian Noise}
@@ -30,15 +36,12 @@ def possion(subVhat):
 Salt and Pepper noises are added by drawing random integers from discrete uniform distribution of the interval $[$0, 255$)$ \chenc{joyce please comment here about your noise.} ref~\ref{salt}
 \begin{lstlisting}[caption= Salt and Pepper Noise Design, label=salt]
 """Design a salt and pepper noise where make some pixel value zeros."""
-  # obtain one Image
-  image = subVhat[:, 0]
   V_noise = np.random.randint(low=0, high=255, size=subVhat.shape, dtype=int)
   V = subVhat.copy()
   V[V_noise <= 20] = 0
   V[V_noise >= 230] = 255
   return V, V_noise
 \end{lstlisting}
-
 
 \subsection{Experiments Results}
 The results of noise design are shown below:
