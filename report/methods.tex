@@ -60,7 +60,7 @@ P(V_{ij})=\frac{\left(WH\right)_{ij}^{V_{ij}}e^{-\left(WH\right)_{ij}}}{V_{ij}!}
 is a sufficient condition to yield this likelihood. Hence \textsc{klnmf} is most suitable for images with Poisson noise.
 
 \subsection{Preprocess}
-We did not preprocess the images because both of \textsc{nmf} and \textsc{klnmf} are scale sensitive, because both objective functions~\eqref{eq:obnmf} and~\eqref{eq:klobj} varies when original matrix~$V$ and result matrices~$W$ and~$H$ scale proportionally, i.e. for $\lambda$ real, $D(V||WH)\neq D(\lambda V||\lambda WH)$. To overcome this issue, we could have normalise the matrices~$W$ and~$H$ in each iteration, but it will result in a even slower computation.
+We did not preprocess the images because both of \textsc{nmf} and \textsc{klnmf} are scale sensitive, because both objective functions~\eqref{eq:obnmf} and~\eqref{eq:klobj} varies when original matrix~$V$ and result matrices~$W$ and~$H$ scale proportionally, i.e. for $\lambda$ real, $D(V||WH)\neq D(\lambda V||\lambda WH)$. To overcome this issue, we could have normalise the matrices~$W$ and~$H$ in each iteration \citep{scaless}, but it will result in a even slower computation.
 
 \subsection{Gaussian and Poisson are asymptotic equivalent}
  We design an Gaussian noise and a Poisson noise with different magnitude.
