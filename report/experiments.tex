@@ -1,7 +1,7 @@
 \section{Experiments}\label{chapter4}
 
 \subsection{Noise}
-Three kinds of noises, Gaussian noise, Poisson noise and Salt $&$ Pepper noise are implemented as follows.
+Three kinds of noises, Gaussian noise, Poisson noise and Salt \& Pepper noise are implemented as follows.
 \subsubsection{Gaussian Noise}
 \begin{lstlisting}[caption= Gaussian Noise Design, label=matn1]
 def normal(subVhat):
@@ -13,6 +13,7 @@ def normal(subVhat):
 \end{lstlisting}
 
 Random noises drawn from Gaussian distribution with 0 mean and 80 standard deviation are added to original images
+To satisfy the nonnegative constant, negative value resulted by noise is set to zero
 
 \subsubsection{Poisson Noise}
 \begin{lstlisting}[caption= Poisson Noise Design, label=matn1]
@@ -23,10 +24,11 @@ def possion(subVhat):
     return V, V_noise
 \end{lstlisting}
 
-Random noises drawn from Poisson distribution with parameter to be 40.
+Unlike Gaussian noise, contaminated images are drawn directly from Poisson distribution with parameter equal to original images
+The noise is measured by the difference between contaminated and original images
 
-\subsubsection{Salt and Pepper Noise}
-\begin{lstlisting}[caption= Salt and Pepper Noise Design, label=matn1]
+\subsubsection{Salt \& Pepper Noise}
+\begin{lstlisting}[caption= Salt \& Pepper Noise Design, label=matn1]
 """Design a salt and pepper noise where make some pixel value zeros."""
   # obtain one Image
   image = subVhat[:, 0]
@@ -37,7 +39,7 @@ Random noises drawn from Poisson distribution with parameter to be 40.
   return V, V_noise
 \end{lstlisting}
 
-Salt and Pepper noises are added by drawing random integers from discrete uniform distribution of the interval $[$0, 255$)$
+Salt \& Pepper noises are added by drawing random integers from discrete uniform distribution with the interval of $[$0, 255$)$
 
 \subsubsection{Experiments Results}
 The results of noise design are shown below:
