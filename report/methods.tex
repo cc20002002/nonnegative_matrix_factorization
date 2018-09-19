@@ -1,8 +1,8 @@
 %!TEX root = report.tex
 \section{Methods \label{chapter2}}
 %\subsection{Noise Design}
-Some carefully designed \textsc{nmf} are robust to various noises. These robust algorithms aim to significantly reduce the amount of noise while preserving the edges without blurring the immage \citep{barbu2013variational}. Figure~\ref{noises} shows three kinds of noises we designed, including Gaussian noise, Poisson noise, and Salt \& Pepper noise. 
- 
+Some carefully designed \textsc{nmf} are robust to various noises. These robust algorithms aim to significantly reduce the amount of noise while preserving the edges without blurring the immage \citep{barbu2013variational}. Figure~\ref{noises} shows three kinds of noises we designed, including Gaussian noise, Poisson noise, and Salt \& Pepper noise.
+
 
 \begin{figure}\label{noises}
 	\centering
@@ -71,16 +71,19 @@ is a sufficient condition to yield this likelihood. Hence \textsc{klnmf} is most
   \caption{Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname{Poi}(40)-40$. They two distributions are asymptotically equivalent and have similar density functions.}\label{noise}
 \end{figure}
 
+\subsection{Salt \& Pepper noise}
+Apart from Gaussian and Poisson noises, we also test our two algorithms on the commonly seen \textbf{Salt \& Pepper noise} noise. The noise presents itself by having dark pixels in bright regions and bright pixels in dark regions \citep{sampat2005computer}.
+
 \subsection{Multiple initial estimates avoid local minima}
-As discussed in the section of related work. 
-The problem of nonnegative matrix factorization is not a convex problem. 
-Hence the results update rules~\eqref{eq:nmf} and~\eqref{eq:klnmf} coverage to may be local minima instead of global minima. 
-To address this issue, we implement several (i.e. $n$) initial estimates for each matrix factorization problem. 
+As discussed in the section of related work.
+The problem of nonnegative matrix factorization is not a convex problem.
+Hence the results update rules~\eqref{eq:nmf} and~\eqref{eq:klnmf} coverage to may be local minima instead of global minima.
+To address this issue, we implement several (i.e. $n$) initial estimates for each matrix factorization problem.
 We use the factorized matrices~$W$ and~$H$ corresponding to the least residual~\eqref{eq:obnmf} and~\eqref{eq:klobj}, for \textsc{nmf} and~\textsc{klnmf}, algorithms respectively, as the final result of factorization.
-This design of multiple starting point improves the stability of of algorithm, but it requires more computational power. To improve the computational speed, we make the number~$n$ equal to the number of cores of the \textsc{cpu}. We assign each of the $n$ initial estimates randomly with an uniform distribution. Then these each of the $n$ initial estimates are assigned to a different core of the \textsc{cpu}. This boost the \textsc{cpu} utilisation to 100\% instantly and improved the computational speed by 70\% on the \textsc{orl} data. The following part of our code implements this idea of parallel computing. 
+This design of multiple starting point improves the stability of of algorithm, but it requires more computational power. To improve the computational speed, we make the number~$n$ equal to the number of cores of the \textsc{cpu}. We assign each of the $n$ initial estimates randomly with an uniform distribution. Then these each of the $n$ initial estimates are assigned to a different core of the \textsc{cpu}. This boost the \textsc{cpu} utilisation to 100\% instantly and improved the computational speed by 70\% on the \textsc{orl} data. The following part of our code implements this idea of parallel computing.
 \begin{lstlisting}[caption=Centring image data, label=matn1]
 args = zip(repeat(V,ncpu), repeat(r,ncpu), repeat(niter[name2],ncpu), repeat(min_error[name2],ncpu))
-result = pool.starmap(algo, args)   
+result = pool.starmap(algo, args)
 \end{lstlisting}
 where \texttt{algo} is the \textsc{nmf} algorithm and \texttt{niter} is the number of iterations.
 
@@ -89,12 +92,31 @@ where \texttt{algo} is the \textsc{nmf} algorithm and \texttt{niter} is the numb
  \begin{figure}
   \centering
   % Requires \usepackage{graphicx}
-  \includegraphics[scale=.8]{../2018-09-18-18-41-orl/error}\\
+  \includegraphics[scale=.8]{error}\\
   \caption{Residual of objective function~\eqref{eq:obnmf} and~\eqref{eq:klobj} versus the number of iterations. \textsc{nmf} converges more than twice faster than \textsc{klnmf}.}\label{error}
 \end{figure}
 
-\subsection{Salt \& Pepper noise}
-Apart from Gaussian and Poisson noises, we also test our two algorithms on the commonly seen \textbf{Salt \& Pepper noise} noise. The noise presents itself by having dark pixels in bright regions and bright pixels in dark regions \citep{sampat2005computer}.
+\subsection{Evaluation metrics and their confidence intervals \label{ci}}
+The assignment instruction asks us to compare the performance of \textsc{nmf} and \textsc{klnmf} by using evaluations metrics including Relative Reconstruction Errors (\textsc{rre}),Average Accuracy (\textsc{aa}), Normalized Mutual Information (\textsc{nmi}). The instruction states the formulae of these metrics. However, to systematically compare the metrics, we construct an 95\% confidence interval for any metric (e.g. \textsc{rre}) by Studentized boostrapping method
+\begin{equation}
+(\textsc{rre} -t_{97.5}^{*}\cdot {\hat {se}}_{\textsc{rre} },\textsc{rre} -t_{2.5}^{*}\cdot {\hat {se}}_{\textsc{rre}}), \label{eq:boot}
+\end{equation}
+where $t^*_{2.5}$ is the $2.5$ percentile of the bootstrapped Student's t-distribution from our sample space with 80 simulations and $\hat{se}_{\textsc{rre}}$ is the sample standard error. We run 80 simulations so that the confidence interval we construct is precise.
+
+Boostrapping does require the sample space follows specific distributions. We apply this nonparametric method to construct confidence interval here because we do not have the knowledge about the specific distributions of these three metrics.
+
+\subsection{Compare the robustness of algorithms}
+We implement Kolmogorov-Smirnov test to test the hypothesis that the algorithms~\textsc{nmf} and~\textsc{klnmf} have different robustness. Again Kolmogorov-Smirnov test is distribution free, so we do not need to know the distributions of the evaluation metrics. 
+
+Let $\textsc{rre}_i$ denote the \textsc{rre} generated from our \textsc{nmf} algorithm by the $i$th simulation. Define the empirical distribution of a sample set generated by algorithm~$\alpha$, perhaps the $80$ \textsc{rre} results, as
+\begin{equation}\label{epdf}
+  \hat{F}_{\alpha}(x)=\frac{1}{n}\sum_{i=1}^{80}1_{\textsc{rre}_i \leq x}.
+\end{equation}
+The test statistic is the supremum among the differences of the empirical distribution generated using definition~\eqref{epdf} \citep{Walck:1996cca}
+\begin{equation}
+D=\sup _{x}\left|F_{\alpha_2}(x)-F_{\alpha_2}(x)\right|.
+\end{equation}
+We compare the test statistics~$D$ with the critical value of $0.215$, which corresponds to $80$ samples and a 95\% of confidence level. We reject the null hypotheses that the two algorithms produce similar \textsc{rre} (or other evaluation metrics) with 95\% confidence level if the test statistics~$D>0.215$. The technique is extended to compare \textsc{aa} and \textsc{nmi}.
 %\csvautobooktabular{{"../results/statistics".csv}}
 %\subsection{Preprocessing}
 %We apply global centring and local centring to preprocess the image data~\texttt{Vhat}
