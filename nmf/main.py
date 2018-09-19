@@ -16,7 +16,7 @@ from numba import vectorize, float64, int64
 
 # Configuration
 sample_size = 0.9
-epoch = 80
+epoch = 1
 random_state = 0
 parallel_flag = 0
 
@@ -52,7 +52,7 @@ rnd = np.random.RandomState()
 
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
-    
+
     argvs = ['hi',"orl"]
     message = "Please choose one of the two datasets: 'orl' or 'croppedYale'"
     if len(argvs) < 2:
@@ -110,15 +110,20 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
             n=Vhat.shape[1]
             #W0=[np.random.rand(m,r) for i in range(ncpu)]
             #H0=[np.random.rand(r,n) for i in range(ncpu)]
-            
+
             args = zip(repeat(V,ncpu), repeat(r,ncpu),repeat(niter[name2],ncpu),repeat(min_error[name2],ncpu))
-            result = pool.starmap(algo, args)   
+            result = pool.starmap(algo, args)
             #import IPython; IPython.embed()
             pool.close()
             pool.join()
             errors_n=[i[2][-1] for i in result]
             W, H, errors = result[errors_n.index(min(errors_n))]
             #W, H, errors = algo(V, r, niter[name2], min_error[name2])
+            # save subVhat, V and H to disk - only epoch1
+            if i == 0:
+                path_matrix = os.path.join(folder, "matrix_{}".format(name))
+                print("Saving to {}.npz".format(path_matrix))
+                np.save(path_matrix, (subVhat, V, V_noise,  W.dot(H)))
             # plot error versus iteration only when non-paralle
             if parallel_flag == 0:
                 data_name = folder.split("-")[-1]

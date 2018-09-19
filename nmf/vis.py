@@ -101,6 +101,45 @@ def draw_noise(dataname):
         pl.savefig(noise_path, bbox_inches="tight")
 
 
+def draw_compare(folder):
+    """Draw original image, noise, noise cropped and reconstructed."""
+    matplotlib.rcParams.update({'font.size': 6})
+    dataname = folder.split("-")[-1]
+    sample_index = 100
+    dataname = {"orl": "ORL", "croppedYale": "CroppedYaleB"}[dataname]
+    my_scale = main.scale[dataname]
+    my_img_size = main.img_size[dataname]
+    npzfiles = [f for f in os.listdir(folder) if f.endswith(".npy")]
+    for algo in main.model:
+        subfiles = [f for f in npzfiles if algo in f]
+        for noise_name in main.Noise:
+            filename = "matrix_{} {}.npy".format(algo, noise_name)
+            filepath = os.path.join(folder, filename)
+            subVhat, V, V_noise, WH = np.load(filepath)
+            # draw
+            noise_path = "Result_{}_{}_Comparison.pdf".format(algo, noise_name)
+            noise_path = noise_path.replace(" ", "_")
+            img_size = [x // my_scale for x in my_img_size]
+            reshape_size = [img_size[1], img_size[0]]
+            pl.figure(figsize=(7, 3))
+            pl.subplot(141)
+            pl.imshow(subVhat[:, sample_index].reshape(reshape_size), cmap=cmap)
+            pl.title('Image (Original)')
+            pl.subplot(142)
+            pl.imshow(V_noise[:, sample_index].reshape(reshape_size), cmap=cmap)
+            pl.title("{} Noise".format(noise_name))
+            pl.subplot(143)
+            pl.imshow(V[:, sample_index].reshape(reshape_size), cmap=cmap)
+            pl.title('Image (with {} Noise)'.format(noise_name))
+            pl.subplot(144)
+            pl.imshow(WH[:, sample_index].reshape(reshape_size), cmap=cmap)
+            pl.title('Reconstructed Image')
+            print("Saving to", noise_path)
+            pl.savefig(noise_path, bbox_inches="tight")
+
+            # import IPython; IPython.embed()
+
+
 if __name__ == "__main__":
     argv = sys.argv
     if len(argv) < 2:
@@ -111,5 +150,7 @@ if __name__ == "__main__":
         draw_error(path1, path2)
     elif argv[1] == "noise":
         draw_noise(argv[2])
+    elif argv[1] == "compare":
+        draw_compare(argv[2])
     elif argv[1] == "error2":
         draw_error2()

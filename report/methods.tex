@@ -3,17 +3,6 @@
 %\subsection{Noise Design}
 Some carefully designed \textsc{nmf} are robust to various noises. These robust algorithms aim to significantly reduce the amount of noise while preserving the edges without blurring the immage \citep{barbu2013variational}. Figure~\ref{noises} shows three kinds of noises we designed, including Gaussian noise, Poisson noise, and Salt \& Pepper noise.
 
-
-\begin{figure}\label{noises}
-	\centering
-	\includegraphics[scale=.8]{Noise_ORL_Normal_Comparison}\\ %replace these with jpg files with appropriate size
-	\includegraphics[scale=.8]{Noise_ORL_Poisson_Comparison}\\
-	\includegraphics[scale=.8]{Noise_ORL_Salt_and_Pepper_Comparison}
-	\caption{The original images (left) are corrupted by Gaussian Noise (top), Poisson Noise (middle), and Salt \& Pepper Noise (bottom). The corrupted images are shown on the right.}
-	\label{fig:noise}
-\end{figure}
-
-
 \subsection{NMF and Gaussian noise}
 \textbf{Gaussian noise} is a noise with a probability density function being normal with mean zero. \citet{lee2001algorithms} propose the first \textsc{nmf} with the objective function between imaga~$V$ and its \textsc{nmf} factorisation~$W$ and~$H$ being
 \begin{equation}

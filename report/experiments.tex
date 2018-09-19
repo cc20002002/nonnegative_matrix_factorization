@@ -44,12 +44,22 @@ Salt and Pepper noises are added by drawing random integers from discrete unifor
 \end{lstlisting}
 
 \subsection{Experiments Results}
-The results of noise design are shown below:
+The results of noise design and image reconstruction are shown below:
 \begin{figure}\label{noises}
 	\centering
-	\includegraphics[scale=.8]{Noise_ORL_Normal_Comparison}\\ %replace these with jpg files with appropriate size
-	\includegraphics[scale=.8]{Noise_ORL_Poisson_Comparison}\\
-	\includegraphics[scale=.8]{Noise_ORL_Salt_and_Pepper_Comparison}
-	\caption{The original images (left) are corrupted by Gaussian Noise (top), Poisson Noise (middle), and Salt \& Pepper Noise (bottom). The corrupted images are shown on the right.}
+	\includegraphics[scale=.8]{Result_Multiplication_Euclidean_No_Noise_Comparison}\\
+	\includegraphics[scale=.8]{Result_Multiplication_Euclidean_Normal_Comparison}\\
+	\includegraphics[scale=.8]{Result_Multiplication_Euclidean_Poisson_Comparison}\\
+	\includegraphics[scale=.8]{Result_Multiplication_Euclidean_Salt_and_Pepper_Comparison}\\
+	\caption{The original images (left) are corrupted by No Noise (top), Gaussian Noise (second), Poisson Noise (third), and Salt \& Pepper Noise (bottom). The corrupted images are shown next to them. The reconstructed image by algorithm \textbf{Multiplication Euclidean} are shown in right.}
+	\label{fig:noise}
+\end{figure}
+\begin{figure}\label{noises}
+	\centering
+	\includegraphics[scale=.8]{Result_Multiplication_KL_Divergence_No_Noise_Comparison}\\
+	\includegraphics[scale=.8]{Result_Multiplication_KL_Divergence_Normal_Comparison}\\
+	\includegraphics[scale=.8]{Result_Multiplication_KL_Divergence_Poisson_Comparison}\\
+	\includegraphics[scale=.8]{Result_Multiplication_KL_Divergence_Salt_and_Pepper_Comparison}\\
+	\caption{The original images (left) are corrupted by No Noise (top), Gaussian Noise (second), Poisson Noise (third), and Salt \& Pepper Noise (bottom). The corrupted images are shown next to them. The reconstructed image by algorithm \textbf{Multiplication KL Divergence} are shown in right.}
 	\label{fig:noise}
 \end{figure}
