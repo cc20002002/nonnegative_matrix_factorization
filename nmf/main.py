@@ -16,7 +16,7 @@ from numba import vectorize, float64, int64
 
 # Configuration
 sample_size = 0.9
-epoch = 5
+epoch = 80
 random_state = 0
 parallel_flag = 0
 
@@ -35,17 +35,17 @@ min_error = {
     #"Multiplication Euclidean regularized": 200,
 }
 model = {
-    # "Benchmark (scikit-learn)": algorithm.benchmark,
+    #"Benchmark (scikit-learn)": algorithm.benchmark,
     "Multiplication KL Divergence": algorithm.multiplication_divergence,
     "Multiplication Euclidean": algorithm.multiplication_euclidean,
     #"Multiplication Euclidean regularized": algorithm.multiplication_euclidean_regularized,
 }
 
 Noise = {
-    #"No Noise": noise.identity,
+    "No Noise": noise.identity,
     "Poisson": noise.possion,
     "Normal": noise.normal,
-    #"Salt and Pepper": noise.salt_and_pepper,
+    "Salt and Pepper": noise.salt_and_pepper,
 }
 
 rnd = np.random.RandomState()
