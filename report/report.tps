@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=report.tex
 
 [Frame0_View0,0]
-TopLine=0
-Cursor=0
+TopLine=144
+Cursor=4619
 
 [Frame1]
 Flags=0
@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=experiments.tex
 
 [Frame1_View0,0]
-TopLine=80
-Cursor=5536
+TopLine=54
+Cursor=4535
 
 [SessionInfo]
 FrameCount=2
