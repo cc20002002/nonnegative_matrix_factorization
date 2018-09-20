@@ -3,15 +3,6 @@
 %\subsection{Noise Design}
 Some carefully designed \textsc{nmf} are robust to various noises. These robust algorithms aim to significantly reduce the amount of noise while preserving the edges without blurring the immage \citep{barbu2013variational}. Figure~\ref{noises} shows three kinds of noises we designed, including Gaussian noise, Poisson noise, and Salt \& Pepper noise.
 
-
-\begin{figure}\label{noises}
-	\centering
-	\includegraphics[scale=.8]{Noise_ORL_Normal_Comparison}\\ %replace these with jpg files with appropriate size
-	\includegraphics[scale=.8]{Noise_ORL_Poisson_Comparison}\\
-	\includegraphics[scale=.8]{Noise_ORL_Salt_and_Pepper_Comparison}
-	\caption{The original images (left) are corrupted by Gaussian Noise (top), Poisson Noise (middle), and Salt \& Pepper Noise (bottom). The corrupted images are shown on the right.}
-	\label{fig:noise}
-\end{figure}
 \subsection{NMF and Gaussian noise}
 \textbf{Gaussian noise} is a noise with a probability density function being normal with mean zero. \citet{lee2001algorithms} propose the first \textsc{nmf} with the objective function between imaga~$V$ and its \textsc{nmf} factorisation~$W$ and~$H$ being
 \begin{equation}
@@ -56,6 +47,9 @@ Hence, the probability density function of each element of the original matrix~V
 P(V_{ij})=\frac{\left(WH\right)_{ij}^{V_{ij}}e^{-\left(WH\right)_{ij}}}{V_{ij}!}
 \end{equation*}
 is a sufficient condition to yield this likelihood. Hence \textsc{klnmf} is most suitable for images with Poisson noise.
+
+\subsection{Preprocess}
+We did not preprocess the images because both of \textsc{nmf} and \textsc{klnmf} are scale sensitive, because both objective functions~\eqref{eq:obnmf} and~\eqref{eq:klobj} varies when original matrix~$V$ and result matrices~$W$ and~$H$ scale proportionally, i.e. for $\lambda$ real, $D(V||WH)\neq D(\lambda V||\lambda WH)$. To overcome this issue, we could have normalise the matrices~$W$ and~$H$ in each iteration \citep{scaless}, but it will result in a even slower computation.
 
 \subsection{Gaussian and Poisson are asymptotic equivalent}
  We design an Gaussian noise and a Poisson noise with different magnitude.
