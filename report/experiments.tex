@@ -35,6 +35,7 @@ def possion(subVhat):
 % JOYCE please add here
 Salt and Pepper noises are added by drawing random integers from discrete uniform distribution of the interval $[$0, 255$)$ \chenc{joyce please comment here about your noise.} ref~\ref{salt}
 \begin{lstlisting}[caption= Salt and Pepper Noise Design, label=salt]
+def salt_and_pepper(subVhat):
 """Design a salt and pepper noise where make some pixel value zeros."""
   V_noise = np.random.randint(low=0, high=255, size=subVhat.shape, dtype=int)
   V = subVhat.copy()
@@ -42,6 +43,11 @@ Salt and Pepper noises are added by drawing random integers from discrete unifor
   V[V_noise >= 230] = 255
   return V, V_noise
 \end{lstlisting}
+
+\subsection{Experiment Setup}
+
+We apply 2 algorithms (\textsc{nmf} and \textsc{klnmf}) with 4 categories of noises (no noise, Gaussian noise, Poisson noise and Salt \& Pepper noise), which results in 8 combinations in each epoch. In each epoch, we randomly select 90\% of samples to train NMF algorithms and evaluate three metrics on reconstructed images. The training will terminate when the error reaches the minimum error or the maximum iteration is reached. The minimum error and maximum iteration are hyperparameter which we learn from experiments. We save the learning errors versus number of iteration so that we could draw the plot and observe the convergence of learning process. We increase the number of epochs and calculate the average metricss and confidence interval etc.
+
 
 \subsection{Experiments Results}
 Figure~\ref{noisesnmf} and~\ref{noisesklnmf} visualise the original image, designed noises, corrupted images and reconstructed images from left to right. From top to bottom, the four rows correspond to no noise, Gaussian noise discussed in Section~\ref{sec:gau}, Poisson noise discussed in Section~\ref{sec:poi} and Salt \& Paper noise discussed in Section~\ref{sec:sal}.
@@ -130,5 +136,18 @@ In terms of the cropped Yale dataset, results from hypothesis tests show that \t
  \hline
 \end{tabular}}
 \end{table}
+
+The raw metrics of ORL dataset are available here:
+
+\begin{itemize}
+	
+	\item \href{https://raw.githubusercontent.com/JoyceXinyueWang/nmf_raw_data/master/raw_result_rre.csv}{Relative reconstruction error}
+	
+	\item \href{https://raw.githubusercontent.com/JoyceXinyueWang/nmf_raw_data/master/raw_result_acc.csv}{Average Accuracy}
+	
+	\item \href{https://raw.githubusercontent.com/JoyceXinyueWang/nmf_raw_data/master/raw_result_nmi.csv}{Normalized Mutual Information}
+	
+\end{itemize}
+
 
 \subsection{Personal Reflection}
