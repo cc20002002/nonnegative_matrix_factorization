@@ -26,12 +26,10 @@ setup(
         "numpy>=1.14.0",
         "scipy>=1.0.0",
         "scikit-learn>=0.19.1",
-        "click==6.7",
         "pandas>=0.20.2",
         "matplotlib>=2.0.2",
-        "Pillow==5.2.0",
-        "numba>=0.39.0",
-        "tqdm==4.26.0",
+        "Pillow>=5.2.0",
+        "tqdm>=4.26.0",
     ],
     # extras_require={
     #     "dev": [
