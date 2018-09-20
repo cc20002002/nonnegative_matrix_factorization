@@ -14,12 +14,12 @@
 \contentsline {section}{\numberline {4}Experiments}{10}{section.4}
 \contentsline {subsection}{\numberline {4.1}Dataset}{10}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Noise}{10}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Gaussian Noise}{11}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.1}Gaussian Noise}{10}{subsubsection.4.2.1}
 \contentsline {subsubsection}{\numberline {4.2.2}Poisson Noise}{11}{subsubsection.4.2.2}
 \contentsline {subsubsection}{\numberline {4.2.3}Salt \& Pepper Noise}{11}{subsubsection.4.2.3}
-\contentsline {subsection}{\numberline {4.3}Experiment Setup}{12}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.3}Experiment Setup}{11}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}Experiments Results}{12}{subsection.4.4}
-\contentsline {subsubsection}{\numberline {4.4.1}{CroppedYale} Evaluations metrics FAKE FOR NOW}{16}{subsubsection.4.4.1}
+\contentsline {subsubsection}{\numberline {4.4.1}{CroppedYale} Evaluations metrics FAKE FOR NOW}{15}{subsubsection.4.4.1}
 \contentsline {subsection}{\numberline {4.5}Personal Reflection}{16}{subsection.4.5}
 \contentsline {section}{\numberline {5}Conclusion}{16}{section.5}
 \contentsline {section}{\numberline {A}Appendix}{16}{appendix.A}
