@@ -80,13 +80,14 @@ This design of multiple starting point improves the stability of of algorithm, b
 args = zip(repeat(V,ncpu), repeat(r,ncpu), repeat(niter[name2],ncpu), repeat(min_error[name2],ncpu))
 result = pool.starmap(algo, args)
 \end{lstlisting}
-where \texttt{algo} is the \textsc{nmf} algorithm and \texttt{niter} is the number of iterations. We use Chen's 16-thread Xeon high performance computer (Figure~\ref{hpc}) to run this algorithm.
+where \texttt{algo} is the \textsc{nmf} algorithm and \texttt{niter} is the number of iterations. We use a 16-thread Xeon high performance computer (Figure~\ref{hpc}) to run this algorithm.
+ The algorithms run in this high performance computer so that the computing time is reasonable.  The multiple initial estimates assure the algorithms are stable.
 
- \begin{figure}\label{hpc}
-  \centering
-  \includegraphics[scale=.5]{hpc}
-  \caption{The algorithms run in this high performance computer so that the computing time is reasonable.  The multiple initial estimates assure the algorithms are stable.}
-\end{figure}
+% \begin{figure}\label{hpc}
+%  \centering
+%  \includegraphics[scale=.5]{hpc}
+%  \caption{}
+%\end{figure}
 
 
 

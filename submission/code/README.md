@@ -50,7 +50,7 @@ We implemented NMF as a python package with modules of noise , file IO, evaluati
            "tqdm>=4.26.0",
 Please note that if the version number of installed package in your machine is lower than the stated version number, `pip` will uninstall your out-of-date package and install the one with version number greater than or equal to the stated one in `setup.py`.
 
-3. Run `main.py` in `nmf` with appropriate dataset name.
+3. Run `main.py` in `nmf`.
 
    To run `nmf` on **ORL** dataset, please run:
 
@@ -63,4 +63,10 @@ Please note that if the version number of installed package in your machine is l
    ```
    python nmf/main.py croppedYale
    ```
-Progress bar will show up to indicate the rough running time for each algorithm and noise combination. All results will be auto-saved to folder `results/{generated-time-dataname}`. Note that we set the epoch to be 1 in `main.py`. This is because we have 4 (noise) x 2 (algorithm) = 8 combination in each epoch. This will cost around 4.5 minutes on a i7-6th gen laptop with ORL dataset. However, we increased the epochs to calculate average metrics and confidence interval etc.
+   If no command line argument found, `main.py` will run ORL dataset by default.
+
+Progress bar will show up to indicate the rough running time for each algorithm and noise combination. All results will be auto-saved to folder `results/{generated-time-dataname}`.
+
+Note that we set the epoch to be 1 in `main.py`. This is because we have 4 (noise) x 2 (algorithm) = 8 combination in each epoch. However, we increased the epochs to calculate average metrics and confidence interval etc.
+
+Also note that we have a flag `multi_start_flag` in `main.py` at line 17. If the flag is turned on (value set to 1), we will use multi-start version of KLNMF to avoid getting stuck in local optimal. Currently we turn off the flag so that one epoch will finish in 1 minute. Feel free to turn it on to play around with code.

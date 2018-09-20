@@ -14,6 +14,7 @@ import time
 sample_size = 0.9
 epoch = 1
 random_state = 0
+multi_start_flag = 0
 
 scale = { "ORL": 3, "CroppedYaleB": 4}
 img_size = {"ORL": (92, 112), "CroppedYaleB": (168, 192)}
@@ -47,17 +48,19 @@ def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
     argvs = sys.argv
     message = "Please choose one of the two datasets: 'orl' or 'croppedYale'"
+    # if no command line argument, then use ORL dataset by default
     if len(argvs) < 2:
-       print(message)
-       sys.exit()
-    assert argvs[-1] in ["orl", "croppedYale"], message
+        dataname = "orl"
+    else:
+        assert argvs[1] in ["orl", "croppedYale"], message
+        dataname = argvs[1]
     # make a folder with generated time to save results
     folder = datetime.now().strftime("%Y-%m-%d-%H-%M")
-    folder = os.path.join("results", folder + "-" + argvs[-1])
+    folder = os.path.join("results", folder + "-" + dataname)
     if not os.path.exists(folder):
         os.makedirs(folder)
     # choose dataset to train with
-    if argvs[-1] == "orl":
+    if dataname == "orl":
         train("data" + os.sep + "ORL", folder)
     else:
         train("data" + os.sep + "CroppedYaleB", folder)
@@ -77,20 +80,23 @@ def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
         for name, algo in model.items():
             name2 = name
             name = name+' '+noise_fun
-            # multi-start with various initial values
-            ncpu = os.cpu_count()
-            pool = multiprocessing.Pool(ncpu)
-            m = Vhat.shape[0]
-            n = Vhat.shape[1]
-            # set up argument for parallel programming
-            args = zip(repeat(V,ncpu), repeat(r,ncpu),
-                       repeat(niter[name2],ncpu),
-                       repeat(min_error[name2], ncpu))
-            result = pool.starmap(algo, args)
-            pool.close()
-            pool.join()
-            errors_n = [i[2][-1] for i in result]
-            W, H, errors = result[errors_n.index(min(errors_n))]
+            if multi_start_flag == 1:
+                # multi-start with various initial values
+                ncpu = os.cpu_count()
+                pool = multiprocessing.Pool(ncpu)
+                m = Vhat.shape[0]
+                n = Vhat.shape[1]
+                # set up argument for parallel programming
+                args = zip(repeat(V,ncpu), repeat(r,ncpu),
+                           repeat(niter[name2],ncpu),
+                           repeat(min_error[name2], ncpu))
+                result = pool.starmap(algo, args)
+                pool.close()
+                pool.join()
+                errors_n = [i[2][-1] for i in result]
+                W, H, errors = result[errors_n.index(min(errors_n))]
+            else:
+                W, H, errors = algo(V, r, niter[name2], min_error[name2])
             # save subVhat, V and H to disk - only epoch1
             if i == 0:
                 path_matrix = os.path.join(folder, "matrix_{}".format(name))

@@ -9,7 +9,7 @@ For each dataset, we flatten the image matrix into a vector and append them toge
 \subsection{Noise}
 We implement three kinds of noises including Gaussian noise, Poisson noise and Salt \& Pepper noise.
 \subsubsection{Gaussian Noise}\label{sec:gau}
-We design the Gaussian noise by normal distribution with $0$ mean and $80$ standard deviation (Algorithm~\ref{gau}). The \texttt{ORL} dataset has a global pixel mean of $40$ and the \texttt{CroppedYale} data set has that of $70$. Hence the designed Gaussian noise contaminates the images significantly. We choose the standard deviation to be $80$ so that our Gaussian noise are less likely to coincident with the designed Poisson noise. To satisfy the nonnegative constant, negative value in contaminated image is set to zero
+We design the Gaussian noise by normal distribution with $0$ mean and $80$ standard deviation (Algorithm~\ref{gau}). The \texttt{ORL} dataset has a global pixel mean of $40$ and the \texttt{CroppedYale} data set has that of $70$. Hence the designed Gaussian noise contaminates the images significantly. We choose the standard deviation to be $80$ so that our Gaussian noise are less likely to coincident with the designed Poisson noise. To satisfy the nonnegative constant, negative value in contaminated image is set to zero.
 \begin{lstlisting}[caption= Gaussian Noise Design, label=gau]
 def normal(subVhat):
     """Design a Gaussian noise."""
@@ -33,7 +33,7 @@ def possion(subVhat):
 
 \subsubsection{Salt \& Pepper Noise}\label{sec:sal}
 % JOYCE please add here
-Salt and Pepper noises are added by drawing random integers from discrete uniform distribution of the interval $[$0, 255$)$ \chenc{joyce please comment here about your noise.} ref~\ref{salt}
+Salt \& Pepper noises are added by drawing random integers from discrete uniform distribution of the interval $[$0, 255$)$ . We find bright place in generated image and replace pixel values in same place of original image with brightest value. Similarly, we also find the dark pixels in genearted image and replace pixel values in same place of original image with darkest pixel value. In this case, we set the pixels whose value being greather than or equal to 230 as bright pixels and pixels whose value being less than or equal to 20 as dark pixels.
 \begin{lstlisting}[caption= Salt and Pepper Noise Design, label=salt]
 def salt_and_pepper(subVhat):
 """Design a salt and pepper noise where make some pixel value zeros."""
