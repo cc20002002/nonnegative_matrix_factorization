@@ -17,20 +17,20 @@ We implemented NMF as a python package with modules of noise , file IO, evaluati
 
 1. Make a folder with name "data" in current directory. Then copy ORL and CroppedYaleB dataset inside. Please make sure you have the following file tree structure:
 ```
-     |--- data
-     	|--- ORL
-     	|--- CroppedYaleB
-     |--- nmf \\
-     	|--- \__version__.py
-      	|--- algorithm.py
-      	|--- io.py
-      	|--- main.py
-      	|--- metric.py
-      	|--- noise.py
-      	|--- util.py
-      	|--- vis.py
-      |--- setup.py
-      |--- README.md
+  |--- data
+  	|--- ORL
+  	|--- CroppedYaleB
+  |--- nmf
+  	|--- __version__.py
+  	|--- algorithm.py
+  	|--- io.py
+  	|--- main.py
+  	|--- metric.py
+  	|--- noise.py
+  	|--- util.py
+  	|--- vis.py
+  |--- setup.py
+  |--- README.md
 ```
  2. Install `nmf` with following command: (Please use `pip3` if the default `python` in your computer is `python2`)
 
