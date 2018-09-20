@@ -57,7 +57,7 @@ We did not preprocess the images because both of \textsc{nmf} and \textsc{klnmf}
  Hence for $\lambda$ large, Central Limit Theorem implies that Poisson distribution with parameter~$\lambda$ is well approximated by $N(\lambda,\lambda)$.
  When applying Poisson noise to an image, we do not have degree of freedom to choose any parameter.
  The variance is the magnitude of the pixels. To compare the robustness of \textsc{klnmf} with \textsc{nmf} with different noise, we choose the variance of Gaussian noise to be the different from the magnitude of the pixel, that is, $N(0,\operatorname{Var})\neq N(0,V)\approx \operatorname{Poi}(V)-V$.
- Figure~\ref{noise} visualises the similarity of Poisson distribution and Normal distribution with parameter~$V=40$. To overcome this issue, the Gaussian noise we use should be larger or smaller variance in comparison with the mean of the images. We choose the variance of the noise to be $80$.
+ Figure~\ref{noise} visualises the similarity of Poisson distribution and Normal distribution with parameter~$V=40$. To overcome this issue, the Gaussian noise we use should have very different variance in comparison with the mean of the images. The pixel mean of the \textsc{orl} dataset is approximately $40$, and the pixcel mean of the Cropped Yale set is approximately $70$. Hence, we choose the variance of the noise to be $80^2$.
 \begin{figure}
   \centering
   % Requires \usepackage{graphicx}
