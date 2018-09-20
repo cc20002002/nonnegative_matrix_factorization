@@ -91,7 +91,7 @@ where \texttt{algo} is the \textsc{nmf} algorithm and \texttt{niter} is the numb
 
 
 \subsection{KLNMF requires more iterations}
-\textsc{klnmf} converges slower than \textsc{nmf}. We made the plot of the logarithm of residual~\eqref{eq:obnmf} and~\eqref{eq:klobj} with respect to the logarithm of the number of iterations. We measured the slope of the log-log plot for both algorithms and found that the slope of the \textsc{nmf} residual plot is $2.5$ times as that of the \textsc{klnmf} plot (Figure~\ref{error}). This estimates that the rate of convergence of \textsc{nmf} is $2.5$ faster than \textsc{klnmf}. As a result, we set the number of iterations as $500$ and $1200$ for \textsc{nmf} and \textsc{klnmf} algorithms, respectively (i.e. roughtly $2.5$ more iterations).
+A residual versus number of iteration plot (figure~\ref{error}) shows that \textsc{klnmf} converges slower than \textsc{nmf}. In the log-log plot, the slope of the \textsc{nmf} residual plot is $2.5$ times larger than that of the \textsc{klnmf} plot for the \textsc{orl} data. This estimates that the rate of convergence of \textsc{nmf} is $2.5$ faster than \textsc{klnmf}. As a result, we set the number of iterations as $500$ and $1200$ for \textsc{nmf} and \textsc{klnmf} algorithms, respectively (i.e. roughtly $2.5$ more iterations).
  \begin{figure}
   \centering
   % Requires \usepackage{graphicx}

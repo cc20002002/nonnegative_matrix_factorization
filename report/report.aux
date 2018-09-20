@@ -18,7 +18,10 @@
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \bibstyle{unsrtnat}
-\babel@aux{UKenglish}{}
+\select@language{UKenglish}
+\@writefile{toc}{\select@language{UKenglish}}
+\@writefile{lof}{\select@language{UKenglish}}
+\@writefile{lot}{\select@language{UKenglish}}
 \citation{lee1999learning}
 \citation{guillamet2002non}
 \citation{lee1999learning}
@@ -75,10 +78,11 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Residual of objective function~\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:obnmf}\unskip \@@italiccorr )}} and~\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:klobj}\unskip \@@italiccorr )}} versus the number of iterations. \textsc  {nmf} converges more than twice faster than \textsc  {klnmf}.}}{9}{figure.3}}
 \newlabel{error}{{3}{9}{Residual of objective function~\eqref {eq:obnmf} and~\eqref {eq:klobj} versus the number of iterations. \textsc {nmf} converges more than twice faster than \textsc {klnmf}}{figure.3}{}}
 \newlabel{eq:boot}{{5}{9}{Evaluation metrics and their confidence intervals \label {ci}}{equation.3.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.9}Compare the robustness of algorithms}{9}{subsection.3.9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.9}Statistical method compares the robustness of algorithms}{9}{subsection.3.9}}
 \citation{Walck:1996cca}
 \citation{belhumeur1997eigenfaces}
-\newlabel{epdf}{{6}{10}{Compare the robustness of algorithms}{equation.3.6}{}}
+\newlabel{epdf}{{6}{10}{Statistical method compares the robustness of algorithms}{equation.3.6}{}}
+\newlabel{teststatistic}{{7}{10}{Statistical method compares the robustness of algorithms}{equation.3.7}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Experiments}{10}{section.4}}
 \newlabel{chapter4}{{4}{10}{Experiments}{section.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Dataset}{10}{subsection.4.1}}
@@ -96,21 +100,21 @@
 \@writefile{lpc}{\contentsline {lpcsec}{\numberline {}Chen\ - joyce please comment here about your noise.}{11}{section*.2}}
 \newlabel{salt}{{4}{11}{Salt and Pepper Noise Design}{lstlisting.4}{}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {4}Salt and Pepper Noise Design}{11}{lstlisting.4}}
+\citation{guan2017truncated}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Experiments Results}{12}{subsection.4.3}}
-\newlabel{noisesnmf}{{4.3}{13}{Experiments Results}{subsection.4.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The reconstructed image by \textbf  {nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}}{13}{figure.4}}
-\newlabel{fig:noise}{{4}{13}{The reconstructed image by \textbf {nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1}{figure.4}{}}
-\newlabel{noisesklnmf}{{4.3}{14}{Experiments Results}{figure.4}{}}
+\newlabel{noisesnmff}{{4}{13}{The reconstructed image by \textbf {nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1}{figure.4}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The reconstructed image by \textbf  {klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}}{14}{figure.5}}
-\newlabel{fig:noise}{{5}{14}{The reconstructed image by \textbf {klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1}{figure.5}{}}
+\newlabel{noisesklnmff}{{5}{14}{The reconstructed image by \textbf {klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1}{figure.5}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Average of evaluations metrics over 80 simulations using the \textsc  {orl} dataset. The 95\% confidence intervals are calculated using bootstrap.}}{15}{table.1}}
 \newlabel{tab:ci}{{1}{15}{Average of evaluations metrics over 80 simulations using the \textsc {orl} dataset. The 95\% confidence intervals are calculated using bootstrap}{table.1}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Average of evaluations metrics over 40 simulations using CroppedYale data set. The 95\% confidence intervals are calculated using bootstrap.}}{15}{table.2}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}{CroppedYale} Evaluations metrics FAKE FOR NOW}{15}{subsubsection.4.3.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{15}{section.5}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Appendix}{15}{appendix.A}}
-\newlabel{matn1}{{5}{15}{The Levenberg--Marquardt algorithm iteratively finds optimal macroscale Robin boundary conditions}{lstlisting.5}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}The Levenberg--Marquardt algorithm iteratively finds optimal macroscale Robin boundary conditions.}{15}{lstlisting.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Personal Reflection}{15}{subsection.4.4}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{16}{section.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Appendix}{16}{appendix.A}}
+\newlabel{matn1}{{5}{16}{The Levenberg--Marquardt algorithm iteratively finds optimal macroscale Robin boundary conditions}{lstlisting.5}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}The Levenberg--Marquardt algorithm iteratively finds optimal macroscale Robin boundary conditions.}{16}{lstlisting.5}}
 \bibdata{research}
 \bibcite{lee1999learning}{{1}{1999}{{Lee and Seung}}{{}}}
 \bibcite{guillamet2002non}{{2}{2002}{{Guillamet and Vitri{\`a}}}{{}}}
