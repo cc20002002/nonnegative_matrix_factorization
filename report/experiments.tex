@@ -8,7 +8,7 @@ For each dataset, we flatten the image matrix into a vector and append them toge
 
 \subsection{Noise}
 We implement three kinds of noises including Gaussian noise, Poisson noise and Salt \& Pepper noise.
-\subsubsection{Gaussian Noise}
+\subsubsection{Gaussian Noise}\label{sec:gau}
 We design the Gaussian noise by normal distribution with $0$ mean and $80$ standard deviation (Algorithm~\ref{gau}). The \texttt{ORL} dataset has a global pixel mean of $40$ and the \texttt{CroppedYale} data set has that of $70$. Hence the designed Gaussian noise contaminates the images significantly. We choose the standard deviation to be $80$ so that our Gaussian noise are less likely to coincident with the designed Poisson noise. To satisfy the nonnegative constant, negative value in contaminated image is set to zero
 \begin{lstlisting}[caption= Gaussian Noise Design, label=gau]
 def normal(subVhat):
@@ -20,7 +20,7 @@ def normal(subVhat):
 \end{lstlisting}
 
 
-\subsubsection{Poisson Noise}
+\subsubsection{Poisson Noise}\label{sec:poi}
 The Poisson noise is not additive and has no hyperparameters to be set. Unlike Gaussian noise, contaminated images are drawn directly from Poisson distribution with parameter set to be pixel values. Then, the Poisson noise is calculated from the difference between the contaminated image and the original image, as discussed in Section~\ref{chapter2} and demonstrated in algorithm~\ref{poi}.
 \begin{lstlisting}[caption= Poisson Noise Design, label=poi]
 def possion(subVhat):
@@ -31,7 +31,7 @@ def possion(subVhat):
 \end{lstlisting}
 
 
-\subsubsection{Salt \& Pepper Noise}
+\subsubsection{Salt \& Pepper Noise}\label{sec:sal}
 % JOYCE please add here
 Salt and Pepper noises are added by drawing random integers from discrete uniform distribution of the interval $[$0, 255$)$ \chenc{joyce please comment here about your noise.} ref~\ref{salt}
 \begin{lstlisting}[caption= Salt and Pepper Noise Design, label=salt]
@@ -44,22 +44,22 @@ Salt and Pepper noises are added by drawing random integers from discrete unifor
 \end{lstlisting}
 
 \subsection{Experiments Results}
-The results of noise design and image reconstruction are shown below:
-\begin{figure}\label{noises}
+Figure~\ref{noisesnmf} and~\ref{noisesklnmf} visualise the original image, designed noises, corrupted images and reconstructed images from left to right. From top to bottom, the four rows correspond to no noise, Gaussian noise discussed in Section~\ref{sec:gau}, Poisson noise discussed in Section~\ref{sec:poi} and Salt \& Paper noise discussed in Section~\ref{sec:sal}. {\color{blue} SOMEONE PLEASE DESCRIBE THE IMAGE HERE.}
+\begin{figure}\label{noisesnmf}
 	\centering
-	\includegraphics[scale=.8]{Result_Multiplication_Euclidean_No_Noise_Comparison}\\
-	\includegraphics[scale=.8]{Result_Multiplication_Euclidean_Normal_Comparison}\\
-	\includegraphics[scale=.8]{Result_Multiplication_Euclidean_Poisson_Comparison}\\
-	\includegraphics[scale=.8]{Result_Multiplication_Euclidean_Salt_and_Pepper_Comparison}\\
-	\caption{The original images (left) are corrupted by No Noise (top), Gaussian Noise (second), Poisson Noise (third), and Salt \& Pepper Noise (bottom). The corrupted images are shown next to them. The reconstructed image by algorithm \textbf{Multiplication Euclidean} are shown in right.}
+	\includegraphics[scale=.9]{Result_Multiplication_Euclidean_No_Noise_Comparison}\\
+	\includegraphics[scale=.9]{Result_Multiplication_Euclidean_Normal_Comparison}\\
+	\includegraphics[scale=.9]{Result_Multiplication_Euclidean_Poisson_Comparison}\\
+	\includegraphics[scale=.9]{Result_Multiplication_Euclidean_Salt_and_Pepper_Comparison}
+	\caption{The reconstructed image by \textbf{nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}
 	\label{fig:noise}
 \end{figure}
-\begin{figure}\label{noises}
+\begin{figure}\label{noisesklnmf}
 	\centering
-	\includegraphics[scale=.8]{Result_Multiplication_KL_Divergence_No_Noise_Comparison}\\
-	\includegraphics[scale=.8]{Result_Multiplication_KL_Divergence_Normal_Comparison}\\
-	\includegraphics[scale=.8]{Result_Multiplication_KL_Divergence_Poisson_Comparison}\\
-	\includegraphics[scale=.8]{Result_Multiplication_KL_Divergence_Salt_and_Pepper_Comparison}\\
-	\caption{The original images (left) are corrupted by No Noise (top), Gaussian Noise (second), Poisson Noise (third), and Salt \& Pepper Noise (bottom). The corrupted images are shown next to them. The reconstructed image by algorithm \textbf{Multiplication KL Divergence} are shown in right.}
+	\includegraphics[scale=.9]{Result_Multiplication_KL_Divergence_No_Noise_Comparison}\\
+	\includegraphics[scale=.9]{Result_Multiplication_KL_Divergence_Normal_Comparison}\\
+	\includegraphics[scale=.9]{Result_Multiplication_KL_Divergence_Poisson_Comparison}\\
+	\includegraphics[scale=.9]{Result_Multiplication_KL_Divergence_Salt_and_Pepper_Comparison}
+\caption{The reconstructed image by \textbf{klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}
 	\label{fig:noise}
 \end{figure}
