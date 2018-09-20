@@ -33,7 +33,7 @@ def possion(subVhat):
 
 \subsubsection{Salt \& Pepper Noise}\label{sec:sal}
 % JOYCE please add here
-Salt and Pepper noises are added by drawing random integers from discrete uniform distribution of the interval $[$0, 255$)$ \chenc{joyce please comment here about your noise.} ref~\ref{salt}
+Salt \& Pepper noises are added by drawing random integers from discrete uniform distribution of the interval $[$0, 255$)$ . And then find bright place in generated image and replace pixel values in same place of original image with brightest value. Similarly, find the dark pixels in genearted image and replace pixel values in same place of original image with darkest pixel value. In this case, we set the pixels whose value being greather than or equal to 230 as bright pixels and pixels whose value being less than or equal to 20 as dark pixels.
 \begin{lstlisting}[caption= Salt and Pepper Noise Design, label=salt]
 def salt_and_pepper(subVhat):
 """Design a salt and pepper noise where make some pixel value zeros."""
