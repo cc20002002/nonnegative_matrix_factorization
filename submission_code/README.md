@@ -6,7 +6,9 @@ Assignment1 Non-negative matrix factorization
 Author
 ------
 Chen Chen 480458339
+
 Xiaodan Gan 440581983
+
 Xinyue Wang 440359463
 
 
