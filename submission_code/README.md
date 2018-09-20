@@ -6,7 +6,9 @@ Assignment1 Non-negative matrix factorization
 Author
 ------
 Chen Chen 480458339
+
 Xiaodan Gan 440581983
+
 Xinyue Wang 440359463
 
 
@@ -16,21 +18,22 @@ Running Environment Setup
 We implemented NMF as a python package with modules of noise , file IO, evaluation metrics and visualization. Please follow the instruction to make sure the code will run properly.
 
 1. Make a folder with name "data" in current directory. Then copy ORL and CroppedYaleB dataset inside. Please make sure you have the following file tree structure:
-     |--- data \\
-     ​	|--- ORL \\
-     ​	|--- CroppedYaleB \\
-     |--- nmf \\
-     	|--- \__version__.py \\
-      	|--- algorithm.py  \\
-      	|--- io.py  \\
-      	|--- main.py \\
-      	|--- metric.py \\
-      	|--- noise.py \\
-      	|--- util.py \\
-      	|--- vis.py \\
-      |--- setup.py \\
-      |--- README.md \\
-
+```
+  |--- data
+  	|--- ORL
+  	|--- CroppedYaleB
+  |--- nmf
+  	|--- __version__.py
+  	|--- algorithm.py
+  	|--- io.py
+  	|--- main.py
+  	|--- metric.py
+  	|--- noise.py
+  	|--- util.py
+  	|--- vis.py
+  |--- setup.py
+  |--- README.md
+```
  2. Install `nmf` with following command: (Please use `pip3` if the default `python` in your computer is `python2`)
 
    ```
