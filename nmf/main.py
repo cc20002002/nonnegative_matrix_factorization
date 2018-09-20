@@ -53,7 +53,7 @@ rnd = np.random.RandomState()
 def main():
     """Run NMF on CroppedYaleB and ORL dataset."""
     
-    argvs = ['hi',"orl"]
+    argvs = ['hi',"croppedYale"]
     message = "Please choose one of the two datasets: 'orl' or 'croppedYale'"
     if len(argvs) < 2:
        print(message)
@@ -76,7 +76,7 @@ def main():
     else:
         if os.name == 'nt':
             #train("..\\data\\CroppedYaleB", folder)
-            train(".."+os.sep+"data" + os.sep + "CroppedYaleB", folder)
+            train("data" + os.sep + "CroppedYaleB", folder)
         else:
             train("data" + os.sep + "CroppedYaleB", folder)
 
