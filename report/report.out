@@ -6,7 +6,7 @@
 \BOOKMARK [2][]{subsection.3.3}{Preprocess}{section.3}% 6
 \BOOKMARK [2][]{subsection.3.4}{Gaussian and Poisson are asymptotic equivalent}{section.3}% 7
 \BOOKMARK [2][]{subsection.3.5}{Salt \046 Pepper noise}{section.3}% 8
-\BOOKMARK [2][]{subsection.3.6}{Multiple initial estimates avoid local minima}{section.3}% 9
+\BOOKMARK [2][]{subsection.3.6}{Multiple initial estimates assure the algorithms stable}{section.3}% 9
 \BOOKMARK [2][]{subsection.3.7}{KLNMF requires more iterations}{section.3}% 10
 \BOOKMARK [2][]{subsection.3.8}{Evaluation metrics and their confidence intervals }{section.3}% 11
 \BOOKMARK [2][]{subsection.3.9}{Compare the robustness of algorithms}{section.3}% 12
@@ -17,5 +17,6 @@
 \BOOKMARK [3][]{subsubsection.4.2.2}{Poisson Noise}{subsection.4.2}% 17
 \BOOKMARK [3][]{subsubsection.4.2.3}{Salt \046 Pepper Noise}{subsection.4.2}% 18
 \BOOKMARK [2][]{subsection.4.3}{Experiments Results}{section.4}% 19
-\BOOKMARK [1][]{section.5}{Conclusion}{}% 20
-\BOOKMARK [1][]{appendix.A}{Appendix}{}% 21
+\BOOKMARK [3][]{subsubsection.4.3.1}{CroppedYale Evaluations metrics FAKE FOR NOW}{subsection.4.3}% 20
+\BOOKMARK [1][]{section.5}{Conclusion}{}% 21
+\BOOKMARK [1][]{appendix.A}{Appendix}{}% 22

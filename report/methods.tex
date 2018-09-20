@@ -1,7 +1,7 @@
 %!TEX root = report.tex
 \section{Methods \label{chapter2}}
 %\subsection{Noise Design}
-Some carefully designed \textsc{nmf} are robust to various noises. These robust algorithms aim to significantly reduce the amount of noise while preserving the edges without blurring the immage \citep{barbu2013variational}. Figure~\ref{noises} shows three kinds of noises we designed, including Gaussian noise, Poisson noise, and Salt \& Pepper noise.
+Some carefully designed \textsc{nmf} are robust to various noises. These robust algorithms aim to significantly reduce the amount of noise while preserving the edges without blurring the immage \citep{barbu2013variational}. %Figure~\ref{noises} shows three kinds of noises we designed, including Gaussian noise, Poisson noise, and Salt \& Pepper noise.
 
 \subsection{NMF and Gaussian noise}
 \textbf{Gaussian noise} is a noise with a probability density function being normal with mean zero. \citet{lee2001algorithms} propose the first \textsc{nmf} with the objective function between imaga~$V$ and its \textsc{nmf} factorisation~$W$ and~$H$ being
@@ -68,10 +68,11 @@ We did not preprocess the images because both of \textsc{nmf} and \textsc{klnmf}
 \subsection{Salt \& Pepper noise}
 Apart from Gaussian and Poisson noises, we also test our two algorithms on the commonly seen \textbf{Salt \& Pepper noise} noise. The noise presents itself by having dark pixels in bright regions and bright pixels in dark regions \citep{sampat2005computer}.
 
-\subsection{Multiple initial estimates avoid local minima}
-As discussed in the section of related work.
+\subsection{Multiple initial estimates assure the algorithms stable}
+As discussed in the section of related work, 
 The problem of nonnegative matrix factorization is not a convex problem.
-Hence the results update rules~\eqref{eq:nmf} and~\eqref{eq:klnmf} coverage to may be local minima instead of global minima.
+Hence the results update rules~\eqref{eq:nmf} and~\eqref{eq:klnmf} coverage to may be local minima instead of global minima, depending on the initial approximation.
+Our task was to compare the robustness of the algorithm and we do not want the instability of our algorithms to affect our comparison. 
 To address this issue, we implement several (i.e. $n$) initial estimates for each matrix factorization problem.
 We use the factorized matrices~$W$ and~$H$ corresponding to the least residual~\eqref{eq:obnmf} and~\eqref{eq:klobj}, for \textsc{nmf} and~\textsc{klnmf}, algorithms respectively, as the final result of factorization.
 This design of multiple starting point improves the stability of of algorithm, but it requires more computational power. To improve the computational speed, we make the number~$n$ equal to the number of cores of the \textsc{cpu}. We assign each of the $n$ initial estimates randomly with an uniform distribution. Then these each of the $n$ initial estimates are assigned to a different core of the \textsc{cpu}. This boost the \textsc{cpu} utilisation to 100\% instantly and improved the computational speed by 70\% on the \textsc{orl} data. The following part of our code implements this idea of parallel computing.
@@ -79,7 +80,15 @@ This design of multiple starting point improves the stability of of algorithm, b
 args = zip(repeat(V,ncpu), repeat(r,ncpu), repeat(niter[name2],ncpu), repeat(min_error[name2],ncpu))
 result = pool.starmap(algo, args)
 \end{lstlisting}
-where \texttt{algo} is the \textsc{nmf} algorithm and \texttt{niter} is the number of iterations.
+where \texttt{algo} is the \textsc{nmf} algorithm and \texttt{niter} is the number of iterations. We use Chen's 16-thread Xeon high performance computer (Figure~\ref{hpc}) to run this algorithm. 
+
+ \begin{figure}\label{hpc}
+  \centering
+  \includegraphics[scale=.5]{hpc}
+  \caption{The algorithms run in this high performance computer so that the computing time is reasonable.  The multiple initial estimates assure the algorithms are stable.}
+\end{figure}
+
+
 
 \subsection{KLNMF requires more iterations}
 \textsc{klnmf} converges slower than \textsc{nmf}. We made the plot of the logarithm of residual~\eqref{eq:obnmf} and~\eqref{eq:klobj} with respect to the logarithm of the number of iterations. We measured the slope of the log-log plot for both algorithms and found that the slope of the \textsc{nmf} residual plot is $2.5$ times as that of the \textsc{klnmf} plot (Figure~\ref{error}). This estimates that the rate of convergence of \textsc{nmf} is $2.5$ faster than \textsc{klnmf}. As a result, we set the number of iterations as $500$ and $1200$ for \textsc{nmf} and \textsc{klnmf} algorithms, respectively (i.e. roughtly $2.5$ more iterations).
@@ -91,13 +100,13 @@ where \texttt{algo} is the \textsc{nmf} algorithm and \texttt{niter} is the numb
 \end{figure}
 
 \subsection{Evaluation metrics and their confidence intervals \label{ci}}
-The assignment instruction asks us to compare the performance of \textsc{nmf} and \textsc{klnmf} by using evaluations metrics including Relative Reconstruction Errors (\textsc{rre}),Average Accuracy (\textsc{aa}), Normalized Mutual Information (\textsc{nmi}). The instruction states the formulae of these metrics. However, to systematically compare the metrics, we construct an 95\% confidence interval for any metric (e.g. \textsc{rre}) by Studentized boostrapping method
+The assignment instruction asks us to compare the performance of \textsc{nmf} and \textsc{klnmf} by using evaluations metrics including Relative Reconstruction Errors (\textsc{rre}), Average Accuracy (\textsc{aa}), Normalized Mutual Information (\textsc{nmi}). The instruction states the formulae of these metrics. However, to systematically compare the metrics, we construct an 95\% confidence interval for any metric (e.g. \textsc{rre}) by bootstrapping percentile confidence interval. The idea of bootstrapped  is straightforward---we resample a subset of $40$ samples among the sample space of $80$ simulations and calculate the mean. We repeat this process $1000$ times. The $2.5\%$ and $97.5\%$ percentiles of the $80$ resampled means are then the bootstrapping percentile confidence interval
 \begin{equation}
-(\textsc{rre} -t_{97.5}^{*}\cdot {\hat {se}}_{\textsc{rre} },\textsc{rre} -t_{2.5}^{*}\cdot {\hat {se}}_{\textsc{rre}}), \label{eq:boot}
+(\textsc{rre}^*_{2.5}, \textsc{rre}^*_{97.5}), \label{eq:boot}
 \end{equation}
-where $t^*_{2.5}$ is the $2.5$ percentile of the bootstrapped Student's t-distribution from our sample space with 80 simulations and $\hat{se}_{\textsc{rre}}$ is the sample standard error. We run 80 simulations so that the confidence interval we construct is precise.
+where $\textsc{rre}^*_{\alpha}$ is the $\alpha$ percentile of the bootstrapped distribution from our sample space with $80$ simulations.  We run $80$ simulations so that the confidence interval we construct is precise.
 
-Boostrapping does require the sample space follows specific distributions. We apply this nonparametric method to construct confidence interval here because we do not have the knowledge about the specific distributions of these three metrics.
+Boostrapping does not require the sample space follows specific distributions. We apply this nonparametric method to construct confidence interval here because we do not have the knowledge about the specific distributions of these three metrics.
 
 \subsection{Compare the robustness of algorithms}
 We implement Kolmogorov-Smirnov test to test the hypothesis that the algorithms~\textsc{nmf} and~\textsc{klnmf} have different robustness. Again Kolmogorov-Smirnov test is distribution free, so we do not need to know the distributions of the evaluation metrics.
