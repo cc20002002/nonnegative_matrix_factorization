@@ -69,9 +69,9 @@ def draw_noise(dataname):
     # load data
     assert dataname in ["ORL", "CroppedYaleB"]
     if dataname == "ORL":
-        path = os.path.join("data", "ORL")
+        path = os.path.join(".." + os.sep + "data", "ORL")
     else:
-        path = os.path.join("data", "CroppedYaleB")
+        path = os.path.join(".." + os.sep + "data", "CroppedYaleB")
     print("==> Load {} dataset...".format(dataname))
     Vhat, Yhat = io.load_data(path, main.scale[dataname])
     # loop through noise
