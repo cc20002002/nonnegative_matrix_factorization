@@ -59,7 +59,7 @@ The first row of Figure~\ref{noisesnmff} and~\ref{noisesklnmff} show both algori
 	\includegraphics[scale=.9]{Result_Multiplication_Euclidean_Normal_Comparison}\\
 	\includegraphics[scale=.9]{Result_Multiplication_Euclidean_Poisson_Comparison}\\
 	\includegraphics[scale=.9]{Result_Multiplication_Euclidean_Salt_and_Pepper_Comparison}
-	\caption{The reconstructed image by \textbf{nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed images are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}\label{noisesnmff}
+	\caption{The reconstructed image by \textsc{nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed images are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}\label{noisesnmff}
 \end{figure}
 \begin{figure}
 	\centering
@@ -67,7 +67,7 @@ The first row of Figure~\ref{noisesnmff} and~\ref{noisesklnmff} show both algori
 	\includegraphics[scale=.9]{Result_Multiplication_KL_Divergence_Normal_Comparison}\\
 	\includegraphics[scale=.9]{Result_Multiplication_KL_Divergence_Poisson_Comparison}\\
 	\includegraphics[scale=.9]{Result_Multiplication_KL_Divergence_Salt_and_Pepper_Comparison}
-\caption{The reconstructed image by \textbf{klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed images are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}\label{noisesklnmff}
+\caption{The reconstructed image by \textsc{klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed images are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}\label{noisesklnmff}
 \end{figure}
 However, when the noise is large (the second and last rows in Figure~\ref{noisesnmff} and~\ref{noisesklnmff}), the quality of reconstructed images looks marginally better than the contaminated images.
 This result is consistent with \citet{guan2017truncated}, who assert that \textsc{nmf} may fail to handle extremely corrupted images when we violate the assumptions on the distributions of noise.
