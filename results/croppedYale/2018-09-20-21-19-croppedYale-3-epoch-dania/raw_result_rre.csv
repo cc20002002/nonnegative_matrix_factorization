@@ -1,8 +1,8 @@
-Multiplication KL Divergence No Noise,0.20658397853460692,0.20633528446318575,0.20576448632733516
-Multiplication Euclidean No Noise,0.20211369239437965,0.20217191008862415,0.20238898857167648
-Multiplication KL Divergence Poisson,0.20577783802265412,0.20679825124962528,0.20678898672141705
-Multiplication Euclidean Poisson,0.2024831373660103,0.20186747975350103,0.20264989925585505
-Multiplication KL Divergence Normal,0.3113837399404904,0.3108141340165377,0.3096453401247063
-Multiplication Euclidean Normal,0.31185658654435566,0.31254858469427244,0.30988977801599793
-Multiplication KL Divergence Salt and Pepper,0.31675414479159136,0.317370572071696,0.31521812201096056
-Multiplication Euclidean Salt and Pepper,0.29791379642009164,0.29728165635216613,0.2972493599322325
+Multiplication KL Divergence No Noise,0.2066,0.2063,0.2058
+Multiplication Euclidean No Noise,0.2021,0.2022,0.2024
+Multiplication KL Divergence Poisson,0.2058,0.2068,0.2068
+Multiplication Euclidean Poisson,0.2025,0.2019,0.2026
+Multiplication KL Divergence Normal,0.3114,0.3108,0.3096
+Multiplication Euclidean Normal,0.3119,0.3125,0.3099
+Multiplication KL Divergence Salt and Pepper,0.3168,0.3174,0.3152
+Multiplication Euclidean Salt and Pepper,0.2979,0.2973,0.2972
