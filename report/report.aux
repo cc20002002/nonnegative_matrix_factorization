@@ -19,10 +19,7 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \bibstyle{unsrtnat}
 \citation{lee2001algorithms}
-\select@language{UKenglish}
-\@writefile{toc}{\select@language{UKenglish}}
-\@writefile{lof}{\select@language{UKenglish}}
-\@writefile{lot}{\select@language{UKenglish}}
+\babel@aux{UKenglish}{}
 \citation{lee1999learning}
 \citation{guillamet2002non}
 \citation{lee1999learning}
@@ -67,8 +64,8 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Gaussian and Poisson are asymptotic equivalent}{6}{subsection.3.4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Salt \& Pepper noise}{6}{subsection.3.5}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Multiple initial estimates assure the algorithms stable}{6}{subsection.3.6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname  {Poi}(40)-40$. They two distributions are asymptotically equivalent and have similar density functions.}}{7}{figure.1}}
-\newlabel{noise}{{1}{7}{Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname {Poi}(40)-40$. They two distributions are asymptotically equivalent and have similar density functions}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname  {Poi}(40)-40$. They two distributions are asymptotically equivalent and have overlapped density functions. The Gaussian noise~$N(0,80^2)$ is very different.}}{7}{figure.1}}
+\newlabel{noise}{{1}{7}{Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname {Poi}(40)-40$. They two distributions are asymptotically equivalent and have overlapped density functions. The Gaussian noise~$N(0,80^2)$ is very different}{figure.1}{}}
 \newlabel{matn1}{{1}{7}{Centring image data}{lstlisting.1}{}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Centring image data}{7}{lstlisting.1}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Residual of objective function~\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:obnmf}\unskip \@@italiccorr )}} and~\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \ref  {eq:klobj}\unskip \@@italiccorr )}} versus the number of iterations. \textsc  {nmf} converges more than twice faster than \textsc  {klnmf}.}}{8}{figure.2}}
@@ -101,18 +98,21 @@
 \citation{guan2017truncated}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Experiment Setup}{12}{subsection.4.3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Experiments Results}{12}{subsection.4.4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The reconstructed image by \textbf  {nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}}{13}{figure.3}}
-\newlabel{noisesnmff}{{3}{13}{The reconstructed image by \textbf {nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1}{figure.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The reconstructed image by \textbf  {klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}}{14}{figure.4}}
-\newlabel{noisesklnmff}{{4}{14}{The reconstructed image by \textbf {klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed image are shown in (Column~4). The reconstruction with no noise is shown in Row~1}{figure.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Average of evaluations metrics over 80 simulations using the \textsc  {orl} dataset. The 95\% confidence intervals are calculated using bootstrap.}}{15}{table.1}}
-\newlabel{tab:ci}{{1}{15}{Average of evaluations metrics over 80 simulations using the \textsc {orl} dataset. The 95\% confidence intervals are calculated using bootstrap}{table.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}{CroppedYale} Evaluations metrics FAKE FOR NOW}{15}{subsubsection.4.4.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Personal Reflection}{15}{subsection.4.5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The reconstructed image by \textbf  {nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed images are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}}{13}{figure.3}}
+\newlabel{noisesnmff}{{3}{13}{The reconstructed image by \textbf {nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed images are shown in (Column~4). The reconstruction with no noise is shown in Row~1}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The reconstructed image by \textbf  {klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed images are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}}{14}{figure.4}}
+\newlabel{noisesklnmff}{{4}{14}{The reconstructed image by \textbf {klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed images are shown in (Column~4). The reconstruction with no noise is shown in Row~1}{figure.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Histogram of \textsc  {rre} results from 80 Monte-Carlo simulations. Blue bars correspond to \textsc  {nmf} and the pink bars correspond to \textsc  {klnmf}. The type of noise are labeled in the plot. The visualisation agrees with our statistical analysis.}}{15}{figure.5}}
+\newlabel{histo}{{5}{15}{Histogram of \textsc {rre} results from 80 Monte-Carlo simulations. Blue bars correspond to \textsc {nmf} and the pink bars correspond to \textsc {klnmf}. The type of noise are labeled in the plot. The visualisation agrees with our statistical analysis}{figure.5}{}}
+\citation{guan2017truncated}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Average of evaluations metrics over 80 Monte-Carlo simulations using the \textsc  {orl} dataset. The 95\% confidence intervals are calculated using bootstrap.}}{16}{table.1}}
+\newlabel{tab:ci}{{1}{16}{Average of evaluations metrics over 80 Monte-Carlo simulations using the \textsc {orl} dataset. The 95\% confidence intervals are calculated using bootstrap}{table.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}{CroppedYale} Evaluations metrics FAKE FOR NOW}{16}{subsubsection.4.4.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Personal Reflection}{16}{subsection.4.5}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Average of evaluations metrics over 40 Monte-Carlo simulations using CroppedYale data set. The 95\% confidence intervals are calculated using bootstrap.}}{17}{table.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{17}{section.5}}
 \bibdata{research}
 \bibcite{lee2001algorithms}{{1}{2001}{{Lee and Seung}}{{}}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Average of evaluations metrics over 40 simulations using CroppedYale data set. The 95\% confidence intervals are calculated using bootstrap.}}{16}{table.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{16}{section.5}}
 \bibcite{lee1999learning}{{2}{1999}{{Lee and Seung}}{{}}}
 \bibcite{guillamet2002non}{{3}{2002}{{Guillamet and Vitri{\`a}}}{{}}}
 \bibcite{berry2007algorithms}{{4}{2007}{{Berry et~al.}}{{Berry, Browne, Langville, Pauca, and Plemmons}}}

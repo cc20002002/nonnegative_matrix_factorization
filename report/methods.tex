@@ -57,12 +57,12 @@ We did not preprocess the images because both of \textsc{nmf} and \textsc{klnmf}
  Hence for $\lambda$ large, Central Limit Theorem implies that Poisson distribution with parameter~$\lambda$ is well approximated by $N(\lambda,\lambda)$.
  When applying Poisson noise to an image, we do not have degree of freedom to choose any parameter.
  The variance is the magnitude of the pixels. To compare the robustness of \textsc{klnmf} with \textsc{nmf} with different noise, we choose the variance of Gaussian noise to be the different from the magnitude of the pixel, that is, $N(0,\operatorname{Var})\neq N(0,V)\approx \operatorname{Poi}(V)-V$.
- Figure~\ref{noise} visualises the similarity of Poisson distribution and Normal distribution with parameter~$V=40$. To overcome this issue, the Gaussian noise we use should have very different variance in comparison with the mean of the images. The pixel mean of the \textsc{orl} dataset is approximately $40$, and the pixcel mean of the Cropped Yale set is approximately $70$. Hence, we choose the variance of the noise to be $80^2$.
+ Figure~\ref{noise} visualises the similarity of Poisson distribution and Normal distribution with parameter~$V=40$. To overcome this issue, the Gaussian noise we use should have very different variance in comparison with the mean of the images. The pixel mean of the \textsc{orl} dataset is approximately $40$, and the pixel mean of the Cropped Yale set is approximately $70$. Hence, we choose the variance of the noise to be $80^2$ so that it is the way bigger than $255$, which is the maximum value of a pixel.
 \begin{figure}
   \centering
   % Requires \usepackage{graphicx}
-  \includegraphics[scale=1]{resource/noise}\\
-  \caption{Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname{Poi}(40)-40$. They two distributions are asymptotically equivalent and have similar density functions.}\label{noise}
+  \includegraphics[scale=.8]{noise}\\
+  \caption{Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname{Poi}(40)-40$. They two distributions are asymptotically equivalent and have overlapped density functions. The Gaussian noise~$N(0,80^2)$ is very different.}\label{noise}
 \end{figure}
 
 \subsection{Salt \& Pepper noise}
@@ -101,18 +101,18 @@ A residual versus number of iteration plot (figure~\ref{error}) shows that \text
 \end{figure}
 
 \subsection{Evaluation metrics and their confidence intervals \label{ci}}
-The assignment instruction asks us to compare the performance of \textsc{nmf} and \textsc{klnmf} by using evaluations metrics including Relative Reconstruction Errors (\textsc{rre}), Average Accuracy (\textsc{aa}), Normalized Mutual Information (\textsc{nmi}). The instruction states the formulae of these metrics. However, to systematically compare the metrics, we construct an 95\% confidence interval for any metric (e.g. \textsc{rre}) by bootstrapping percentile confidence interval. The idea of bootstrapped  is straightforward---we resample a subset of $40$ samples among the sample space of $80$ simulations and calculate the mean. We repeat this process $1000$ times. The $2.5\%$ and $97.5\%$ percentiles of the $80$ resampled means are then the bootstrapping percentile confidence interval
+The assignment instruction asks us to compare the performance of \textsc{nmf} and \textsc{klnmf} by using evaluations metrics including Relative Reconstruction Errors (\textsc{rre}), Average Accuracy (\textsc{aa}), Normalized Mutual Information (\textsc{nmi}). The instruction states the formulae of these metrics. However, to systematically compare the metrics, we construct an 95\% confidence interval for any metric (e.g. \textsc{rre}) by bootstrapping percentile confidence interval. The idea of bootstrapped  is straightforward---we resample a subset of $40$ samples among the sample space of $80$ Monte-Carlo simulations and calculate the mean. We repeat this process $1000$ times. The $2.5\%$ and $97.5\%$ percentiles of the $80$ resampled means are then the bootstrapping percentile confidence interval
 \begin{equation}
 (\textsc{rre}^*_{2.5}, \textsc{rre}^*_{97.5}), \label{eq:boot}
 \end{equation}
-where $\textsc{rre}^*_{\alpha}$ is the $\alpha$ percentile of the bootstrapped distribution from our sample space with $80$ simulations.  We run $80$ simulations so that the confidence interval we construct is precise.
+where $\textsc{rre}^*_{\alpha}$ is the $\alpha$ percentile of the bootstrapped distribution from our sample space with $80$ Monte-Carlo simulations.  We run $80$ simulations so that the confidence interval we construct is precise.
 
 Boostrapping does not require the sample space follows specific distributions. We apply this nonparametric method to construct confidence interval here because we do not have the knowledge about the specific distributions of these three metrics.
 
 \subsection{Statistical method compares the robustness of algorithms}
 We implement Kolmogorov-Smirnov test to test the hypothesis that the algorithms~\textsc{nmf} and~\textsc{klnmf} have different robustness. Again Kolmogorov-Smirnov test is distribution free, so we do not need to know the distributions of the evaluation metrics.
 
-Let $\textsc{rre}_i$ denote the \textsc{rre} generated from our \textsc{nmf} algorithm by the $i$th simulation. Define the empirical distribution of a sample set generated by algorithm~$\alpha$, perhaps the $80$ \textsc{rre} results, as
+Let $\textsc{rre}_i$ denote the \textsc{rre} generated from our \textsc{nmf} algorithm by the $i$th Monte-Carlo simulation. Define the empirical distribution of a sample set generated by algorithm~$\alpha$, perhaps the $80$ \textsc{rre} results, as
 \begin{equation}\label{epdf}
   \hat{F}_{\alpha}(x)=\frac{1}{n}\sum_{i=1}^{80}1_{\textsc{rre}_i \leq x}.
 \end{equation}

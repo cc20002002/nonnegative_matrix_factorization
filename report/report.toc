@@ -1,4 +1,4 @@
-\select@language {UKenglish}
+\babel@toc {UKenglish}{}
 \contentsline {section}{\numberline {1}Introduction}{2}{section.1}
 \contentsline {section}{\numberline {2}Related work}{3}{section.2}
 \contentsline {section}{\numberline {3}Methods }{4}{section.3}
@@ -19,6 +19,6 @@
 \contentsline {subsubsection}{\numberline {4.2.3}Salt \& Pepper Noise}{11}{subsubsection.4.2.3}
 \contentsline {subsection}{\numberline {4.3}Experiment Setup}{12}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}Experiments Results}{12}{subsection.4.4}
-\contentsline {subsubsection}{\numberline {4.4.1}{CroppedYale} Evaluations metrics FAKE FOR NOW}{15}{subsubsection.4.4.1}
-\contentsline {subsection}{\numberline {4.5}Personal Reflection}{15}{subsection.4.5}
-\contentsline {section}{\numberline {5}Conclusion}{16}{section.5}
+\contentsline {subsubsection}{\numberline {4.4.1}{CroppedYale} Evaluations metrics FAKE FOR NOW}{16}{subsubsection.4.4.1}
+\contentsline {subsection}{\numberline {4.5}Personal Reflection}{16}{subsection.4.5}
+\contentsline {section}{\numberline {5}Conclusion}{17}{section.5}
