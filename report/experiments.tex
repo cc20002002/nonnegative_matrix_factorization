@@ -1,8 +1,8 @@
 \section{Experiments}\label{chapter4}
 
 \subsection{Dataset}
-We illustrate our two \textsc{nmf} algorithms on two real-world face image datasets: ORL and Extended YaleB (\citet{belhumeur1997eigenfaces}).
-Both ORL and Extended YaleB datasets contain multiple images of distinct subjects with various facial expression, lighting condition, and facial details.
+We illustrate our two \textsc{nmf} algorithms on two real-world face image datasets: \texttt{ORL} and \texttt{CroppedYaleB} (\citet{belhumeur1997eigenfaces}).
+Both \texttt{ORL} and \texttt{CroppedYale} datasets contain multiple images of distinct subjects with various facial expression, lighting condition, and facial details.
 Images in ORL are cropped and resized to $92 \times 112$ pixels. We further rescale it to $30 \times 37$ pixels. Similarly, we reduce the size of images in \texttt{CroppedYale} to $42 \times 48$ pixels.
 For each dataset, we flatten the image matrix into a vector and append them together to get a matrix $V$ with shape $d\times n$ where integer~$d$ is the number of pixels in one image and integer~$n$ is the number of images. In each epoch, we use 90\% of data.
 
@@ -141,6 +141,6 @@ In terms of the \texttt{CroppedYale} dataset, results from hypothesis tests show
 \end{table}
 \subsection{Personal Reflection}
 The implementation of this project was challenging and rewarding. We overcome many problems that are not taught in class by research. For instance, we learnt to use parallel computing when the performance of~\textsc{klnmf} was always struggling due to local optimal. 
-Moreover, we critically considered what truly defines a `good' algorithm. Although theoretically privileged algorithms may be good for handling difficult tasks, they tend to be time-consuming and not easy to implement. For example, through literature review, we found some algorithms such as Truncated Cauchy \textsc{nmf} \citet{guan2017truncated} that are excellent for contaminated data but too difficult for us to implement. We also suffered time-performance tradeoff especially when training Extended YaleB dataset. Hence, in real-world practice, simpler and faster algorithm may be more widely used than advanced algorithms. 
+Moreover, we critically considered what truly defines a `good' algorithm. Although theoretically privileged algorithms may be good for handling difficult tasks, they tend to be time-consuming and not easy to implement. For example, through literature review, we found some algorithms such as Truncated Cauchy \textsc{nmf} \citet{guan2017truncated} that are excellent for contaminated data but too difficult for us to implement. We also suffered time-performance tradeoff especially when training \texttt{CroppedYale} dataset. Hence, in real-world practice, simpler and faster algorithm may be more widely used than advanced algorithms. 
 Lastly, we observed many interesting results during the experiment. For instance, we found that the \textsc{rre}s of \textsc{nmf} and \textsc{klnmf} with Poisson noise is superior to that with no noise. %One hypothesis is that added Poisson noise neutralised the noise from the original image. Another hypothesis is that 
 This may result from the noise assumptions made by these two algorithms. 
