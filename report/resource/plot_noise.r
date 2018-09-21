@@ -9,8 +9,8 @@ y2=t(t(dpois(x+40,lambda = 40)))
 df=cbind(rbind(x,x,x),rbind(y0,y1,y2))
 df=data.table(df)
 df=cbind(df,'Gaussian')
-df[1:41,3]='Gaussian noise N(0,80)'
-df[42:82,3]='Gaussian noise N(0,sqrt(40)) '
+df[1:41,3]='Gaussian noise N(0,6400)'
+df[42:82,3]='Gaussian noise N(0,40) '
 df[83:123,3]='Poisson noise'
 names(df)=c('Noise','Density','Distributions')
 ggplot(df, aes(x=Noise, y=Density,color=Distributions)) + 

@@ -18,7 +18,7 @@ Document=report.tex
 
 [Frame0_View0,0]
 TopLine=153
-Cursor=532
+Cursor=0
 
 [Frame1]
 Flags=0
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=experiments.tex
 
 [Frame2_View0,0]
-TopLine=109
-Cursor=8547
+TopLine=121
+Cursor=13460
 
 [Frame3]
 Flags=0
@@ -94,5 +94,5 @@ Cursor=881
 
 [SessionInfo]
 FrameCount=5
-ActiveFrame=4
+ActiveFrame=2
 
