@@ -21,7 +21,7 @@ def normal(subVhat):
 
 
 \subsubsection{Poisson Noise}\label{sec:poi}
-The Poisson noise is not additive and has no hyperparameters to be set. Unlike Gaussian noise, contaminated images are drawn directly from Poisson distributions with parameters set to be pixel values. Then, the Poisson noise is calculated from the difference between the contaminated image and the original image, as discussed in Section~\ref{chapter2} and demonstrated in algorithm~\ref{poi}.
+The Poisson noise is not additive and has no hyperparameters to be set. Unlike Gaussian noise, contaminated images are drawn directly from Poisson distributions with parameters set to be pixel values. Then, the Poisson noise is calculated from the difference between the contaminated image and the original image, as discussed in Section~\ref{chapter2} and demonstrated in Algorithm~\ref{poi}.
 \begin{lstlisting}[caption= Poisson Noise Design, label=poi]
 def possion(subVhat):
     """Design a Possion noise."""
@@ -33,7 +33,7 @@ def possion(subVhat):
 
 \subsubsection{Salt \& Pepper Noise}\label{sec:sal}
 % JOYCE please add here
-Salt \& Pepper noise is added by drawing random integers from the discrete uniform distribution of the interval $[0, 255)$ . We find the bright places in generated image and replace pixel values in the same place of the original image with the brightest value. Similarly, we also find the dark pixels in the  images and replace pixel values in the same place of original image with the  darkest pixel value. In this case, we set the pixels whose values are greater than or equal to 230 as bright pixels and pixels whose value being less than or equal to 20 as dark pixels.
+Salt \& Pepper noise (Algorithm~\ref{salt}) is added by drawing random integers from the discrete uniform distribution of the interval $[0, 255)$ . We find the bright places in generated image and replace pixel values in the same place of the original image with the brightest value. Similarly, we also find the dark pixels in the  images and replace pixel values in the same place of original image with the  darkest pixel value. In this case, we set the pixels whose values are greater than or equal to 230 as bright pixels and pixels whose value being less than or equal to 20 as dark pixels.
 \begin{lstlisting}[caption= Salt and Pepper Noise Design, label=salt]
 def salt_and_pepper(subVhat):
 """Design a salt and pepper noise where make some pixel value zeros."""
@@ -86,7 +86,7 @@ In contrast, \textsc{nmf} is more robust against Gaussian noise, even with only 
 
 Theoretical results discussed in Section~\ref{chapter2} suggest \textsc{nmf} is more robust against Gaussian noise whereas \textsc{klnmf} is more robust against Poisson noise. Our experimental results concluded from Kolmogorov-Smirnovs hypothesis tests agree with these theoretical results. Further, as both of the algorithms are not designed for Salt and Pepper noise, they have a similar performance against it.
 
-These results can be observed by directly reading whether the confidence intervals overlap in table~\ref{tab:ci}. Also, the statistical results agree with the visualisation in Figure~\ref{histo},~\ref{noisesnmff} and~\ref{noisesklnmff}. These results also agree with our intuition---although the differences in the robustness of the two algorithms are small, the even smaller variances in the \textsc{rre} results make them statistically different under Poisson and Gaussian noise (Figure~\ref{histo}).
+These results can be observed by directly reading whether the confidence intervals overlap in Table~\ref{tab:ci}. Also, the statistical results agree with the visualisation in Figure~\ref{histo},~\ref{noisesnmff} and~\ref{noisesklnmff}. These results also agree with our intuition---although the differences in the robustness of the two algorithms are small, the even smaller variances in the \textsc{rre} results make them statistically different under Poisson and Gaussian noise (Figure~\ref{histo}).
 
 With the \texttt{CroppedYale} dataset, the test results (Table~\ref{tb:yale}) agree with those of the \texttt{ORL} data as well as theories in Section~\ref{chapter2}: 1. against Poisson noise, \textsc{klnmf} with update rule~\eqref{eq:klnmf} has a lower \textsc{rre}; 2. against Gaussian noise, \textsc{nmf} with update rule~\eqref{eq:nmf} has a lower \textsc{rre}; 3. \textsc{klnmf} has a lower \textsc{rre} for images with no artificial noise. However, using \texttt{CroppedYale} dataset, the \textsc{nmf} algorithm performs much better against Salt \& Pepper noise. This might be a result of the \textsc{nmf}'s much faster convergence rate for large dataset, that is, the performance of \textsc{klnmf} might be significantly better with more iterations when processing \texttt{CroppedYale}. We did not perform more iterations for \textsc{klnmf} due to running time constraint.
 %results from hypothesis tests show that \textsc{nmf} performs uniformly better than \textsc{klnmf}, suggesting more iterations are required on \textsc{klnmf} to compare these two algorithms fairly. We fail to do so because the dataset is much larger than \texttt{ORL} and our multiplicative update rules, especially for \textsc{klnmf} converge too slow.
