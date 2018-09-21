@@ -61,9 +61,9 @@ def main():
         os.makedirs(folder)
     # choose dataset to train with
     if dataname == "orl":
-        train("data" + os.sep + "ORL", folder)
+        train(".." + os.sep + "data" + os.sep + "ORL", folder)
     else:
-        train("data" + os.sep + "CroppedYaleB", folder)
+        train(".." + os.sep + "data" + os.sep + "CroppedYaleB", folder)
 
 
 def one_simulation(i,Vhat,Yhat,n,size,metrics,folder):
