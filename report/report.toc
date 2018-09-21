@@ -19,6 +19,9 @@
 \contentsline {subsubsection}{\numberline {4.2.3}Salt \& Pepper Noise}{11}{subsubsection.4.2.3}
 \contentsline {subsection}{\numberline {4.3}Experiment Setup}{12}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}Experiments Results}{12}{subsection.4.4}
-\contentsline {subsubsection}{\numberline {4.4.1}{CroppedYale} Evaluations metrics FAKE FOR NOW Update table!}{16}{subsubsection.4.4.1}
-\contentsline {subsection}{\numberline {4.5}Personal Reflection}{16}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.4.1}Two algorithms output similar reconstructed images}{12}{subsubsection.4.4.1}
+\contentsline {subsubsection}{\numberline {4.4.2}Hypothesis test distinguishes the difference in RRE}{12}{subsubsection.4.4.2}
+\contentsline {subsubsection}{\numberline {4.4.3}ACC and NMI results}{16}{subsubsection.4.4.3}
+\contentsline {subsubsection}{\numberline {4.4.4}{CroppedYale} Evaluations metrics FAKE FOR NOW Update table!}{17}{subsubsection.4.4.4}
+\contentsline {subsection}{\numberline {4.5}Personal Reflection}{17}{subsection.4.5}
 \contentsline {section}{\numberline {5}Conclusion}{17}{section.5}
