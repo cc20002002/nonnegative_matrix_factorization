@@ -122,9 +122,6 @@ In terms of \textsc{acc} and \textsc{nmi}, the differences between \textsc{nmf} 
 \end{tabular}}
 \end{table}
 
-
-\subsubsection{{CroppedYale} Evaluations metrics FAKE FOR NOW Update table!}
-
 %In terms of the \texttt{CroppedYale} dataset, results from hypothesis tests show that \textsc{nmf} performs uniformly better than \textsc{klnmf}, suggesting more iterations are required on \textsc{klnmf} to compare these two algorithms fairly. We fail to do so because the dataset is much larger than \texttt{ORL} and our multiplicative update rules, especially for \textsc{klnmf} converge too slow. Note that accuracy of \texttt{CroppedYale} is small overall. This is because we rescale the images in \texttt{CroppedYale} by factor 4 whereas we only rescale the images in  \texttt{ORL} by factor 3. Besides, there are more cropped images in  \texttt{CroppedYale} and there are more labels in  \texttt{CroppedYale}. All of them contribute to the low accuracy.
 
 \begin{table}
@@ -149,12 +146,13 @@ In terms of \textsc{acc} and \textsc{nmi}, the differences between \textsc{nmf} 
 
 \textsc{klnmf} Poisson noise & 0.2065 & 0.2377 & 0.3104\tabularnewline
 
-\textsc{klnmf} Salt and Pepper noise & 0.3164 & 0. &0.2332 \tabularnewline
+\textsc{klnmf} Salt and Pepper noise & 0.3164 & 0.1634 &0.2332 \tabularnewline
  \hline
 \end{tabular}}
 \end{table}
 \subsection{Personal Reflection}
-The implementation of this project was challenging and rewarding. We overcome many problems that are not taught in class by research. For instance, we learnt to use parallel computing when the performance of~\textsc{klnmf} was always struggling due to local optimal. 
-Moreover, we critically considered what truly defines a `good' algorithm. Although theoretically privileged algorithms may be good for handling difficult tasks, they tend to be time-consuming and not easy to implement. For example, through literature review, we found some algorithms such as Truncated Cauchy \textsc{nmf} \citet{guan2017truncated} that are excellent for contaminated data but too difficult for us to implement. We also suffered time-performance tradeoff especially when training \texttt{CroppedYale} dataset. Hence, in real-world practice, simpler and faster algorithm may be more widely used than advanced algorithms. 
-Lastly, we observed many interesting results during the experiment. For instance, we found that the \textsc{rre}s of \textsc{nmf} and \textsc{klnmf} with Poisson noise is superior to that with no noise. %One hypothesis is that added Poisson noise neutralised the noise from the original image. Another hypothesis is that 
+The implementation of this project was challenging and rewarding. We overcome many problems that are not taught in class by research. For instance, we learnt to use multi-start algorithm with parallel computing to overcome the problem that ~\textsc{klnmf} always gets stuck into local optimal. 
+In addition, we learnt that although one algorithm performs better than another one theoratically, it might require more running time. In real implementation, we need to consider the running time versus performance trade-off. For example, the ~\textsc{klnmf}  multi-start parallel computing has overall better performance than ~\textsc{nmf}; however, it has slow convergence rate and multi-start parallel computing will cost more than than non-multi-start ~\textsc{klnmf} algorithm, especially when training \texttt{CroppedYale} dataset .
+Moreover, we critically considered what truly defines a `good' algorithm. Although theoretically privileged algorithms may be good for handling difficult tasks, they tend to be time-consuming and not easy to implement. For example, through literature review, we found some algorithms such as Truncated Cauchy \textsc{nmf} \citet{guan2017truncated} that are excellent for contaminated data but too difficult for us to implement. Hence, in real-world practice, simpler and faster algorithm may be more widely used than advanced algorithms. 
+Lastly, we observed many interesting results during the experiment. For instance, we found that the \textsc{rre}s of \textsc{klnmf} with Poisson noise is superior to that with no noise in \texttt{ORL} dataset. %One hypothesis is that added Poisson noise neutralised the noise from the original image. Another hypothesis is that 
 This may result from the noise assumptions made by these two algorithms. 
