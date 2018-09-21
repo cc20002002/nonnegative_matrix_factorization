@@ -1,0 +1,39 @@
+\expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi
+\doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{1}{Q1-1-1}{}{Contents}}{3}\relax 
+\doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{1}{x1-1000}{QQ2-1-2}{Contents}}{3}\relax 
+\doTocEntry\tocsection{1}{\csname a:TocLink\endcsname{1}{x1-20001}{QQ2-1-3}{Introduction}}{4}\relax 
+\doTocEntry\tocsection{2}{\csname a:TocLink\endcsname{1}{x1-30002}{QQ2-1-4}{Related work}}{5}\relax 
+\doTocEntry\tocsection{3}{\csname a:TocLink\endcsname{1}{x1-40003}{QQ2-1-5}{Methods }}{6}\relax 
+\doTocEntry\tocsubsection{3.1}{\csname a:TocLink\endcsname{1}{x1-50001}{QQ2-1-6}{NMF and Gaussian noise}}{6}\relax 
+\doTocEntry\tocsubsection{3.2}{\csname a:TocLink\endcsname{1}{x1-60002}{QQ2-1-7}{KLNMF and Poisson noise}}{7}\relax 
+\doTocEntry\tocsubsection{3.3}{\csname a:TocLink\endcsname{1}{x1-70003}{QQ2-1-8}{Preprocess}}{10}\relax 
+\doTocEntry\tocsubsection{3.4}{\csname a:TocLink\endcsname{1}{x1-80004}{QQ2-1-9}{Gaussian and Poisson are asymptotic equivalent}}{10}\relax 
+\doTocEntry\toclof{1}{\csname a:TocLink\endcsname{1}{x1-8001r1}{}{\ignorespaces Compare a Gaussian noise~$N(0,40)$ with Poisson noise $\operatorname  {Poi}(40)-40$. They two distributions are asymptotically equivalent and have overlapped density functions. The Gaussian noise~$N(0,80^2)$ is very different.}}{figure}\relax 
+\doTocEntry\tocsubsection{3.5}{\csname a:TocLink\endcsname{1}{x1-90005}{QQ2-1-11}{Salt \& Pepper noise}}{13}\relax 
+\doTocEntry\tocsubsection{3.6}{\csname a:TocLink\endcsname{1}{x1-100006}{QQ2-1-12}{Multiple initial estimates assure the algorithms stable}}{13}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-10002}{}{\numberline {1}Centring image data}}{13}\relax 
+\doTocEntry\tocsubsection{3.7}{\csname a:TocLink\endcsname{1}{x1-110007}{QQ2-1-14}{KLNMF requires more iterations}}{14}\relax 
+\doTocEntry\toclof{2}{\csname a:TocLink\endcsname{1}{x1-11001r2}{}{\ignorespaces Residual of objective function~\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \o:ref {eq:obnmf}\unskip \@@italiccorr )}} and~\textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces \o:ref {eq:klobj}\unskip \@@italiccorr )}} versus the number of iterations. \textsc  {nmf} converges more than twice faster than \textsc  {klnmf}.}}{figure}\relax 
+\doTocEntry\tocsubsection{3.8}{\csname a:TocLink\endcsname{1}{x1-120008}{QQ2-1-16}{Evaluation metrics and their confidence intervals }}{17}\relax 
+\doTocEntry\tocsubsection{3.9}{\csname a:TocLink\endcsname{1}{x1-130009}{QQ2-1-17}{Statistical method compares the robustness of algorithms}}{17}\relax 
+\doTocEntry\tocsection{4}{\csname a:TocLink\endcsname{1}{x1-140004}{QQ2-1-18}{Experiments}}{18}\relax 
+\doTocEntry\tocsubsection{4.1}{\csname a:TocLink\endcsname{1}{x1-150001}{QQ2-1-19}{Dataset}}{19}\relax 
+\doTocEntry\tocsubsection{4.2}{\csname a:TocLink\endcsname{1}{x1-160002}{QQ2-1-20}{Noise}}{19}\relax 
+\doTocEntry\tocsubsubsection{4.2.1}{\csname a:TocLink\endcsname{1}{x1-170001}{QQ2-1-21}{Gaussian Noise}}{19}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-17002}{}{\numberline {2}Gaussian Noise Design}}{19}\relax 
+\doTocEntry\tocsubsubsection{4.2.2}{\csname a:TocLink\endcsname{1}{x1-180002}{QQ2-1-23}{Poisson Noise}}{19}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-18002}{}{\numberline {3}Poisson Noise Design}}{20}\relax 
+\doTocEntry\tocsubsubsection{4.2.3}{\csname a:TocLink\endcsname{1}{x1-190003}{QQ2-1-25}{Salt \& Pepper Noise}}{20}\relax 
+\doTocEntry\toclol{}{\csname a:TocLink\endcsname{1}{x1-19002}{}{\numberline {4}Salt and Pepper Noise Design}}{20}\relax 
+\doTocEntry\tocsubsection{4.3}{\csname a:TocLink\endcsname{1}{x1-200003}{QQ2-1-27}{Experiment Setup}}{20}\relax 
+\doTocEntry\tocsubsection{4.4}{\csname a:TocLink\endcsname{1}{x1-210004}{QQ2-1-28}{Experiments Results}}{21}\relax 
+\doTocEntry\toclof{3}{\csname a:TocLink\endcsname{1}{x1-21001r3}{}{\ignorespaces The reconstructed image by \textbf  {nmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed images are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}}{figure}\relax 
+\doTocEntry\toclof{4}{\csname a:TocLink\endcsname{1}{x1-21002r4}{}{\ignorespaces The reconstructed image by \textbf  {klnmf}. The original images (Column~1) are combined with noises (Column~1) including Gaussian Noise with Variance~$80$ (Row~2), Poisson Noise (Row~3), and Salt \& Pepper Noise (Row~4). The corrupted images are shown in Column~3. The reconstructed images are shown in (Column~4). The reconstruction with no noise is shown in Row~1.}}{figure}\relax 
+\doTocEntry\toclof{5}{\csname a:TocLink\endcsname{1}{x1-21003r5}{}{\ignorespaces Histogram of \textsc  {rre} results from 80 Monte-Carlo simulations. Blue bars correspond to \textsc  {nmf} and the pink bars correspond to \textsc  {klnmf}. The type of noise are labeled in the plot. The visualisation agrees with our statistical analysis.}}{figure}\relax 
+\doTocEntry\toclot{1}{\csname a:TocLink\endcsname{1}{x1-21004r1}{}{\ignorespaces Average of evaluations metrics over 80 Monte-Carlo simulations using the \textsc  {orl} dataset. The 95\% confidence intervals are calculated using bootstrap.}}{table}\relax 
+\doTocEntry\tocsubsubsection{4.4.1}{\csname a:TocLink\endcsname{1}{x1-220001}{QQ2-1-33}{{CroppedYale} Evaluations metrics FAKE FOR NOW}}{33}\relax 
+\doTocEntry\toclot{2}{\csname a:TocLink\endcsname{1}{x1-22001r2}{}{\ignorespaces Average of evaluations metrics over 40 Monte-Carlo simulations using CroppedYale data set. The 95\% confidence intervals are calculated using bootstrap.}}{table}\relax 
+\doTocEntry\tocsubsection{4.5}{\csname a:TocLink\endcsname{1}{x1-230005}{QQ2-1-35}{Personal Reflection}}{36}\relax 
+\doTocEntry\tocsection{5}{\csname a:TocLink\endcsname{1}{x1-240005}{QQ2-1-36}{Conclusion}}{36}\relax 
+\doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{1}{Q1-1-37}{}{sectionReferences}}{37}\relax 
+\doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{1}{x1-250005}{QQ2-1-38}{References\ttl@gmk {\@mkboth {\color  {green!50!black}\textsf  {References}}{\color  {green!50!black}\textsf  {References}}}}}{37}\relax 
