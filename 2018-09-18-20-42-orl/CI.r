@@ -37,6 +37,40 @@ ci_nmi=ci
 df=fread('raw_result_rre.csv')
 df1=melt(df, id.vars = "V1")
 df1$value=as.numeric(df1$value)
+df11=df1
+names(df11)=c('Algorithm','Noise','Relative residual error')
+df11$Algorithm=as.character(df11$Algorithm)
+df11$Noise=as.character(df11$Noise)
+df11$Noise[df11$Algorithm==df11$Algorithm[1]]='No noise'
+df11$Noise[df11$Algorithm==df11$Algorithm[2]]='No noise'
+df11$Noise[df11$Algorithm==df11$Algorithm[3]]='Poisson noise'
+df11$Noise[df11$Algorithm==df11$Algorithm[4]]='Poisson noise'
+df11$Noise[df11$Algorithm==df11$Algorithm[5]]='Gaussian noise'
+df11$Noise[df11$Algorithm==df11$Algorithm[6]]='Gaussian noise'
+df11$Noise[df11$Algorithm==df11$Algorithm[7]]='Salt and Pepper noise'
+df11$Noise[df11$Algorithm==df11$Algorithm[8]]='Salt and Pepper noise'
+df11$Algorithm[df11$Algorithm==df11$Algorithm[1]]='NMF'
+df11$Algorithm[df11$Algorithm==df11$Algorithm[2]]='KLNMF'
+df11$Algorithm[df11$Algorithm==df11$Algorithm[3]]='NMF'
+df11$Algorithm[df11$Algorithm==df11$Algorithm[4]]='KLNMF'
+df11$Algorithm[df11$Algorithm==df11$Algorithm[5]]='NMF'
+df11$Algorithm[df11$Algorithm==df11$Algorithm[6]]='KLNMF'
+df11$Algorithm[df11$Algorithm==df11$Algorithm[7]]='NMF'
+df11$Algorithm[df11$Algorithm==df11$Algorithm[8]]='KLNMF'
+noises=unique(df11$Noise)
+plots=list()
+for (nn in noises){
+  g=ggplot(df11[Noise==nn], aes(x=`Relative residual error`, fill=Algorithm)) +
+geom_histogram(alpha=0.2, position="identity",bins=60)+
+    ylab("Count")
+  plots=c(plots,list(g+theme(legend.position="none")))
+  
+}
+legend <- get_legend(g+theme(legend.position="top"))
+plot_grid(plotlist = plots, labels=noises,hjust =c(-1,-0.55,-0.5,-0.35)) +
+  theme(plot.margin=unit(c(1,0,0,0),"cm"))+
+draw_grob(legend, .45, .53, .3/3.3, 1)
+ggsave(filename = 'histo.pdf',width = 7, height = 7, units = "in")
 df2=dcast(df1, variable ~ V1)
 df2=df2[,-1]
 df3=data.matrix(df2)

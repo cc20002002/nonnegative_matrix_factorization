@@ -46,7 +46,7 @@ def salt_and_pepper(subVhat):
 
 \subsection{Experiment Setup}
 
-We apply two algorithms (\textsc{nmf} and \textsc{klnmf}) with four categories of noises (no noise, Gaussian noise, Poisson noise and Salt \& Pepper noise), which results in eight combinations in each epoch. In each epoch, we randomly select 90\% of samples to train NMF algorithms and evaluate three metrics on reconstructed images. The training will terminate when the error reaches the minimum error, or the maximum iteration is reached. The minimum error and maximum iteration are hyperparameter which we learn from iterative experiments. Our code saves the learning errors versus number of iterations so that we could draw the plot and observe the convergence of learning process. We increase the number of epochs and calculate the average metrics and confidence intervals.
+We apply two algorithms (\textsc{nmf} and \textsc{klnmf}) with four categories of noises (no noise, Gaussian noise, Poisson noise and Salt \& Pepper noise), which results in eight combinations in each epoch. In each epoch, we randomly select 90\% of samples to train NMF algorithms and evaluate three metrics on reconstructed images. The training will terminate when the error reaches the minimum error, or the maximum iteration is reached. The minimum error and maximum iteration are hyperparameters which we learn from iterative experiments. Our code saves the learning errors versus number of iterations so that we could draw the plot and observe the convergence of learning process. We increase the number of epochs and calculate the average metrics and confidence intervals.
 
 
 \subsection{Experiments Results}
