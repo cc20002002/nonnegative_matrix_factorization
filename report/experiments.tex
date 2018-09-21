@@ -86,6 +86,9 @@ Theoretical results discussed in Section~\ref{chapter2} suggest \textsc{nmf} is 
 
 These results can be observed by directly reading whether the confidence intervals overlap in table~\ref{tab:ci}. Also, the statistical results agree with the visualisation in Figure~\ref{histo},~\ref{noisesnmff} and~\ref{noisesklnmff}. These results also agree with our intuition---although the differences in the robustness of the two algorithms are small, the even smaller variances in the \textsc{rre} results make them statistically different under Poisson and Gaussian noise (Figure~\ref{histo}).
 
+In terms of \textsc{acc} and \textsc{nmi}, the differences between \textsc{nmf} and \textsc{klnmf} under Gaussian noise and Salt \& Pepper noise are trivial given their overlapped confidence intervals.
+Under Possion noise, however, \textsc{klnmf} is superior than \textsc{nmf} for both measurements. 
+
 \begin{table}
 \caption{Average of evaluations metrics over 80 Monte-Carlo simulations using the \texttt{ORL} dataset. The 95\% confidence intervals are calculated using bootstrap.}
 \hspace{-1cm}{\small
