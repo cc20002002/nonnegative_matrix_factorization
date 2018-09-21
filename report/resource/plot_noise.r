@@ -1,6 +1,6 @@
 require('ggplot2')
 library(ggthemes)
-theme_set(theme_bw())  # from ggthemes
+theme_set(theme_default())  # from ggthemes
 require(data.table)
 x=t(t(c(-20:20)))*5
 y0=t(t(dnorm(x,mean=0,sd=80)))
@@ -14,6 +14,6 @@ df[42:82,3]='Gaussian noise N(0,sqrt(40)) '
 df[83:123,3]='Poisson noise'
 names(df)=c('Noise','Density','Distributions')
 ggplot(df, aes(x=Noise, y=Density,color=Distributions)) + 
-  geom_line(alpha=0.2) 
+  geom_line(alpha=1) + scale_color_manual(values=c("red", "blue",'green'))
 
 ggsave('noise.pdf',width = 7,height = 4, units = "in")
