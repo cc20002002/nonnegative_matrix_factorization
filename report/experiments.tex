@@ -79,13 +79,12 @@ In contrast, \textsc{nmf} is more robust against Gaussian noise, even with only 
 {\centering
 \includegraphics[scale=0.8]{histo}
 \caption{Histogram of \textsc{rre} results from 80 Monte-Carlo simulations. Blue bars correspond to \textsc{nmf}, and the pink bars correspond to \textsc{klnmf}. The types of noise are labelled in the plot. The visualisation agrees with our statistical analysis.}
-\label{histo}}}
+\label{histo}}
 \end{figure}
+
 Theoretical results discussed in Section~\ref{chapter2} suggest \textsc{nmf} is more robust against Gaussian noise whereas \textsc{klnmf} is more robust against Poisson noise. Our experimental results concluded from Kolmogorov-Smirnovs hypothesis tests agree with these theoretical results. Further, as both of the algorithms are not designed for Salt and Pepper noise, they have a similar performance against it.
 
 These results can be observed by directly reading whether the confidence intervals overlap in table~\ref{tab:ci}. Also, the statistical results agree with the visualisation in Figure~\ref{histo},~\ref{noisesnmff} and~\ref{noisesklnmff}. These results also agree with our intuition---although the differences in the robustness of the two algorithms are small, the even smaller variances in the \textsc{rre} results make them statistically different under Poisson and Gaussian noise (Figure~\ref{histo}).
-
-In terms of the \texttt{CroppedYale} dataset, results from hypothesis tests show that \textsc{nmf} performs uniformly better than \textsc{klnmf}, suggesting more iterations are required on \textsc{klnmf} to compare these two algorithms fairly. We fail to do so because the dataset is much larger than \texttt{ORL} and our multiplicative update rules, especially for \textsc{klnmf} converge too slow.
 
 \begin{table}
 \caption{Average of evaluations metrics over 80 Monte-Carlo simulations using the \texttt{ORL} dataset. The 95\% confidence intervals are calculated using bootstrap.}
@@ -113,29 +112,30 @@ In terms of the \texttt{CroppedYale} dataset, results from hypothesis tests show
 \end{tabular}}
 \end{table}
 
-\subsubsection{{CroppedYale} Evaluations metrics FAKE FOR NOW}
+In terms of the \texttt{CroppedYale} dataset, results from hypothesis tests show that \textsc{nmf} performs uniformly better than \textsc{klnmf}, suggesting more iterations are required on \textsc{klnmf} to compare these two algorithms fairly. We fail to do so because the dataset is much larger than \texttt{ORL} and our multiplicative update rules, especially for \textsc{klnmf} converge too slow. Note that accuracy of \texttt{CroppedYale} is small overall. This is because we rescale the images in \texttt{CroppedYale} by factor 4 whereas we only rescale the images in  \texttt{ORL} by factor 3. Besides, there are more cropped images in  \texttt{CroppedYale} and there are more labels in  \texttt{CroppedYale}. All of them contribute to the low accuracy.
 \begin{table}
-\caption{Average of evaluations metrics over 40 Monte-Carlo simulations using CroppedYale data set. The 95\% confidence intervals are calculated using bootstrap.}
+\caption{Average of evaluations metrics over 10 Monte-Carlo simulations using CroppedYale data set.}
+\centering
 \hspace{-1cm}{\small
 \begin{tabular}{l|lll}
  \hline
-\texttt{ORL} dataset & \textsc{rre} & \textsc{acc} & \textsc{nmi}\tabularnewline
+\texttt{CroppedYale} dataset & \textsc{rre} & \textsc{acc} & \textsc{nmi}\tabularnewline
  \hline
-\textsc{nmf} no noise & 0.1583 (0.1581, 0.1584) & 0.7364 (0.731, 0.742) & 0.8536 (0.8506, 0.8567)\tabularnewline
+\textsc{nmf} no noise & 0.2022 & 0.2377 & 0.3204\tabularnewline
 
-\textsc{nmf} Gaussian noise & 0.2925 (0.2922, 0.2927) & 0.447 (0.4423, 0.4521) & 0.6212 (0.6176, 0.6247)\tabularnewline
+\textsc{nmf} Gaussian noise & 0.3114 & 0.2116 & 0.2777\tabularnewline
 
-\textsc{nmf} Poisson noise & 0.1611 (0.161, 0.1613) & 0.7313 (0.7262, 0.7367) & 0.8493 (0.8456, 0.8527)\tabularnewline
+\textsc{nmf} Poisson noise & 0.2023 & 0.2442 & 0.3241\tabularnewline
 
-\textsc{nmf} Salt and Pepper noise & 0.2636 (0.2634, 0.2638) & 0.5094 (0.504, 0.5151) & 0.6721 (0.6679, 0.6764)\tabularnewline
+\textsc{nmf} Salt and Pepper noise & 0.2748 & 0.2133 & 0.2902 \tabularnewline
 
-\textsc{klnmf} no noise & 0.1729 (0.1728, 0.173) & 0.7406 (0.7352, 0.7458) & 0.8599 (0.8568, 0.8632)\tabularnewline
+\textsc{klnmf} no noise & 0.2062 & 0.2434 & 0.3191 \tabularnewline
 
-\textsc{klnmf} Gaussian noise & 0.2977 (0.2976, 0.2979) & 0.4538 (0.4483, 0.4595) & 0.6209 (0.6165, 0.6255)\tabularnewline
+\textsc{klnmf} Gaussian noise & 0.3106 & 0.2112 & 0.2845 \tabularnewline
 
-\textsc{klnmf} Poisson noise & 0.1602 (0.1601, 0.1603) & 0.7417 (0.7365, 0.7472) & 0.8573 (0.8542, 0.8602)\tabularnewline
+\textsc{klnmf} Poisson noise & 0.2065 & 0.2377 & 0.3104\tabularnewline
 
-\textsc{klnmf} Salt and Pepper noise & 0.264 (0.2638, 0.2643) & 0.5089 (0.5038, 0.5139) & 0.6734 (0.6694, 0.6779)\tabularnewline
+\textsc{klnmf} Salt and Pepper noise & 0.3164 & 0. &0.2332 \tabularnewline
  \hline
 \end{tabular}}
 \end{table}
