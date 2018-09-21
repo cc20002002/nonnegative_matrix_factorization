@@ -76,7 +76,7 @@ Our task was to compare the robustness of the algorithm, and we do not want the 
 To address this issue, we implement several (i.e. $n$) initial estimates for each matrix factorisation problem.
 We use the factorised matrices~$W$ and~$H$ corresponding to the least residual~\eqref{eq:obnmf} and~\eqref{eq:klobj}, for \textsc{nmf} and~\textsc{klnmf}, algorithms respectively, as the final result of factorisation.
 This design of multiple starting point improves the stability of the algorithms, but it requires more computational power. To improve the computational speed, we make the number~$n$ equal to the number of cores of the \textsc{cpu}. We assign each of the $n$ initial estimates randomly with a uniform distribution. Then these each of the $n$ initial estimates is assigned to a different core of the \textsc{cpu}. This boosts the \textsc{cpu} utilisation to 100\% instantly and improved the computational speed by 70\% on the \texttt{ORL} data. The following part of our code implements this idea of parallel computing.
-\begin{lstlisting}[caption=Centring image data, label=matn1]
+\begin{lstlisting}[caption=Multi-start paralle computing, label=matn1]
 args = zip(repeat(V,ncpu), repeat(r,ncpu), repeat(niter[name2],ncpu), repeat(min_error[name2],ncpu))
 result = pool.starmap(algo, args)
 \end{lstlisting}
